@@ -118,8 +118,7 @@ public class QuoteService {
 	}
 
 	private static String stringFromSymbols(Set<String> symbols) {
-		Joiner onCommanJoiner = Joiner.on(",").skipNulls();
-		return onCommanJoiner.join(Iterables.transform(symbols, new Function<String, String>() {
+		return Joiner.on(",").join(Iterables.transform(symbols, new Function<String, String>() {
 			@Override
 			public String apply(String symbol) {
 				return String.format("'%s'", symbol);
