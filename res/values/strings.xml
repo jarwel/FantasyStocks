@@ -8,7 +8,7 @@
     <string name="join_pool_label">Join Pool</string>
     <string name="create_pool_label">Create Pool</string>
     <string name="title_activity_view_pool">View Pool</string>
-    <string name="title_activity_view_poftfolio">View Poftfolio</string>
+    <string name="title_activity_view_poftfolio">View Portfolio</string>
     <string name="current_funds_label">Current Value:</string>
     <string name="title_activity_buy">BuyActivity</string>
     <string name="symbol_label">Symbol:</string>
