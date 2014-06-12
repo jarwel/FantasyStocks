@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.fantasyfinance.model.Pool;
+import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -17,15 +18,17 @@ import com.parse.ParseQuery;
 public class JoinPoolActivity extends Activity {
 
 	private ListView lvPools;
-	private ArrayAdapter<Pool> poolsAdapter;
+
+	private PoolArrayAdapter poolAdapter;
+	private List<Pool> pools = Lists.newArrayList();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_join_pool);
 		lvPools = (ListView) findViewById(R.id.lvPools);
-		poolsAdapter = new ArrayAdapter<Pool>(getBaseContext(), android.R.layout.simple_list_item_1);
-		lvPools.setAdapter(poolsAdapter);
+		poolAdapter = new PoolArrayAdapter(this, pools);
+		lvPools.setAdapter(poolAdapter);
 	}
 
 	@Override
@@ -36,9 +39,9 @@ public class JoinPoolActivity extends Activity {
 
 			@Override
 			public void done(List<Pool> results, ParseException parseException) {
-				if (parseException != null) {
-					poolsAdapter.addAll(results);
-					poolsAdapter.notifyDataSetChanged();
+				if (parseException == null) {
+					poolAdapter.clear();
+					poolAdapter.addAll(results);
 				}
 			}
 		});

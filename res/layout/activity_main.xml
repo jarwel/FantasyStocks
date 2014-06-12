@@ -5,7 +5,7 @@
     tools:context="${packageName}.${activityClass}" >
 
     <TextView
-        android:id="@+id/tvPoolsLabel"
+        android:id="@+id/tvNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/btnJoinPool"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvPoolsLabel" >
+        android:layout_below="@+id/tvNameLabel" >
     </ListView>
 
     <Button

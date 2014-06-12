@@ -16,5 +16,6 @@
     <string name="shares_label">Shares:</string>
     <string name="place_order_label">Place Order</string>
     <string name="trade_label">Trade</string>
+    <string name="submit_label">Submit</string>
 
 </resources>

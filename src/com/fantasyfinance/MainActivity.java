@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.fantasyfinance.model.Pool;
@@ -20,15 +19,17 @@ import com.parse.ParseQuery;
 public class MainActivity extends Activity implements OnItemClickListener {
 
 	private ListView lvPools;
-	private ArrayAdapter<Pool> poolsAdapter;
+
+	private PoolArrayAdapter poolAdapter;
+	private List<Pool> pools = Lists.newArrayList();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		lvPools = (ListView) findViewById(R.id.lvPools);
-		poolsAdapter = new ArrayAdapter<Pool>(getBaseContext(), android.R.layout.simple_list_item_1);
-		lvPools.setAdapter(poolsAdapter);
+		poolAdapter = new PoolArrayAdapter(this, pools);
+		lvPools.setAdapter(poolAdapter);
 		lvPools.setOnItemClickListener(this);
 	}
 
@@ -40,9 +41,9 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 			@Override
 			public void done(List<Pool> results, ParseException parseException) {
-				if (parseException != null) {
-					poolsAdapter.addAll(results);
-					poolsAdapter.notifyDataSetChanged();
+				if (parseException == null) {
+					poolAdapter.clear();
+					poolAdapter.addAll(results);
 				}
 			}
 		});
@@ -55,7 +56,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Pool pool = poolsAdapter.getItem(position);
+		Pool pool = poolAdapter.getItem(position);
 		Intent intent = new Intent(MainActivity.this, ViewPoolActivity.class);
 		startActivity(intent);
 	}

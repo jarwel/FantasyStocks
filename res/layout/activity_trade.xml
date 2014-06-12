@@ -14,7 +14,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/etSymbol"
+        android:id="@+id/etPoolName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -28,8 +28,8 @@
         android:id="@+id/etShares"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etSymbol"
-        android:layout_below="@+id/etSymbol"
+        android:layout_alignLeft="@+id/etPoolName"
+        android:layout_below="@+id/etPoolName"
         android:ems="10"
         android:inputType="numberDecimal" />
 
