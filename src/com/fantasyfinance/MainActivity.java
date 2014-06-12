@@ -12,6 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.fantasyfinance.model.Pool;
+import com.fantasyfinance.service.QuoteService;
+import com.parse.Parse;
+import com.parse.ParseObject;
 
 public class MainActivity extends Activity implements OnItemClickListener {
 
@@ -23,6 +26,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Parse.initialize(this, "bcmueWmVJzWaQacYZa3bXKHECJMyxzkwUl1plVjz", "0CGF2GuilFib12Jm3rzA3XNwnLtUZ1k8AUzKQNl8");
 		setContentView(R.layout.activity_main);
 		lvPools = (ListView) findViewById(R.id.lvPools);
 		pools = Pool.getMockPoolsWithPlace();
