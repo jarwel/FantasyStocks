@@ -1,47 +1,30 @@
 package com.fantasyfinance.model;
 
-import java.util.List;
-import java.util.Random;
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 
-import com.google.common.collect.Lists;
-
-public class Pool {
-
-	private final String name;
-	private final List<Player> players;
-
-	public Pool(String name, List<Player> players) {
-		super();
-		this.name = name;
-		this.players = players;
-	}
+@ParseClassName("Pool")
+public class Pool extends ParseObject {
 
 	public String getName() {
-		return name;
+		return getString("name");
 	}
 
-	public List<Player> getPlayer() {
-		return players;
+	public void setName(String name) {
+		put("name", name);
+	}
+
+	public double getFunds() {
+		return getDouble("funds");
+	}
+
+	public void setFunds(double funds) {
+		put("funds", funds);
 	}
 
 	@Override
 	public String toString() {
-		return name;
+		return getName();
 	}
 
-	@Deprecated
-	public static List<Pool> getMockPools() {
-		List<Pool> pools = Lists.newArrayList();
-		pools.add(new Pool("Pool 1", Lists.<Player> newArrayList()));
-		pools.add(new Pool("Pool 2", Lists.<Player> newArrayList()));
-		return pools;
-	}
-	
-	@Deprecated
-	public static List<Pool> getMockPoolsWithPlace() {
-		List<Pool> pools = Lists.newArrayList();
-		pools.add(new Pool(String.format("Pool 1 - %sth place", new Random().nextInt(5) + 4), Lists.<Player> newArrayList()));
-		pools.add(new Pool(String.format("Pool2 - %sth place", new Random().nextInt(5) + 4), Lists.<Player> newArrayList()));
-		return pools;
-	}
 }

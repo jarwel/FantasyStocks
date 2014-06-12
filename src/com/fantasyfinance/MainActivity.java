@@ -12,13 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.fantasyfinance.model.Pool;
-import com.fantasyfinance.service.QuoteService;
-import com.parse.Parse;
-import com.parse.ParseObject;
+import com.google.common.collect.Lists;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 
 public class MainActivity extends Activity implements OnItemClickListener {
-
-	private List<Pool> pools;
 
 	private ListView lvPools;
 	private ArrayAdapter<Pool> poolsAdapter;
@@ -26,13 +25,27 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Parse.initialize(this, "bcmueWmVJzWaQacYZa3bXKHECJMyxzkwUl1plVjz", "0CGF2GuilFib12Jm3rzA3XNwnLtUZ1k8AUzKQNl8");
 		setContentView(R.layout.activity_main);
 		lvPools = (ListView) findViewById(R.id.lvPools);
-		pools = Pool.getMockPoolsWithPlace();
-		poolsAdapter = new ArrayAdapter<Pool>(getBaseContext(), android.R.layout.simple_list_item_1, pools);
+		poolsAdapter = new ArrayAdapter<Pool>(getBaseContext(), android.R.layout.simple_list_item_1);
 		lvPools.setAdapter(poolsAdapter);
 		lvPools.setOnItemClickListener(this);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		ParseQuery<Pool> query = ParseQuery.getQuery(Pool.class);
+		query.findInBackground(new FindCallback<Pool>() {
+
+			@Override
+			public void done(List<Pool> results, ParseException parseException) {
+				if (parseException != null) {
+					poolsAdapter.addAll(results);
+					poolsAdapter.notifyDataSetChanged();
+				}
+			}
+		});
 	}
 
 	public void onJoinPoolClicked(View view) {
@@ -42,7 +55,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Pool pool = pools.get(position);
+		Pool pool = poolsAdapter.getItem(position);
 		Intent intent = new Intent(MainActivity.this, ViewPoolActivity.class);
 		startActivity(intent);
 	}
