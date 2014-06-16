@@ -1,8 +1,8 @@
-package com.fantasyfinance;
+package com.fantasystocks;
 
 import java.util.List;
 
-import com.fantasyfinance.model.Pool;
+import com.fantasystocks.model.Pool;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;

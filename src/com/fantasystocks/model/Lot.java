@@ -1,4 +1,4 @@
-package com.fantasyfinance.model;
+package com.fantasystocks.model;
 
 public class Lot {
 

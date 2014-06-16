@@ -1,4 +1,4 @@
-package com.fantasyfinance;
+package com.fantasystocks;
 
 import java.util.List;
 
@@ -6,17 +6,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.fantasyfinance.model.Pool;
+import com.fantasystocks.model.Pool;
 import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
-public class MainActivity extends Activity implements OnItemClickListener {
+public class JoinPoolActivity extends Activity {
 
 	private ListView lvPools;
 
@@ -26,11 +24,10 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_join_pool);
 		lvPools = (ListView) findViewById(R.id.lvPools);
 		poolAdapter = new PoolArrayAdapter(this, pools);
 		lvPools.setAdapter(poolAdapter);
-		lvPools.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -49,15 +46,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		});
 	}
 
-	public void onJoinPoolClicked(View view) {
-		Intent intent = new Intent(MainActivity.this, JoinPoolActivity.class);
-		startActivity(intent);
-	}
-
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Pool pool = poolAdapter.getItem(position);
-		Intent intent = new Intent(MainActivity.this, ViewPoolActivity.class);
+	public void onCreatePoolClicked(View view) {
+		Intent intent = new Intent(JoinPoolActivity.this, CreatePoolActivity.class);
 		startActivity(intent);
 	}
 }

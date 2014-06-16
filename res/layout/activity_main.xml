@@ -17,17 +17,16 @@
         android:id="@+id/lvPools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnJoinPool"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvNameLabel" >
+        android:layout_below="@+id/btnJoinPool" >
     </ListView>
 
     <Button
         android:id="@+id/btnJoinPool"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:onClick="onJoinPoolClicked"
         android:text="@string/join_pool_label" />
 

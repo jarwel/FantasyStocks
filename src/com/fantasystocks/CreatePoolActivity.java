@@ -1,11 +1,11 @@
-package com.fantasyfinance;
+package com.fantasystocks;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.fantasyfinance.model.Pool;
+import com.fantasystocks.model.Pool;
 
 public class CreatePoolActivity extends Activity {
 

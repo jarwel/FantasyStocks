@@ -1,4 +1,4 @@
-package com.fantasyfinance;
+package com.fantasystocks;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.fantasyfinance.model.Player;
+import com.fantasystocks.model.Player;
 
 public class ViewPoolActivity extends Activity implements OnItemClickListener {
 

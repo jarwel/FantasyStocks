@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Fantasy Finance</string>
+    <string name="app_name">Fantasy Stocks</string>
     <string name="title_activity_find_pool">Join Pool</string>
     <string name="title_activity_create_pool">Create Pool</string>
     <string name="my_pools_label">My Pools</string>

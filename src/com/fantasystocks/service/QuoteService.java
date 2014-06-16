@@ -1,4 +1,4 @@
-package com.fantasyfinance.service;
+package com.fantasystocks.service;
 
 import java.util.Map;
 
@@ -12,8 +12,8 @@ import android.util.Log;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.fantasyfinance.client.YahooFinanceClient;
-import com.fantasyfinance.model.Quote;
+import com.fantasystocks.client.YahooFinanceClient;
+import com.fantasystocks.model.Quote;
 import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;

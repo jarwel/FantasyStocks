@@ -1,4 +1,4 @@
-package com.fantasyfinance.client;
+package com.fantasystocks.client;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

@@ -1,4 +1,4 @@
-package com.fantasyfinance;
+package com.fantasystocks;
 
 import android.app.Activity;
 import android.os.Bundle;

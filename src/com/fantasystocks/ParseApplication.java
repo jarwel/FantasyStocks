@@ -1,6 +1,6 @@
-package com.fantasyfinance;
+package com.fantasystocks;
 
-import com.fantasyfinance.model.Pool;
+import com.fantasystocks.model.Pool;
 import com.parse.Parse;
 import com.parse.ParseObject;
 

@@ -1,4 +1,4 @@
-package com.fantasyfinance.model;
+package com.fantasystocks.model;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
