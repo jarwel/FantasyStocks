@@ -5,7 +5,7 @@
     tools:context="${packageName}.${activityClass}" >
 
     <TextView
-        android:id="@+id/tvSymbol"
+        android:id="@+id/tvSymbolLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -24,11 +24,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvGain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvSymbol"
+        android:layout_below="@+id/tvSymbolLabel"
         android:text="Total Gain:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -36,8 +36,8 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView3"
-        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignBaseline="@+id/tvGain"
+        android:layout_alignBottom="@+id/tvGain"
         android:layout_alignLeft="@+id/tvFundsLabel"
         android:text="15.25%"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/tvGain"
         android:text="Pool Name:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -55,7 +55,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/tvSymbol"
+        android:layout_alignRight="@+id/tvSymbolLabel"
         android:layout_below="@+id/textView5"
         android:text="Current Position:"
         android:textAppearance="?android:attr/textAppearanceMedium" />

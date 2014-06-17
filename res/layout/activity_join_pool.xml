@@ -9,8 +9,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/btnJoinPool" >
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" >
+
     </SearchView>
 
     <ListView
@@ -18,16 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/btnJoinPool" >
-    </ListView>
-
-    <Button
-        android:id="@+id/btnJoinPool"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:onClick="onCreatePoolClicked"
-        android:text="@string/create_pool_label" />
+        android:layout_below="@+id/svPool" >
+    </ListView>
 
 </RelativeLayout>

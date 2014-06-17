@@ -24,7 +24,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvGain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tvFundsLabel"
@@ -36,8 +36,8 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/tvGain"
+        android:layout_below="@+id/tvGain"
         android:text="Your position:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -59,7 +59,7 @@
     </ListView>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btnCreatePool"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

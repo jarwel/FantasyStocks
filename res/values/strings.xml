@@ -10,12 +10,13 @@
     <string name="title_activity_view_pool">View Pool</string>
     <string name="title_activity_view_poftfolio">View Portfolio</string>
     <string name="current_funds_label">Current Value:</string>
-    <string name="title_activity_buy">BuyActivity</string>
+    <string name="title_activity_buy">Buy Security</string>
     <string name="symbol_label">Symbol:</string>
     <string name="action_label">Action:</string>
     <string name="shares_label">Shares:</string>
     <string name="place_order_label">Place Order</string>
     <string name="trade_label">Trade</string>
     <string name="submit_label">Submit</string>
+    <string name="player_limit_label">Player Limit:</string>
 
 </resources>
