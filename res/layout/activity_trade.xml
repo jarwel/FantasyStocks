@@ -13,23 +13,12 @@
         android:text="@string/symbol_label"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <EditText
-        android:id="@+id/etPoolName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/tvSymbolLabel"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
-
     <TextView
         android:id="@+id/tvPriceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etPoolName"
+        android:layout_below="@+id/etSymbol"
         android:text="Price:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -66,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/etShares"
-        android:layout_alignRight="@+id/etPoolName"
+        android:layout_alignRight="@+id/etSymbol"
         android:text="$101.10"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -88,5 +77,13 @@
         android:layout_below="@+id/tvTotalLabel"
         android:layout_marginTop="18dp"
         android:text="@string/place_order_label" />
+
+    <EditText
+        android:id="@+id/etSymbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:ems="10" />
 
 </RelativeLayout>

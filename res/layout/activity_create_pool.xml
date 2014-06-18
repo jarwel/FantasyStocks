@@ -8,7 +8,7 @@
         android:id="@+id/tvNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/etPoolName"
+        android:layout_alignBaseline="@+id/etSymbol"
         android:layout_alignParentLeft="true"
         android:text="Name:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -26,7 +26,7 @@
         android:id="@+id/etPlayerLimit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etPoolName"
+        android:layout_alignLeft="@+id/etSymbol"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/etPoolFunds"
         android:ems="10"
@@ -36,9 +36,9 @@
         android:id="@+id/etPoolFunds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etPoolName"
+        android:layout_alignLeft="@+id/etSymbol"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/etPoolName"
+        android:layout_below="@+id/etSymbol"
         android:ems="10"
         android:inputType="numberDecimal" />
 
@@ -52,7 +52,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/etPoolName"
+        android:id="@+id/etSymbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
