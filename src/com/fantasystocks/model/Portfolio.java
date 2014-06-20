@@ -25,11 +25,8 @@ public class Portfolio {
 
 	@Deprecated
 	public static Portfolio getMockPorfolio() {
-		List<Lot> lots = Lists.newArrayList();
-		lots.add(new Lot("YHOO", 100, 1000.00));
-		lots.add(new Lot("FB", 100, 1000.00));
-		lots.add(new Lot("GOOGL", 100, 1000.00));
-		return new Portfolio(100.00, lots);
+
+		return new Portfolio(100.00, Lists.<Lot> newArrayList());
 	}
 
 }

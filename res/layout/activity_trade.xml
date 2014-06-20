@@ -4,69 +4,87 @@
     android:layout_height="match_parent"
     tools:context="${packageName}.${activityClass}" >
 
-    <TextView
-        android:id="@+id/tvSymbolLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/symbol_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/tvPriceLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etSymbol"
-        android:text="Price:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <EditText
-        android:id="@+id/etShares"
+        android:id="@+id/etOrderShares"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/tvPrice"
-        android:layout_below="@+id/tvPriceLabel"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvSecurityPriceLabel"
         android:ems="10"
         android:inputType="numberDecimal" />
 
     <TextView
-        android:id="@+id/tvSharesLabel"
+        android:id="@+id/tvOrderSharesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/etShares"
-        android:layout_alignBottom="@+id/etShares"
+        android:layout_alignBaseline="@+id/etOrderShares"
+        android:layout_alignBottom="@+id/etOrderShares"
         android:layout_alignParentLeft="true"
         android:text="@string/shares_label"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/tvTotalLabel"
+        android:id="@+id/tvOrderTotalLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etShares"
+        android:layout_below="@+id/etOrderShares"
         android:text="Total:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/tvPrice"
+        android:id="@+id/tvOrderTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/etShares"
-        android:layout_alignRight="@+id/etSymbol"
+        android:layout_alignBaseline="@+id/tvOrderTotalLabel"
+        android:layout_alignBottom="@+id/tvOrderTotalLabel"
+        android:layout_alignRight="@+id/etOrderShares"
+        android:text="$1000.00"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/etPoolName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/tvSecurityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/etPoolName"
+        android:text="Company"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tvSecuritySymbolLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvSecurityName"
+        android:layout_alignParentLeft="true"
+        android:text="@string/symbol_label"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tvSecurityPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvSecurityName"
         android:text="$101.10"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/tvTotal"
+        android:id="@+id/tvSecurityPriceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvTotalLabel"
-        android:layout_alignBottom="@+id/tvTotalLabel"
-        android:layout_alignRight="@+id/etShares"
-        android:text="$1000.00"
+        android:layout_alignBaseline="@+id/tvSecurityPrice"
+        android:layout_alignBottom="@+id/tvSecurityPrice"
+        android:layout_alignRight="@+id/tvOrderTotalLabel"
+        android:text="Price:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -74,16 +92,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvTotalLabel"
-        android:layout_marginTop="18dp"
+        android:layout_below="@+id/tvOrderTotalLabel"
+        android:onClick="onPlaceOrderClicked"
         android:text="@string/place_order_label" />
-
-    <EditText
-        android:id="@+id/etSymbol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:ems="10" />
 
 </RelativeLayout>

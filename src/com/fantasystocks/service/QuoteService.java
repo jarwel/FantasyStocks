@@ -2,7 +2,6 @@ package com.fantasystocks.service;
 
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -16,19 +15,16 @@ import com.fantasystocks.client.YahooFinanceClient;
 import com.fantasystocks.model.Quote;
 import com.google.common.base.Optional;
 import com.google.common.collect.Maps;
-import com.google.gson.Gson;
 
 public class QuoteService {
 	private static QuoteService instance;
 
 	private final Context context;
-	private final Gson gson;
 	private final Handler handler;
 	private final Map<String, Optional<Quote>> quotes;
 
 	private QuoteService(Context context) {
 		this.context = context.getApplicationContext();
-		this.gson = new Gson();
 		this.quotes = Maps.newHashMap();
 		this.handler = new Handler();
 		handler.postDelayed(updateQuotesThread, 0);
@@ -56,7 +52,7 @@ public class QuoteService {
 				YahooFinanceClient.getInstance(context).fetchQuotes(quotes.keySet(), new Response.Listener<JSONObject>() {
 					@Override
 					public void onResponse(JSONObject response) {
-						parseJsonResponse(response);
+
 						handler.postDelayed(updateQuotesThread, 5000);
 					}
 				}, new Response.ErrorListener() {
@@ -69,29 +65,6 @@ public class QuoteService {
 			}
 		}
 	};
-
-	private void parseJsonResponse(JSONObject response) {
-		JSONObject queryObject = response.optJSONObject("query");
-		if (queryObject != null) {
-			JSONObject resultsObject = queryObject.optJSONObject("results");
-			if (resultsObject != null) {
-
-				JSONArray quotesArray = resultsObject.optJSONArray("quote");
-				if (quotesArray == null) {
-					quotesArray = new JSONArray();
-					quotesArray.put(resultsObject.optJSONObject("quote"));
-				}
-
-				for (int i = 0; i < quotesArray.length(); i++) {
-					JSONObject quoteObject = quotesArray.optJSONObject(i);
-					if (quoteObject != null) {
-						Quote quote = gson.fromJson(quoteObject.toString(), Quote.class);
-						quotes.put(quote.getSymbol(), Optional.of(quote));
-					}
-				}
-			}
-		}
-	}
 
 	private void logQuotes() {
 		StringBuilder builder = new StringBuilder("Updating quotes:");

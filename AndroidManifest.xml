@@ -46,6 +46,14 @@
             android:name="com.fantasystocks.TradeActivity"
             android:label="@string/title_activity_buy" >
         </activity>
+        <activity
+            android:name="com.fantasystocks.SignInActivity"
+            android:label="@string/title_activity_sign_in" >
+        </activity>
+        <activity
+            android:name="com.fantasystocks.SignUpActivity"
+            android:label="@string/title_activity_sign_up" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,33 +1,38 @@
 package com.fantasystocks.model;
 
-public class Lot {
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 
-	private final String symbol;
-	private final int shares;
-	private final double costBasis;
-
-	public Lot(String symbol, int shares, double costBasis) {
-		super();
-		this.symbol = symbol;
-		this.shares = shares;
-		this.costBasis = costBasis;
-	}
+@ParseClassName("Lot")
+public class Lot extends ParseObject {
 
 	public String getSymbol() {
-		return symbol;
+		return getString("symbol");
+	}
+
+	public void setSymbol(String symbol) {
+		put("symbol", symbol);
 	}
 
 	public int getShares() {
-		return shares;
+		return getInt("shares");
+	}
+
+	public void setShares(int shares) {
+		put("shares", shares);
 	}
 
 	public double getCostBasis() {
-		return costBasis;
+		return getDouble("costBasis");
+	}
+
+	public void setCostBasis(double costBasis) {
+		put("costBasis", costBasis);
 	}
 
 	@Override
 	public String toString() {
-		return symbol;
+		return getSymbol();
 	}
 
 }

@@ -16,13 +16,14 @@ public class CreatePoolActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_pool);
-		etPoolName = (EditText) findViewById(R.id.etSymbol);
+		etPoolName = (EditText) findViewById(R.id.etPoolName);
 		etPoolFunds = (EditText) findViewById(R.id.etPoolFunds);
 	}
 
 	public void onSubmitButton(View view) {
 		String name = etPoolName.getText().toString();
 		double funds = Double.parseDouble(etPoolFunds.getText().toString());
+
 		Pool pool = new Pool();
 		pool.setName(name);
 		pool.setFunds(funds);

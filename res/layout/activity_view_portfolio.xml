@@ -5,7 +5,7 @@
     tools:context="${packageName}.${activityClass}" >
 
     <TextView
-        android:id="@+id/tvSymbolLabel"
+        android:id="@+id/tvSecuritySymbolLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvSymbolLabel"
+        android:layout_below="@+id/tvSecuritySymbolLabel"
         android:text="Total Gain:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -55,7 +55,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/tvSymbolLabel"
+        android:layout_alignRight="@+id/tvSecuritySymbolLabel"
         android:layout_below="@+id/textView5"
         android:text="Current Position:"
         android:textAppearance="?android:attr/textAppearanceMedium" />

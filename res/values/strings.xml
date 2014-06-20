@@ -18,5 +18,8 @@
     <string name="trade_label">Trade</string>
     <string name="submit_label">Submit</string>
     <string name="player_limit_label">Player Limit:</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
 
 </resources>

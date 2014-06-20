@@ -17,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.common.base.Charsets;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 
 public class YahooFinanceClient {
@@ -36,6 +37,10 @@ public class YahooFinanceClient {
 
 	private YahooFinanceClient(Context context) {
 		this.requestQueue = Volley.newRequestQueue(context);
+	}
+
+	public void fetchQuote(String symbol, Listener<JSONObject> onSuccess, ErrorListener onError) {
+		fetchQuotes(ImmutableSet.of(symbol), onSuccess, onError);
 	}
 
 	public void fetchQuotes(Set<String> symbols, Listener<JSONObject> onSuccess, ErrorListener onError) {
