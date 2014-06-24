@@ -5,7 +5,7 @@
     tools:context="${packageName}.${activityClass}" >
 
     <TextView
-        android:id="@+id/tvFunds"
+        android:id="@+id/tvPoolName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvFunds"
+        android:layout_below="@+id/tvPoolName"
         android:layout_marginLeft="14dp"
         android:text="Players:"
         android:textAppearance="?android:attr/textAppearanceMedium" />

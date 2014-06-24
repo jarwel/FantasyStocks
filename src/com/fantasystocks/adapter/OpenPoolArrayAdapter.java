@@ -30,7 +30,7 @@ public class OpenPoolArrayAdapter extends ArrayAdapter<Pool> {
 		TextView tvPoolPlayers = (TextView) convertView.findViewById(R.id.tvPlayerName);
 
 		tvPoolName.setText(pool.getName());
-		tvPoolPlayers.setText(String.format("%s(%s) players", pool.getPlayers(), pool.getPlayerLimit()));
+		tvPoolPlayers.setText(String.format("%s(%s) players", 4, pool.getPlayerLimit()));
 		return convertView;
 	}
 }

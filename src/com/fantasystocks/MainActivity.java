@@ -16,6 +16,7 @@ import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 public class MainActivity extends Activity implements OnItemClickListener {
 
@@ -37,9 +38,9 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		ParseQuery<Pool> query = ParseQuery.getQuery(Pool.class);
+		ParseQuery<Pool> query = ParseQuery.getQuery("Pool");
+		query.whereEqualTo("players", ParseUser.getCurrentUser());
 		query.findInBackground(new FindCallback<Pool>() {
-
 			@Override
 			public void done(List<Pool> results, ParseException parseException) {
 				if (parseException == null) {
@@ -67,8 +68,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		Intent intent = new Intent(this, CreatePoolActivity.class);
 		startActivity(intent);
 	}
-	
-	public void launchLogin (View view) {
+
+	public void launchLogin(View view) {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}

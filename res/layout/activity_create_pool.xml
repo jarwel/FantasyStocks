@@ -58,7 +58,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName" >
+
+        <requestFocus />
+    </EditText>
 
     <Button
         android:id="@+id/btnSubmitPool"

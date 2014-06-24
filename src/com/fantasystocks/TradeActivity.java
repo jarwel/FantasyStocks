@@ -16,7 +16,6 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.fantasystocks.client.YahooFinanceClient;
 import com.fantasystocks.model.Lot;
-import com.fantasystocks.model.Pool;
 import com.fantasystocks.model.Quote;
 
 public class TradeActivity extends Activity {

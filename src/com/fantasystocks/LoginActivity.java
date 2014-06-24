@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.fantasyfinance.handler.ParseUserHandler;
+import com.fantasystocks.handler.ParseUserHandler;
 import com.parse.ParseUser;
 
 public class LoginActivity extends Activity {

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 @ParseClassName("Pool")
 public class Pool extends ParseObject implements Serializable {
@@ -15,14 +16,6 @@ public class Pool extends ParseObject implements Serializable {
 
 	public void setName(String name) {
 		put("name", name);
-	}
-
-	public int getPlayers() {
-		return getInt("players");
-	}
-
-	public void setPlayers(int players) {
-		put("players", players);
 	}
 
 	public int getPlayerLimit() {
@@ -41,17 +34,16 @@ public class Pool extends ParseObject implements Serializable {
 		put("funds", funds);
 	}
 
+	public void addPlayer(ParseUser player) {
+		getRelation("players").add(player);
+	}
+
 	public String getRank(Player player) {
 		return String.format("%sth", new Random().nextInt(7) + 3);
 	}
 
 	public String getGain(Player player) {
 		return String.format("+$%.2f", new Random().nextDouble());
-	}
-
-	@Override
-	public String toString() {
-		return getName();
 	}
 
 }

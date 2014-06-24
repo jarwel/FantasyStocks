@@ -15,6 +15,7 @@ import com.fantasystocks.model.Pool;
 import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 public class JoinPoolActivity extends Activity implements OnItemClickListener {
@@ -45,6 +46,8 @@ public class JoinPoolActivity extends Activity implements OnItemClickListener {
 				if (parseException == null) {
 					poolAdapter.clear();
 					poolAdapter.addAll(results);
+				} else {
+					parseException.printStackTrace();
 				}
 			}
 		});

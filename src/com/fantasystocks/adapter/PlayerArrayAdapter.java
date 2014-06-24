@@ -34,7 +34,7 @@ public class PlayerArrayAdapter extends ArrayAdapter<Player> {
 		TextView tvPlayerName = (TextView) convertView.findViewById(R.id.tvPlayerName);
 		TextView tvGain = (TextView) convertView.findViewById(R.id.tvGain);
 
-		tvPlayerRank.setText(player.getPlayer().getUsername());
+		tvPlayerRank.setText(player.getUsername());
 		tvPlayerName.setText(pool.getRank(player));
 		tvGain.setText(pool.getGain(player));
 		return convertView;

@@ -1,4 +1,4 @@
-package com.fantasyfinance.handler;
+package com.fantasystocks.handler;
 
 import android.content.Context;
 import android.util.Log;
