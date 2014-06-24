@@ -16,5 +16,7 @@
     <string name="shares_label">Shares:</string>
     <string name="place_order_label">Place Order</string>
     <string name="trade_label">Trade</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
