@@ -1,4 +1,4 @@
-package com.fantasyfinance;
+package com.fantasystocks;
 
 import java.util.List;
 
@@ -11,10 +11,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.fantasyfinance.model.Player;
+import com.fantasystocks.adapter.PlayerArrayAdapter;
+import com.fantasystocks.model.Player;
+import com.fantasystocks.model.Pool;
 
 public class ViewPoolActivity extends Activity implements OnItemClickListener {
 
+	private Pool pool;
 	private List<Player> players;
 
 	private ListView lvPlayers;
@@ -24,9 +27,10 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_pool);
+		pool = (Pool) getIntent().getSerializableExtra("pool");
 		lvPlayers = (ListView) findViewById(R.id.lvPlayers);
 		players = Player.getMockPlayers();
-		playersAdapter = new ArrayAdapter<Player>(getBaseContext(), android.R.layout.simple_list_item_1, players);
+		playersAdapter = new PlayerArrayAdapter(getBaseContext(), players, pool);
 		lvPlayers.setAdapter(playersAdapter);
 		lvPlayers.setOnItemClickListener(this);
 	}

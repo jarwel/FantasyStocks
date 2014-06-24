@@ -1,4 +1,4 @@
-package com.fantasyfinance.model;
+package com.fantasystocks.model;
 
 import java.util.List;
 

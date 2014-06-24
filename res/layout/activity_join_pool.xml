@@ -18,19 +18,9 @@
         android:id="@+id/lvPools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnJoinPool"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/svPool" >
-
     </ListView>
-
-    <Button
-        android:id="@+id/btnJoinPool"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onCreatePoolClicked"
-        android:text="@string/create_pool_label" />
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.fantasyfinance;
+package com.fantasystocks;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.fantasyfinance.model.Lot;
-import com.fantasyfinance.model.Portfolio;
+import com.fantasystocks.model.Lot;
+import com.fantasystocks.model.Portfolio;
 
 public class ViewPortfolioActivity extends Activity {
 

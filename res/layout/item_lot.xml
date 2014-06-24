@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/tvPlayerRank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Symbol"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tvPlayerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvPlayerRank"
+        android:layout_alignBottom="@+id/tvPlayerRank"
+        android:layout_marginLeft="24dp"
+        android:layout_toRightOf="@+id/tvPlayerRank"
+        android:text="200"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/tvGain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvPlayerName"
+        android:layout_alignBottom="@+id/tvPlayerName"
+        android:layout_marginLeft="39dp"
+        android:layout_toRightOf="@+id/tvPlayerName"
+        android:text="+100.00"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
