@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.fantasystocks.LoginActivity;
 import com.fantasystocks.R;
+import com.fantasystocks.utils.Utils;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -77,6 +78,7 @@ public class FragmentSignup extends Fragment implements OnClickListener {
 		user.setPassword(password);
 		user.setEmail(email);
 		user.add("name", name);
+		user.add("imageUrl", Utils.getRandomImageUrl());
 		user.signUpInBackground(new SignUpCallback() {
 			public void done(ParseException e) {
 				if (e == null) {

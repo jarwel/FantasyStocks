@@ -39,12 +39,6 @@ public class Pool extends ParseObject implements Serializable {
 		return getString("poolImageUrl");
 	}
 
-	/* Crappy hack for now */
-	public int getPoolImageUrlResource() {
-		String imageUrl = getString("poolImageUrl");
-		return Utils.getDrawableResouceForAGivenImageUrl(imageUrl);
-	}
-
 	public void setPoolImageUrl() {
 		String imageUrl = Utils.getRandomImageUrl();
 		put("poolImageUrl", imageUrl);

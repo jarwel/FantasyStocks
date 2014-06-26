@@ -15,9 +15,10 @@ import com.fantasystocks.model.Player;
 import com.fantasystocks.model.Pool;
 
 public class HomeAdapter extends ArrayAdapter<Player> {
-
+	Context context;
 	public HomeAdapter(Context context, List<Player> players) {
 		super(context, 0, players);
+		this.context = context;
 	}
 
 	@Override
@@ -34,8 +35,8 @@ public class HomeAdapter extends ArrayAdapter<Player> {
 		TextView tvPlayerRank = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
 		TextView tvPlayerNetGain = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
 
-		int photoMediaUrlResource = pool.getPoolImageUrlResource();
-		ivPoolImage.setImageResource(photoMediaUrlResource);
+		int photoMediaUrl = context.getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", context.getPackageName());
+		ivPoolImage.setImageResource(photoMediaUrl);
 
 		tvPoolTitle.setText(pool.getName());
 		tvPlayerRank.setText(pool.getRank(null));
