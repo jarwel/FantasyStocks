@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.fantasystocks.model.Player;
 import com.fantasystocks.model.Pool;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -30,19 +31,30 @@ public class CreatePoolActivity extends Activity {
 		double funds = Double.parseDouble(etPoolFunds.getText().toString());
 		int playerLimit = Integer.parseInt(etPlayerLimit.getText().toString());
 
-		Pool pool = new Pool();
+		final Pool pool = new Pool();
 		pool.setName(name);
 		pool.setFunds(funds);
 		pool.setPlayerLimit(playerLimit);
-		pool.addPlayer(ParseUser.getCurrentUser());
 		pool.setPoolImageUrl();
 		pool.saveInBackground(new SaveCallback() {
 			@Override
 			public void done(ParseException parseException) {
-				if (parseException != null) {
+				if (parseException == null) {
+					Player player = new Player();
+					player.setUser(ParseUser.getCurrentUser());
+					player.setPool(pool);
+					player.saveInBackground(new SaveCallback() {
+						@Override
+						public void done(ParseException parseException) {
+							if (parseException != null) {
+								parseException.printStackTrace();
+							}
+							finish();
+						}
+					});
+				} else {
 					parseException.printStackTrace();
 				}
-				finish();
 			}
 		});
 	}

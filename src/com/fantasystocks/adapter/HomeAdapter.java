@@ -3,7 +3,6 @@ package com.fantasystocks.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,31 +11,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fantasystocks.R;
+import com.fantasystocks.model.Player;
 import com.fantasystocks.model.Pool;
-import com.squareup.picasso.Picasso;
 
-public class EnrolledPoolArrayAdapter extends ArrayAdapter<Pool> {
+public class HomeAdapter extends ArrayAdapter<Player> {
 
-	public EnrolledPoolArrayAdapter(Context context, List<Pool> pools) {
-		super(context, 0, pools);
+	public HomeAdapter(Context context, List<Player> players) {
+		super(context, 0, players);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		Pool pool = getItem(position);
+		Player player = getItem(position);
+		Pool pool = player.getPool();
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.common_list_item, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_home, parent, false);
 		}
 
 		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
 		TextView tvPoolTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
 		TextView tvPlayerRank = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
 		TextView tvPlayerNetGain = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
-		
+
 		int photoMediaUrlResource = pool.getPoolImageUrlResource();
 		ivPoolImage.setImageResource(photoMediaUrlResource);
-		
 
 		tvPoolTitle.setText(pool.getName());
 		tvPlayerRank.setText(pool.getRank(null));

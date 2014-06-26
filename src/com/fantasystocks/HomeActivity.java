@@ -12,64 +12,60 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.fantasystocks.adapter.EnrolledPoolArrayAdapter;
-import com.fantasystocks.model.Pool;
+import com.fantasystocks.adapter.HomeAdapter;
+import com.fantasystocks.model.Player;
 import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class MainActivity extends Activity implements OnItemClickListener {
+public class HomeActivity extends Activity implements OnItemClickListener {
 
 	private ListView lvPools;
 
-	private EnrolledPoolArrayAdapter poolAdapter;
-	private List<Pool> pools = Lists.newArrayList();
+	private HomeAdapter homeAdapter;
+	private List<Player> players = Lists.newArrayList();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_home);
 		lvPools = (ListView) findViewById(R.id.lvPools);
-		poolAdapter = new EnrolledPoolArrayAdapter(this, pools);
-		lvPools.setAdapter(poolAdapter);
+		homeAdapter = new HomeAdapter(this, players);
+		lvPools.setAdapter(homeAdapter);
 		lvPools.setOnItemClickListener(this);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		ParseQuery<Pool> query = ParseQuery.getQuery("Pool");
-		query.whereEqualTo("players", ParseUser.getCurrentUser());
-		query.findInBackground(new FindCallback<Pool>() {
+		ParseQuery<Player> query = ParseQuery.getQuery("Player");
+		query.whereEqualTo("user", ParseUser.getCurrentUser());
+		query.include("pool");
+		query.findInBackground(new FindCallback<Player>() {
+
 			@Override
-			public void done(List<Pool> results, ParseException parseException) {
+			public void done(List<Player> results, ParseException parseException) {
 				if (parseException == null) {
-					poolAdapter.clear();
-					poolAdapter.addAll(results);
+					homeAdapter.clear();
+					homeAdapter.addAll(results);
+				} else {
+					parseException.printStackTrace();
 				}
 			}
 		});
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Pool pool = poolAdapter.getItem(position);
-		Intent intent = new Intent(this, ViewPoolActivity.class);
-		intent.putExtra("pool", pool);
-		startActivity(intent);
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_home, menu);
+		return true;
 	}
-	
+
 	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-	
-	@Override
-	public boolean onOptionsItemSelected (MenuItem item) {
-		switch (item.getItemId()) { 
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
 		case R.id.action_create:
 			Intent intent = new Intent(this, CreatePoolActivity.class);
 			startActivity(intent);
@@ -77,7 +73,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		case R.id.action_join:
 			Intent intent2 = new Intent(this, JoinPoolActivity.class);
 			startActivity(intent2);
-			return true;	
+			return true;
 		case R.id.action_logout:
 			ParseUser.logOut();
 			Intent i = new Intent(this, LoginActivity.class);
@@ -86,5 +82,14 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Player player = homeAdapter.getItem(position);
+		Intent intent = new Intent(this, ViewPoolActivity.class);
+		intent.putExtra("poolId", player.getPool().getObjectId());
+		intent.putExtra("poolName", player.getPool().getName());
+		startActivity(intent);
 	}
 }

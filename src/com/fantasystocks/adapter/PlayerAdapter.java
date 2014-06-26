@@ -12,15 +12,11 @@ import android.widget.TextView;
 
 import com.fantasystocks.R;
 import com.fantasystocks.model.Player;
-import com.fantasystocks.model.Pool;
 
-public class PlayerArrayAdapter extends ArrayAdapter<Player> {
+public class PlayerAdapter extends ArrayAdapter<Player> {
 
-	private Pool pool;
-
-	public PlayerArrayAdapter(Context context, List<Player> players, Pool pool) {
+	public PlayerAdapter(Context context, List<Player> players) {
 		super(context, R.layout.item_player, players);
-		this.pool = pool;
 	}
 
 	@Override
@@ -28,17 +24,17 @@ public class PlayerArrayAdapter extends ArrayAdapter<Player> {
 
 		Player player = getItem(position);
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.common_list_item, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_home, parent, false);
 		}
-		
+
 		ImageView ivPlayerImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
 		TextView tvPlayerName = (TextView) convertView.findViewById(R.id.tvItemTitle);
 		TextView tvPlayerRank = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
 		TextView tvGain = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
 
-		tvPlayerRank.setText(pool.getRank(player));
-		tvPlayerName.setText(player.getUsername() != null ? player.getUsername() : "Saumitra");
-		tvGain.setText(pool.getGain(player));
+		// tvPlayerRank.setText(pool.getRank(player));
+		tvPlayerName.setText(player.getUser() != null ? player.getUser().getUsername() : "Saumitra");
+		// tvGain.setText(pool.getGain(player));
 		return convertView;
 	}
 }

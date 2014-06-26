@@ -3,8 +3,8 @@ package com.fantasystocks;
 import android.app.Application;
 
 import com.fantasystocks.model.Lot;
-import com.fantasystocks.model.Player;
 import com.fantasystocks.model.Pool;
+import com.fantasystocks.model.Player;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -18,9 +18,9 @@ public class ParseApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		ParseObject.registerSubclass(Pool.class);
-		ParseObject.registerSubclass(Lot.class);
 		ParseObject.registerSubclass(Player.class);
+		ParseObject.registerSubclass(Lot.class);
 		// Parse.initialize(this, SAUMITRA_APP_ID, SAUMITRA_SECRET);
-		Parse.initialize(this, SAUMITRA_APP_ID, SAUMITRA_SECRET);
+		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
 	}
 }

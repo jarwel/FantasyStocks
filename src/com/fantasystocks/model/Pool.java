@@ -6,7 +6,6 @@ import java.util.Random;
 import com.fantasystocks.utils.Utils;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
 
 @ParseClassName("Pool")
 public class Pool extends ParseObject implements Serializable {
@@ -35,31 +34,31 @@ public class Pool extends ParseObject implements Serializable {
 	public void setFunds(double funds) {
 		put("funds", funds);
 	}
-	
+
 	public String getPoolImageUrl() {
 		return getString("poolImageUrl");
 	}
-	
+
 	/* Crappy hack for now */
 	public int getPoolImageUrlResource() {
 		String imageUrl = getString("poolImageUrl");
 		return Utils.getDrawableResouceForAGivenImageUrl(imageUrl);
 	}
-	
+
 	public void setPoolImageUrl() {
 		String imageUrl = Utils.getRandomImageUrl();
 		put("poolImageUrl", imageUrl);
 	}
 
-	public void addPlayer(ParseUser player) {
+	public void addPlayer(ParseObject player) {
 		getRelation("players").add(player);
 	}
 
-	public String getRank(Player player) {
+	public String getRank(Player portfolio) {
 		return String.format("%sth", new Random().nextInt(7) + 3);
 	}
 
-	public String getGain(Player player) {
+	public String getGain(Player portfolio) {
 		return String.format("+$%.2f", new Random().nextDouble());
 	}
 

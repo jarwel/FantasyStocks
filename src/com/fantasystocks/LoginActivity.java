@@ -36,7 +36,7 @@ public class LoginActivity extends FragmentActivity {
 	}
 	
 	public void launchMainActivity() {
-		Intent i = new Intent(this, MainActivity.class);
+		Intent i = new Intent(this, HomeActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		startActivity(i);
 	}

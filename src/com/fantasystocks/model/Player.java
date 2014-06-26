@@ -1,37 +1,26 @@
 package com.fantasystocks.model;
 
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-public class Player extends ParseUser {
+@ParseClassName("Player")
+public class Player extends ParseObject {
 
-	// Ensure that your subclass has a public default constructor
-	public Player() {
-		super();
+	public ParseUser getUser() {
+		return getParseUser("user");
 	}
 
-	// Add a constructor that contains core properties
-	public Player(ParseUser player, double funds) {
-		super();
-		setFunds(funds);
-		setPlayer(player);
+	public void setUser(ParseUser user) {
+		put("user", user);
 	}
 
-	public double getFunds() {
-		return getDouble("funds");
+	public Pool getPool() {
+		return (Pool) getParseObject("pool");
 	}
 
-	// Use put to modify field values
-	public void setFunds(double value) {
-		put("funds", value);
-	}
-
-	public ParseUser getPlayer() {
-		return getParseUser("player");
-	}
-
-	// Associate each item with a user
-	public void setPlayer(ParseUser player) {
-		put("player", player);
+	public void setPool(Pool pool) {
+		put("pool", pool);
 	}
 
 }

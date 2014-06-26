@@ -19,27 +19,26 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-public class FragmentSignup extends Fragment implements OnClickListener{
+public class FragmentSignup extends Fragment implements OnClickListener {
 	FragmentActivity listener;
 	EditText etSignUpPassword;
 	EditText etSignUpName;
 	EditText etSignUpEmail;
 	Button btnSignUp;
-	
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		this.listener = (FragmentActivity) activity;
 	}
-	
+
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_signup, container, false);
 		setupViews(view);
 		return view;
 	}
-	
+
 	public void setupViews(View view) {
 		etSignUpEmail = (EditText) view.findViewById(R.id.etSignUpEmail);
 		etSignUpPassword = (EditText) view.findViewById(R.id.etSignUpPassword);
@@ -51,7 +50,7 @@ public class FragmentSignup extends Fragment implements OnClickListener{
 	@Override
 	public void onClick(View view) {
 		int id = view.getId();
-		switch(id) {
+		switch (id) {
 		case R.id.btnSignUp:
 			onSignUp();
 			break;
@@ -59,7 +58,7 @@ public class FragmentSignup extends Fragment implements OnClickListener{
 			break;
 		}
 	}
-	
+
 	public void onSignUp() {
 		String name = etSignUpName.getText().toString();
 		String password = etSignUpPassword.getText().toString();
@@ -70,9 +69,9 @@ public class FragmentSignup extends Fragment implements OnClickListener{
 			Toast.makeText(listener, "Please check the entered values", Toast.LENGTH_LONG).show();
 		}
 	}
-	
+
 	/* We are using email = userName */
-	public void signup (String name, String password, String email) {
+	public void signup(String name, String password, String email) {
 		ParseUser user = new ParseUser();
 		user.setUsername(email);
 		user.setPassword(password);
@@ -84,7 +83,7 @@ public class FragmentSignup extends Fragment implements OnClickListener{
 					Log.d("Success LoginActivity", "User is signed up");
 					// Handle post sign up flow - showing the tour
 					((LoginActivity) listener).launchMainActivity();
-					
+
 				} else {
 					Log.d("Error LoginActivity", "" + e);
 				}

@@ -15,10 +15,10 @@ import android.widget.TextView;
 import com.fantasystocks.R;
 import com.fantasystocks.model.Pool;
 
-public class OpenPoolArrayAdapter extends ArrayAdapter<Pool> {
+public class PoolAdapter extends ArrayAdapter<Pool> {
 
-	public OpenPoolArrayAdapter(Context context, List<Pool> pools) {
-		super(context, R.layout.item_open_pool, pools);
+	public PoolAdapter(Context context, List<Pool> pools) {
+		super(context, R.layout.item_pool, pools);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class OpenPoolArrayAdapter extends ArrayAdapter<Pool> {
 
 		Pool pool = getItem(position);
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.common_list_item, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_home, parent, false);
 		}
 		
 		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
