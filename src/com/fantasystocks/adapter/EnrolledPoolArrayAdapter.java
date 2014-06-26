@@ -29,10 +29,10 @@ public class EnrolledPoolArrayAdapter extends ArrayAdapter<Pool> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_enrolled_pool, parent, false);
 		}
 
-		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivPoolImage);
-		TextView tvPoolTitle = (TextView) convertView.findViewById(R.id.tvPoolTitle);
-		TextView tvPlayerRank = (TextView) convertView.findViewById(R.id.tvPlayerPosition);
-		TextView tvPlayerNetGain = (TextView) convertView.findViewById(R.id.tvPlayerNetGain);
+		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
+		TextView tvPoolTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
+		TextView tvPlayerRank = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
+		TextView tvPlayerNetGain = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
 		
 		int photoMediaUrlResource = pool.getPoolImageUrlResource();
 		ivPoolImage.setImageResource(photoMediaUrlResource);

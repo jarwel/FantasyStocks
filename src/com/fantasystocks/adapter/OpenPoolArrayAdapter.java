@@ -1,12 +1,15 @@
 package com.fantasystocks.adapter;
 
 import java.util.List;
+import java.util.Random;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fantasystocks.R;
@@ -23,14 +26,20 @@ public class OpenPoolArrayAdapter extends ArrayAdapter<Pool> {
 
 		Pool pool = getItem(position);
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_open_pool, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_enrolled_pool, parent, false);
 		}
-
-		TextView tvPoolName = (TextView) convertView.findViewById(R.id.tvPlayerRank);
-		TextView tvPoolPlayers = (TextView) convertView.findViewById(R.id.tvPlayerName);
-
-		tvPoolName.setText(pool.getName());
-		tvPoolPlayers.setText(String.format("%s(%s) players", 4, pool.getPlayerLimit()));
+		
+		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
+		TextView tvPoolTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
+		TextView tvAvailableSlots = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
+		TextView tvTotalPlayerLimit = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
+		tvAvailableSlots.setTextColor(Color.parseColor("#FF0000"));
+		
+		int photoMediaUrlResource = pool.getPoolImageUrlResource();
+		ivPoolImage.setImageResource(photoMediaUrlResource);
+		tvPoolTitle.setText(pool.getName());
+		tvTotalPlayerLimit.setText("Total: " + pool.getPlayerLimit());
+		tvAvailableSlots.setText("Open: " + new Random().nextInt(8) + "");
 		return convertView;
 	}
 }

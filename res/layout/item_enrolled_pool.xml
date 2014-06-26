@@ -6,7 +6,7 @@
     android:layout_height="match_parent" >
 
     <ImageView
-        android:id="@+id/ivPoolImage"
+        android:id="@+id/ivItemImage"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentLeft="true"
@@ -15,34 +15,34 @@
         android:src="@drawable/pool_img_1" />
 
     <TextView
-        android:id="@+id/tvPoolTitle"
+        android:id="@+id/tvItemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/ivPoolImage"
+        android:layout_alignTop="@+id/ivItemImage"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/ivPoolImage"
-        android:textSize="16dp" 
-        android:text="Medium Text"/>
+        android:layout_toRightOf="@+id/ivItemImage"
+        android:text="Medium Text"
+        android:textSize="16dp" />
 
     <TextView
-        android:id="@+id/tvPlayerPosition"
+        android:id="@+id/tvSubTitleTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/ivPoolImage"
+        android:layout_alignTop="@+id/ivItemImage"
         android:layout_marginRight="30dp"
-        android:textSize="12dp"
+        android:text="TextView"
         android:textColor="#666"
-        android:text="TextView" />
+        android:textSize="12dp" />
 
     <TextView
-        android:id="@+id/tvPlayerNetGain"
+        android:id="@+id/tvSubTitleBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ivPoolImage"
-        android:layout_alignLeft="@+id/tvPlayerPosition"
-        android:textSize="12dp"
+        android:layout_alignBottom="@+id/ivItemImage"
+        android:layout_alignLeft="@+id/tvSubTitleTop"
+        android:text="TextView"
         android:textColor="#666"
-        android:text="TextView" />
+        android:textSize="12dp" />
 
 </RelativeLayout>
