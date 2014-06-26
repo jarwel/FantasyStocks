@@ -1,5 +1,7 @@
 package com.fantasystocks;
 
+import java.text.DecimalFormat;
+
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -23,6 +25,7 @@ import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
 public class TradeActivity extends Activity {
+	private static final DecimalFormat CURRENCY_FORMAT = new DecimalFormat("$##,##,##,##,##,##,##0.00");
 
 	private String playerId;
 	private Quote quote;
@@ -86,7 +89,7 @@ public class TradeActivity extends Activity {
 						quote = newQuote;
 						tvSecurityName.setText(quote.getName());
 						tvSecuritySymbol.setText(quote.getSymbol());
-						tvSecurityPrice.setText(String.format("$%.2f", quote.getPrice()));
+						tvSecurityPrice.setText(CURRENCY_FORMAT.format(quote.getPrice()));
 					}
 				}
 			}, new ErrorListener() {
@@ -105,7 +108,7 @@ public class TradeActivity extends Activity {
 			if (!orderNum.isEmpty()) {
 				int shares = Integer.parseInt(etOrderShares.getText().toString());
 				double total = quote.getPrice() * shares;
-				tvOrderTotal.setText(String.format("$%.02f", total));
+				tvOrderTotal.setText(CURRENCY_FORMAT.format(total));
 			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

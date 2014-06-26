@@ -16,16 +16,18 @@ public class Quote {
 
 	public static Quote fromJSONObject(JSONObject json) {
 		try {
-			Quote quote = new Quote();
 			JSONObject object = json.getJSONObject("query").getJSONObject("results").getJSONObject("quote");
-			quote.symbol = object.getString("symbol");
-			quote.name = object.getString("Name");
-			quote.price = object.getDouble("LastTradePriceOnly");
-			return quote;
+			if ("null".equals(object.getString("ErrorIndicationreturnedforsymbolchangedinvalid"))) {
+				Quote quote = new Quote();
+				quote.symbol = object.getString("symbol");
+				quote.name = object.getString("Name");
+				quote.price = object.getDouble("LastTradePriceOnly");
+				return quote;
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
-			return null;
 		}
+		return null;
 	}
 
 	public static List<Quote> fromJSONArray(JSONObject json) {

@@ -61,7 +61,7 @@
         android:layout_alignLeft="@+id/showQuote"
         android:layout_below="@+id/showQuote"
         android:background="@drawable/create_pool_background"
-        android:hint="Number of stocks to buy"
+        android:hint="Shares to purchase"
         android:inputType="numberDecimal"
         android:textColor="#333"
         android:textColorHint="#999" >
@@ -88,7 +88,7 @@
             android:id="@+id/tvOrderTotalLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Order Total!"
+            android:text="Order Total"
             android:textSize="14dp" />
 
         <TextView
