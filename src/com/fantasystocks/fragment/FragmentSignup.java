@@ -77,8 +77,8 @@ public class FragmentSignup extends Fragment implements OnClickListener {
 		user.setUsername(email);
 		user.setPassword(password);
 		user.setEmail(email);
-		user.add("name", name);
-		user.add("imageUrl", Utils.getRandomImageUrl());
+		user.put("name", name);
+		user.put("imageUrl", Utils.getRandomImageUrl());
 		user.signUpInBackground(new SignUpCallback() {
 			public void done(ParseException e) {
 				if (e == null) {
