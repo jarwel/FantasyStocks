@@ -34,13 +34,12 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
 		TextView tvPlayerName = (TextView) convertView.findViewById(R.id.tvItemTitle);
 		TextView tvPlayerRank = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
 		TextView tvGain = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
-		Log.d("d", player.getUser().getString("name") + "");
-		Log.d("d", player.getUser().getString("imageUrl") + "");
+
 		String imageResourceUrl = player.getUser().getString("imageUrl") == null ? "pool_img_4" : player.getUser().getString("imageUrl");
 		int photoMediaUrl = context.getResources().getIdentifier(imageResourceUrl, "drawable", context.getPackageName());
 		ivPlayerImage.setImageResource(photoMediaUrl);
 		// tvPlayerRank.setText(pool.getRank(player));
-		tvPlayerName.setText(player.getUser() != null ? player.getUser().getUsername() : "Saumitra");
+		tvPlayerName.setText(player.getUser().getString("name"));
 		// tvGain.setText(pool.getGain(player));
 		return convertView;
 	}
