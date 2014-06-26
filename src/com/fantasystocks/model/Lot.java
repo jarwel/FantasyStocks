@@ -6,6 +6,14 @@ import com.parse.ParseObject;
 @ParseClassName("Lot")
 public class Lot extends ParseObject {
 
+	public Player getPlayer() {
+		return (Player) getParseObject("player");
+	}
+
+	public void setPlayer(Player player) {
+		put("player", player);
+	}
+
 	public String getSymbol() {
 		return getString("symbol");
 	}

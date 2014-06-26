@@ -19,14 +19,15 @@ import com.fantasystocks.model.Pool;
 import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 public class ViewPoolActivity extends Activity implements OnItemClickListener {
 
+	private String poolId;
 	private List<Player> players;
-	private Pool pointer = new Pool();
 
 	private TextView tvPoolName;
 	private ListView lvPlayers;
@@ -36,13 +37,11 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_pool);
-		String poolId = getIntent().getStringExtra("poolId");
-		String poolName = getIntent().getStringExtra("poolName");
-
-		pointer.setObjectId(poolId);
-
 		tvPoolName = (TextView) findViewById(R.id.tvPoolName);
 		lvPlayers = (ListView) findViewById(R.id.lvPlayers);
+
+		poolId = getIntent().getStringExtra("poolId");
+		String poolName = getIntent().getStringExtra("poolName");
 
 		tvPoolName.setText(poolName);
 
@@ -50,7 +49,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		playerAdapter = new PlayerAdapter(getBaseContext(), players);
 		lvPlayers.setAdapter(playerAdapter);
 		lvPlayers.setOnItemClickListener(this);
-		loadPlayers();
+		loadPlayers(poolId);
 	}
 
 	@Override
@@ -65,7 +64,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		case R.id.action_join_pool:
 			Player player = new Player();
 			player.setUser(ParseUser.getCurrentUser());
-			player.setPool(pointer);
+			player.setPool(ParseObject.createWithoutData(Pool.class, poolId));
 			player.saveInBackground(new SaveCallback() {
 				@Override
 				public void done(ParseException parseException) {
@@ -83,13 +82,15 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Player player = playerAdapter.getItem(position);
 		Intent intent = new Intent(ViewPoolActivity.this, ViewPlayerActivity.class);
+		intent.putExtra("playerId", player.getObjectId());
 		startActivity(intent);
 	}
 
-	private void loadPlayers() {
+	private void loadPlayers(String poolId) {
 		ParseQuery<Player> query = ParseQuery.getQuery("Player");
-		query.whereEqualTo("pool", pointer);
+		query.whereEqualTo("pool", ParseObject.createWithoutData("Pool", poolId));
 		query.include("user");
 		query.findInBackground(new FindCallback<Player>() {
 			@Override

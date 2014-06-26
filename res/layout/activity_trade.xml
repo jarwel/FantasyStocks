@@ -4,9 +4,6 @@
     android:layout_height="match_parent"
     android:background="#F0F0F0"
     tools:context="${packageName}.${activityClass}" >
-    
-
-
 
     <EditText
         android:id="@+id/etPoolName"
@@ -71,8 +68,8 @@
 
         <requestFocus />
     </EditText>
-    
-   <LinearLayout
+
+    <LinearLayout
         android:id="@+id/showTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,18 +98,15 @@
             android:text="$10000"
             android:textColor="#AAA"
             android:textSize="14dp" />
-
     </LinearLayout>
-    
-    <Button
-       android:id="@+id/btnPlaceOrder"
-       style="@style/button_login_style"
-       android:layout_below="@+id/showTotal"
-       android:layout_marginTop="30dp"
-       android:background="@drawable/login_button"
-       android:onClick="onPlaceOrderClicked"
-       android:text="Place order" />
 
-    
-    
+    <Button
+        android:id="@+id/btnPlaceOrder"
+        style="@style/button_login_style"
+        android:layout_below="@+id/showTotal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/login_button"
+        android:onClick="onPlaceOrderClicked"
+        android:text="Place order" />
+
 </RelativeLayout>

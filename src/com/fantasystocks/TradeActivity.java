@@ -16,10 +16,15 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.fantasystocks.client.YahooFinanceClient;
 import com.fantasystocks.model.Lot;
+import com.fantasystocks.model.Player;
 import com.fantasystocks.model.Quote;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 public class TradeActivity extends Activity {
 
+	private String playerId;
 	private Quote quote;
 
 	private TextView tvSecurityName;
@@ -40,6 +45,9 @@ public class TradeActivity extends Activity {
 		etOrderShares = (EditText) findViewById(R.id.etOrderShares);
 		etSecuritySymbol = (EditText) findViewById(R.id.etPoolName);
 		etSecuritySymbol.requestFocus();
+
+		playerId = getIntent().getStringExtra("playerId");
+
 		setListeners();
 	}
 
@@ -49,11 +57,19 @@ public class TradeActivity extends Activity {
 		double costBasis = shares * quote.getPrice();
 
 		Lot lot = new Lot();
+		lot.setPlayer(ParseObject.createWithoutData(Player.class, playerId));
 		lot.setSymbol(symbol);
 		lot.setShares(shares);
 		lot.setCostBasis(costBasis);
-		lot.saveInBackground();
-		finish();
+		lot.saveInBackground(new SaveCallback() {
+			@Override
+			public void done(ParseException parseException) {
+				if (parseException != null) {
+					parseException.printStackTrace();
+				}
+				finish();
+			}
+		});
 	}
 
 	private void fetchQuote() {
@@ -130,4 +146,5 @@ public class TradeActivity extends Activity {
 			}
 		});
 	}
+
 }

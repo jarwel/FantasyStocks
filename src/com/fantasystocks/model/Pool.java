@@ -44,10 +44,6 @@ public class Pool extends ParseObject implements Serializable {
 		put("poolImageUrl", imageUrl);
 	}
 
-	public void addPlayer(ParseObject player) {
-		getRelation("players").add(player);
-	}
-
 	public String getRank(Player portfolio) {
 		return String.format("%sth", new Random().nextInt(7) + 3);
 	}

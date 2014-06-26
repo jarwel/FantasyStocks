@@ -23,4 +23,8 @@ public class Player extends ParseObject {
 		put("pool", pool);
 	}
 
+	public void addLot(Lot lot) {
+		getRelation("lots").add(lot);
+	}
+
 }
