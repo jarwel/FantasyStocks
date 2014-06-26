@@ -21,6 +21,6 @@ public class ParseApplication extends Application {
 		ParseObject.registerSubclass(Lot.class);
 		// ParseObject.registerSubclass(Player.class);
 		// Parse.initialize(this, SAUMITRA_APP_ID, SAUMITRA_SECRET);
-		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
+		Parse.initialize(this, SAUMITRA_APP_ID, SAUMITRA_SECRET);
 	}
 }

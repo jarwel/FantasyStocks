@@ -2,7 +2,6 @@ package com.fantasystocks.handler;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.LogInCallback;
@@ -16,34 +15,41 @@ public class ParseUserHandler {
 	public ParseUserHandler (Context context) {
 		this.context = context;
 	}
-	public void signup (String userName, String password, String email) {
+	
+	public static boolean isUserLoggedIn() {
+		ParseUser currentUser = ParseUser.getCurrentUser();
+		if (currentUser == null) {
+			return false;
+		} 
+		return true;
+	}
+	
+	/* We are using email = userName */
+	public void signup (String name, String password, String email) {
 		ParseUser user = new ParseUser();
-		user.setUsername(userName);
+		user.setUsername(email);
 		user.setPassword(password);
 		user.setEmail(email);
+		user.add("name", name);
 		user.signUpInBackground(new SignUpCallback() {
 			public void done(ParseException e) {
 				if (e == null) {
-					Toast.makeText(context, "Success LoginActivity ... User Signed up", Toast.LENGTH_SHORT).show();
 					Log.d("Success LoginActivity", "User is signed up");
-
 					// Handle post sign up flow
 				} else {
-					Toast.makeText(context, "Error LoginActivity .." + e, Toast.LENGTH_SHORT).show();
 					Log.d("Error LoginActivity", "" + e);
 				}
 			}
 		});
 	}
 	
-	public void login(String userName, String password) {
-		ParseUser.logInInBackground(userName, password, new LogInCallback() {
+	/* In our case email = username */
+	public void login(String email, String password) {
+		ParseUser.logInInBackground(email, password, new LogInCallback() {
 			public void done(ParseUser user, ParseException e) {
 				if (user != null) {
-					Toast.makeText(context, "Success LoginActivity ... User is logged In with username: " + ParseUser.getCurrentUser().getUsername(), Toast.LENGTH_SHORT).show();
 					Log.d("Success LoginActivity", "User is logged In with username: " + ParseUser.getCurrentUser().getUsername());
 				} else {
-					Toast.makeText(context, "Error LoginActivity .." + e, Toast.LENGTH_SHORT).show();
 					Log.d("Error LoginActivity", "" + e);
 				}
 			}

@@ -1,63 +1,56 @@
 package com.fantasystocks;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.fantasystocks.fragment.FragmentLogin;
+import com.fantasystocks.fragment.FragmentSignup;
 import com.fantasystocks.handler.ParseUserHandler;
 import com.parse.ParseUser;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends FragmentActivity {
+	Fragment loginFragment;
+	Fragment signupFragment;
 	ParseUserHandler handler;
-	EditText etUserName;
-	EditText etPassword;
-	EditText etEmail;
+	EditText etLoginPassword;
+	EditText etLoginEmail;
+	EditText etSignUpName;
+	EditText etSignUpPassword;
+	EditText etSignUpEmail;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		ParseUser currentUser = ParseUser.getCurrentUser();
 		setContentView(R.layout.activity_login);
-		setupViews();
-		if (currentUser == null) {
-			//setContentView(R.layout.activity_login);
-			handler = new ParseUserHandler(this);
-		} else {
+		if (ParseUserHandler.isUserLoggedIn()) {
 			Log.d("Success LoginActivity", "User was already logged In with username: " + ParseUser.getCurrentUser().getUsername());
+		} else {
+			setContentView(R.layout.activity_login); 
+			if (loginFragment == null) {
+				loginFragment = new FragmentLogin();
+			}
+			doFragmentTransaction(loginFragment, true);
+			handler = new ParseUserHandler(this);
 		}
 	}
 	
-	public void setupViews() {
-		etUserName = (EditText) findViewById(R.id.etUserName);
-		etPassword = (EditText) findViewById(R.id.etPassword);
-		etEmail = (EditText) findViewById(R.id.etEmail);
-	}
-
-	public void signup(View view) {
-		String userName = etUserName.getText().toString();
-		String password = etPassword.getText().toString();
-		String email = etEmail.getText().toString();
-		if (!userName.isEmpty() && !password.isEmpty() && !email.isEmpty()) {
-			handler.signup(userName, password, email);
-		} else {
-			Toast.makeText(this, "Please check entered values", Toast.LENGTH_LONG).show();
+	public void onSignUpLauncherClick() {
+		if (signupFragment == null) {
+			signupFragment = new FragmentSignup();
 		}
-	}
-
-	public void login(View view) {
-		String userName = etUserName.getText().toString();
-		String password = etPassword.getText().toString();
-		if (!userName.isEmpty() && !password.isEmpty()) {
-			handler.login(userName, password);
-		} else {
-			Toast.makeText(this, "Please check entered values", Toast.LENGTH_LONG).show();
-		}
+		doFragmentTransaction(signupFragment, true);
 	}
 	
-	public void logout(View view) {
-		ParseUser.logOut();
+	public void doFragmentTransaction (Fragment fragment, boolean addToBackStack) {
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		ft.replace(R.id.frame_login, fragment);
+		if (addToBackStack) {
+			ft.addToBackStack(null);
+		}
+		ft.commit();
 	}
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Fantasy Stocks</string>
+    <string name="app_name">Fantasy Finance</string>
     <string name="title_activity_find_pool">Join Pool</string>
     <string name="title_activity_create_pool">Create Pool</string>
     <string name="my_pools_label">My Pools</string>
@@ -22,5 +22,10 @@
     <string name="player_limit_label">Player Limit:</string>
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="logIn">Log in</string>
+    <string name="signUp">Sign up</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
 
 </resources>

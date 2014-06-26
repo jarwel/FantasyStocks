@@ -5,114 +5,35 @@
     android:background="#0f6a94"
     tools:context="${packageName}.${activityClass}" >
 
-    
-     <EditText
-       android:id="@+id/etEmail"
+   <ImageView
+       android:id="@+id/app_banner"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:layout_below="@+id/imageView1"
        android:layout_alignParentLeft="true"
        android:layout_alignParentRight="true"
-       android:layout_centerHorizontal="true"
-       android:layout_marginLeft="40dp"
-       android:layout_marginRight="40dp"
-       android:paddingLeft="5dp"
-       android:paddingRight="5dp"
-       android:paddingBottom="5dp"
-       android:textColorHint="#AAA"
-       android:layout_marginTop="50dp"
-       android:background="@drawable/login_background"
-       android:textSize="16sp"
-       android:textColor="#FFFFFF"
-       android:hint="Email"
-       android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/etUserName"
-        android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_below="@+id/etEmail"
-       android:layout_alignParentLeft="true"
-       android:layout_alignParentRight="true"
-       android:layout_centerHorizontal="true"
-       android:layout_marginLeft="40dp"
-       android:layout_marginRight="40dp"
-       android:paddingLeft="5dp"
-       android:paddingRight="5dp"
-       android:paddingBottom="5dp"
-       android:textColorHint="#AAA"
-       android:layout_marginTop="20dp"
-       android:textSize="16sp"
-       android:textColor="#FFFFFF"
-       android:background="@drawable/login_background"
-        android:hint="userName" />
-
-    <EditText
-        android:id="@+id/etPassword"
-         android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_below="@+id/etUserName"
-       android:layout_alignParentLeft="true"
-       android:layout_alignParentRight="true"
-       android:layout_centerHorizontal="true"
-       android:layout_marginLeft="40dp"
-       android:layout_marginRight="40dp"
-       android:paddingLeft="5dp"
-       android:paddingRight="5dp"
-       android:paddingBottom="5dp"
-       android:textColorHint="#AAA"
-       android:layout_marginTop="20dp"
-       android:background="@drawable/login_background"
-       android:textSize="16sp"
-       android:textColor="#FFFFFF"
-        android:hint="Password"
-        android:inputType="textPassword" />
-
-   <ImageView
-        android:id="@+id/linkMe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:contentDescription="cat"
-        android:adjustViewBounds="true" 
-        android:src="@drawable/app_banner" />
-
-   <ImageView
-       android:id="@+id/imageView1"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_below="@+id/linkMe"
+       android:layout_alignParentTop="true"
        android:adjustViewBounds="true"
+       android:contentDescription="@string/app_name"
+       android:src="@drawable/app_banner" />
+
+   <ImageView
+       android:id="@+id/app_title_banner"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/app_banner"
+       android:adjustViewBounds="true"
+       android:contentDescription="@string/app_name"
        android:src="@drawable/banner_image" />
 
-   <Button
-       android:id="@+id/btnLogin"
-       style="@style/button_style"
+   <FrameLayout
+       android:id="@+id/frame_login"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@+id/app_title_banner"
+       android:layout_centerHorizontal="true"
        android:layout_alignParentLeft="true"
        android:layout_alignParentRight="true"
-       android:layout_below="@+id/etPassword"
-       android:layout_centerHorizontal="true"
-       android:layout_marginTop="30dp"
-       android:layout_marginLeft="40dp"
-       android:layout_marginRight="40dp"       
-       android:background="@drawable/login_button"
-       android:onClick="login"
-       android:text="Log in" />
-   
-   <Button
-       android:id="@+id/btnSignUp"
-       style="@style/button_style"
-       android:layout_alignParentLeft="true"
-       android:layout_alignParentRight="true"
-       android:layout_alignParentBottom="true"
-       android:layout_centerHorizontal="true"
-       android:layout_marginLeft="40dp"
-       android:layout_marginRight="40dp"
-       android:layout_marginBottom="20dp"   
-       android:background="@drawable/signup_button"
-       android:onClick="signup"
-       android:text="Sign up" />
+       android:layout_alignParentBottom="true">
+   </FrameLayout>
 
 </RelativeLayout>
