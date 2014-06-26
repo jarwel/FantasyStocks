@@ -26,7 +26,7 @@ public class EnrolledPoolArrayAdapter extends ArrayAdapter<Pool> {
 
 		Pool pool = getItem(position);
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_enrolled_pool, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.common_list_item, parent, false);
 		}
 
 		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
