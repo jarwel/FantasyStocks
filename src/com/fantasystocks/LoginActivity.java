@@ -23,16 +23,11 @@ public class LoginActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
-		if (Utils.isUserLoggedIn()) {
-			launchMainActivity();
-		} else {
-			setContentView(R.layout.activity_login); 
-			if (loginFragment == null) {
-				loginFragment = new FragmentLogin();
-			}
-			doFragmentTransaction(loginFragment, false);
+		setContentView(R.layout.activity_login); 
+		if (loginFragment == null) {
+			loginFragment = new FragmentLogin();
 		}
+		doFragmentTransaction(loginFragment, false);
 	}
 	
 	public void launchMainActivity() {
