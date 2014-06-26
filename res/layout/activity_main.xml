@@ -4,45 +4,15 @@
     android:layout_height="match_parent"
     tools:context="${packageName}.${activityClass}" >
 
-    <LinearLayout
-        android:id="@+id/llButtonBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" >
-
-        <Button
-            android:id="@+id/btnJoinPool"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="onJoinPoolClicked"
-            android:text="@string/join_pool_label" />
-
-        <Button
-            android:id="@+id/btnCreatePool"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="onCreatePoolClicked"
-            android:text="@string/create_pool_label" />
-    </LinearLayout>
 
     <ListView
         android:id="@+id/lvPools"
-        android:layout_below="@+id/llButtonBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:onClick="launchLogin"
-        android:text="Test Login" />
 
 </RelativeLayout>

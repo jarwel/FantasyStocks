@@ -5,18 +5,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.widget.EditText;
 
 import com.fantasystocks.fragment.FragmentLogin;
 import com.fantasystocks.fragment.FragmentSignup;
-import com.fantasystocks.handler.ParseUserHandler;
-import com.parse.ParseUser;
+import com.fantasystocks.utils.Utils;
 
 public class LoginActivity extends FragmentActivity {
 	Fragment loginFragment;
 	Fragment signupFragment;
-	ParseUserHandler handler;
 	EditText etLoginPassword;
 	EditText etLoginEmail;
 	EditText etSignUpName;
@@ -24,20 +21,24 @@ public class LoginActivity extends FragmentActivity {
 	EditText etSignUpEmail;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		if (ParseUserHandler.isUserLoggedIn()) {
-			Intent i = new Intent(this, MainActivity.class);
-			startActivity(i);
+		if (Utils.isUserLoggedIn()) {
+			launchMainActivity();
 		} else {
 			setContentView(R.layout.activity_login); 
 			if (loginFragment == null) {
 				loginFragment = new FragmentLogin();
 			}
-			doFragmentTransaction(loginFragment, true);
-			handler = new ParseUserHandler(this);
+			doFragmentTransaction(loginFragment, false);
 		}
+	}
+	
+	public void launchMainActivity() {
+		Intent i = new Intent(this, MainActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		startActivity(i);
 	}
 	
 	public void onSignUpLauncherClick() {

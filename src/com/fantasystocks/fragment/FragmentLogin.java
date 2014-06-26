@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,11 +15,12 @@ import android.widget.Toast;
 
 import com.fantasystocks.LoginActivity;
 import com.fantasystocks.R;
-import com.fantasystocks.handler.ParseUserHandler;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
 public class FragmentLogin extends Fragment implements OnClickListener{
 	FragmentActivity listener;
-	ParseUserHandler handler;
 	EditText etLoginPassword;
 	EditText etLoginEmail;
 	Button btnLogin;
@@ -35,7 +37,6 @@ public class FragmentLogin extends Fragment implements OnClickListener{
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_login, container, false);
 		setupViews(view);
-		handler = new ParseUserHandler(listener);
 		return view;
 	}
 	
@@ -67,10 +68,24 @@ public class FragmentLogin extends Fragment implements OnClickListener{
 		String email = etLoginEmail.getText().toString();
 		String password = etLoginPassword.getText().toString();
 		if (!email.isEmpty() && !password.isEmpty()) {
-			handler.login(email, password);
+			login(email, password);
 		} else {
 			Toast.makeText(listener, "Please check the entered values", Toast.LENGTH_SHORT).show();
 		}
+	}
+	
+	/* In our case email = username */
+	public void login(String email, String password) {
+		ParseUser.logInInBackground(email, password, new LogInCallback() {
+			public void done(ParseUser user, ParseException e) {
+				if (user != null) {
+					Log.d("Success LoginActivity", "User is logged In with username: " + ParseUser.getCurrentUser().getUsername());
+					((LoginActivity) listener).launchMainActivity();
+				} else {
+					Log.d("Error LoginActivity", "" + e);
+				}
+			}
+		});
 	}
 	
 }
