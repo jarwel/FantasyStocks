@@ -19,7 +19,7 @@ public class ParseApplication extends Application {
 		super.onCreate();
 		ParseObject.registerSubclass(Pool.class);
 		ParseObject.registerSubclass(Lot.class);
-		// ParseObject.registerSubclass(Player.class);
+		ParseObject.registerSubclass(Player.class);
 		// Parse.initialize(this, SAUMITRA_APP_ID, SAUMITRA_SECRET);
 		Parse.initialize(this, SAUMITRA_APP_ID, SAUMITRA_SECRET);
 	}

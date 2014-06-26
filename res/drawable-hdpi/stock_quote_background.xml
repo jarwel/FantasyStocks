@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+     <!-- Drop Shadow Stack -->
+	<item android:drawable="@drawable/drop_shadow" />
+	
+    <!-- Background -->
+    <item>
+	 <shape>
+            <solid android:color="#F0F0F0"/>
+        </shape>
+    </item>
+</layer-list>

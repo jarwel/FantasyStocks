@@ -2,98 +2,117 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F0F0F0"
     tools:context="${packageName}.${activityClass}" >
+    
 
-    <EditText
-        android:id="@+id/etOrderShares"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvSecurityPriceLabel"
-        android:ems="10"
-        android:inputType="numberDecimal" />
 
-    <TextView
-        android:id="@+id/tvOrderSharesLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/etOrderShares"
-        android:layout_alignBottom="@+id/etOrderShares"
-        android:layout_alignParentLeft="true"
-        android:text="@string/shares_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/tvOrderTotalLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etOrderShares"
-        android:text="Total:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/tvOrderTotal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvOrderTotalLabel"
-        android:layout_alignBottom="@+id/tvOrderTotalLabel"
-        android:layout_alignRight="@+id/etOrderShares"
-        android:text="$1000.00"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
         android:id="@+id/etPoolName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:ems="10" />
+        style="@style/editText_login_style"
+        android:background="@drawable/create_pool_background"
+        android:hint="Enter stock symbol"
+        android:textColor="#333"
+        android:textColorHint="#999" />
 
-    <TextView
-        android:id="@+id/tvSecurityName"
+    <LinearLayout
+        android:id="@+id/showQuote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/etPoolName"
-        android:text="Company"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/stock_quote_background"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/tvSecuritySymbolLabel"
+        <TextView
+            android:id="@+id/tvSecurityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yahoo Inc."
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tvSecuritySymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="YHOO"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#AAA"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/tvSecurityPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$34.50"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#AAA"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etOrderShares"
+        style="@style/editText_login_style"
+        android:layout_alignLeft="@+id/showQuote"
+        android:layout_below="@+id/showQuote"
+        android:background="@drawable/create_pool_background"
+        android:hint="Number of stocks to buy"
+        android:inputType="numberDecimal"
+        android:textColor="#333"
+        android:textColorHint="#999" >
+
+        <requestFocus />
+    </EditText>
+    
+   <LinearLayout
+        android:id="@+id/showTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/tvSecurityName"
         android:layout_alignParentLeft="true"
-        android:text="@string/symbol_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/tvSecurityPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvSecurityName"
-        android:text="$101.10"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_below="@+id/etOrderShares"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/stock_quote_background"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/tvSecurityPriceLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvSecurityPrice"
-        android:layout_alignBottom="@+id/tvSecurityPrice"
-        android:layout_alignRight="@+id/tvOrderTotalLabel"
-        android:text="Price:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/tvOrderTotalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Total!"
+            android:textSize="14dp" />
 
+        <TextView
+            android:id="@+id/tvOrderTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$10000"
+            android:textColor="#AAA"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+    
     <Button
-        android:id="@+id/btnPlaceOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvOrderTotalLabel"
-        android:onClick="onPlaceOrderClicked"
-        android:text="@string/place_order_label" />
+       android:id="@+id/btnPlaceOrder"
+       style="@style/button_login_style"
+       android:layout_below="@+id/showTotal"
+       android:layout_marginTop="30dp"
+       android:background="@drawable/login_button"
+       android:onClick="onPlaceOrderClicked"
+       android:text="Place order" />
 
+    
+    
 </RelativeLayout>

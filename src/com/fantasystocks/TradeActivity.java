@@ -25,6 +25,7 @@ public class TradeActivity extends Activity {
 	private TextView tvSecurityName;
 	private TextView tvSecurityPrice;
 	private TextView tvOrderTotal;
+	private TextView tvSecuritySymbol;
 	private EditText etOrderShares;
 	private EditText etSecuritySymbol;
 
@@ -33,6 +34,7 @@ public class TradeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trade);
 		tvSecurityName = (TextView) findViewById(R.id.tvSecurityName);
+		tvSecuritySymbol = (TextView) findViewById(R.id.tvSecuritySymbol);
 		tvSecurityPrice = (TextView) findViewById(R.id.tvSecurityPrice);
 		tvOrderTotal = (TextView) findViewById(R.id.tvOrderTotal);
 		etOrderShares = (EditText) findViewById(R.id.etOrderShares);
@@ -58,6 +60,7 @@ public class TradeActivity extends Activity {
 		final String symbol = etSecuritySymbol.getText().toString();
 		tvSecurityName.setText("");
 		tvSecurityPrice.setText("");
+		tvSecuritySymbol.setText("");
 		if (symbol != null && !symbol.isEmpty()) {
 			YahooFinanceClient.getInstance(this).fetchQuote(symbol, new Listener<JSONObject>() {
 				@Override
@@ -66,6 +69,7 @@ public class TradeActivity extends Activity {
 					if (newQuote != null && etSecuritySymbol.getText().toString().equals(newQuote.getSymbol())) {
 						quote = newQuote;
 						tvSecurityName.setText(quote.getName());
+						tvSecuritySymbol.setText(quote.getSymbol());
 						tvSecurityPrice.setText(String.format("$%.2f", quote.getPrice()));
 					}
 				}
@@ -81,9 +85,12 @@ public class TradeActivity extends Activity {
 	private void calculateTotals() {
 		tvOrderTotal.setText("");
 		try {
-			int shares = Integer.parseInt(etOrderShares.getText().toString());
-			double total = quote.getPrice() * shares;
-			tvOrderTotal.setText(String.format("$%.02f", total));
+			String orderNum = etOrderShares.getText().toString();
+			if (!orderNum.isEmpty()) {
+				int shares = Integer.parseInt(etOrderShares.getText().toString());
+				double total = quote.getPrice() * shares;
+				tvOrderTotal.setText(String.format("$%.02f", total));
+			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}

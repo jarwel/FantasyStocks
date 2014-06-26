@@ -56,6 +56,14 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	}
 
 	private void loadPlayers() {
+		/* Hack in order to update the UI */
+		playersAdapter.clear();
+		for (int i=0; i<10; i++) {
+			Player p = new Player(ParseUser.getCurrentUser(), 10000.99);
+			playersAdapter.add(p);
+		}
+		
+		/*
 		Log.v("DEBUG", "poolId: " + pool.getObjectId());
 		ParseRelation<ParseUser> relation = pool.getRelation("players");
 		relation.getQuery().findInBackground(new FindCallback<ParseUser>() {
@@ -74,6 +82,6 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 				}
 			}
 		});
-
+	*/
 	}
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fantasystocks.R;
@@ -27,15 +28,16 @@ public class PlayerArrayAdapter extends ArrayAdapter<Player> {
 
 		Player player = getItem(position);
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_player, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.common_list_item, parent, false);
 		}
+		
+		ImageView ivPlayerImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
+		TextView tvPlayerName = (TextView) convertView.findViewById(R.id.tvItemTitle);
+		TextView tvPlayerRank = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
+		TextView tvGain = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
 
-		TextView tvPlayerRank = (TextView) convertView.findViewById(R.id.tvPlayerRank);
-		TextView tvPlayerName = (TextView) convertView.findViewById(R.id.tvPlayerName);
-		TextView tvGain = (TextView) convertView.findViewById(R.id.tvGain);
-
-		tvPlayerRank.setText(player.getUsername());
-		tvPlayerName.setText(pool.getRank(player));
+		tvPlayerRank.setText(pool.getRank(player));
+		tvPlayerName.setText(player.getUsername() != null ? player.getUsername() : "Saumitra");
 		tvGain.setText(pool.getGain(player));
 		return convertView;
 	}
