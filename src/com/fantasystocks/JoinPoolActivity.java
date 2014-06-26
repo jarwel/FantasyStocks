@@ -15,7 +15,6 @@ import com.fantasystocks.model.Pool;
 import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 public class JoinPoolActivity extends Activity implements OnItemClickListener {
