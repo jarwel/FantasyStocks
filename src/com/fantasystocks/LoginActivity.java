@@ -1,5 +1,6 @@
 package com.fantasystocks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -27,7 +28,8 @@ public class LoginActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		if (ParseUserHandler.isUserLoggedIn()) {
-			Log.d("Success LoginActivity", "User was already logged In with username: " + ParseUser.getCurrentUser().getUsername());
+			Intent i = new Intent(this, MainActivity.class);
+			startActivity(i);
 		} else {
 			setContentView(R.layout.activity_login); 
 			if (loginFragment == null) {

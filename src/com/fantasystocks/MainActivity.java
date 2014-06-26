@@ -68,10 +68,4 @@ public class MainActivity extends Activity implements OnItemClickListener {
 		Intent intent = new Intent(this, CreatePoolActivity.class);
 		startActivity(intent);
 	}
-
-	public void launchLogin(View view) {
-		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
-	}
-
 }

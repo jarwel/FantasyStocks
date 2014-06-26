@@ -10,7 +10,17 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:actionBarStyle">@style/actionBar</item>
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="actionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@drawable/action_bar_background</item> 
+        <item name="android:titleTextStyle">@style/col</item>
+    </style>
+    
+    <style name="col" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">#FFFFFF</item> 
     </style>
     
     <style name="button_common_style">

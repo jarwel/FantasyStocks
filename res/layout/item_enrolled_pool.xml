@@ -1,30 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
+    android:padding="5dp"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/tvPlayerRank"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Pool Name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <ImageView
+        android:id="@+id/ivPoolImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/pool_img_1" />
 
     <TextView
-        android:id="@+id/tvPoolRank"
-        android:layout_width="fill_parent"
+        android:id="@+id/tvPoolTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="1st"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_alignTop="@+id/ivPoolImage"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/ivPoolImage"
+        android:textSize="16dp" 
+        android:text="Medium Text"/>
 
     <TextView
-        android:id="@+id/tvPoolGain"
-        android:layout_width="fill_parent"
+        android:id="@+id/tvPlayerPosition"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="+$100.00"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/ivPoolImage"
+        android:layout_marginRight="30dp"
+        android:textSize="12dp"
+        android:textColor="#666"
+        android:text="TextView" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tvPlayerNetGain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivPoolImage"
+        android:layout_alignLeft="@+id/tvPlayerPosition"
+        android:textSize="12dp"
+        android:textColor="#666"
+        android:text="TextView" />
+
+</RelativeLayout>
