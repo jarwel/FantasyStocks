@@ -83,35 +83,32 @@
        android:adjustViewBounds="true"
        android:src="@drawable/banner_image" />
 
-   
-    <Button
-        android:id="@+id/btnSignUp"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:layout_marginBottom="20dp"
-		android:layout_centerHorizontal="true"
-        android:onClick="signup"
-        android:text="Sign up" />
-   
-   <Button
-       android:id="@+id/btnLogOut"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-       android:layout_alignParentLeft="true"
-       android:layout_marginBottom="26dp"
-       android:onClick="logout"
-       android:text="Log Out" />
-
    <Button
        android:id="@+id/btnLogin"
-       android:layout_width="100dp"
-       android:layout_height="wrap_content"
+       style="@style/button_style"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentRight="true"
        android:layout_below="@+id/etPassword"
        android:layout_centerHorizontal="true"
        android:layout_marginTop="30dp"
+       android:layout_marginLeft="40dp"
+       android:layout_marginRight="40dp"       
+       android:background="@drawable/login_button"
        android:onClick="login"
-       android:text="Login" />
+       android:text="Log in" />
+   
+   <Button
+       android:id="@+id/btnSignUp"
+       style="@style/button_style"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentRight="true"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"
+       android:layout_marginLeft="40dp"
+       android:layout_marginRight="40dp"
+       android:layout_marginBottom="20dp"   
+       android:background="@drawable/signup_button"
+       android:onClick="signup"
+       android:text="Sign up" />
 
 </RelativeLayout>
