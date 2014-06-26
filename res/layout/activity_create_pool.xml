@@ -2,75 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+   	android:background="#F0F0F0"
     tools:context="${packageName}.${activityClass}" >
 
-    <TextView
-        android:id="@+id/tvNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/etPoolName"
-        android:layout_alignParentLeft="true"
-        android:text="Name:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/tvFundsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/etPoolFunds"
-        android:layout_alignParentLeft="true"
-        android:text="Funds:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <EditText
-        android:id="@+id/etPlayerLimit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etPoolName"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/etPoolFunds"
-        android:ems="10"
-        android:inputType="number" />
-
+       android:id="@+id/etPoolName"
+       style="@style/editText_login_style"
+       android:background="@drawable/create_pool_background"
+       android:textColorHint="#999"
+       android:textColor="#333"
+       android:hint="Pool Name" />
+   
     <EditText
-        android:id="@+id/etPoolFunds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/etPoolName"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/etPoolName"
-        android:ems="10"
-        android:inputType="numberDecimal" />
+       android:id="@+id/etPoolFunds"
+       style="@style/editText_login_style"
+       android:hint="Funds for each player"
+       android:layout_below="@+id/etPoolName"
+       android:textColorHint="#999"
+       android:textColor="#333"
+       android:background="@drawable/create_pool_background"/>
 
-    <TextView
-        android:id="@+id/tvPlayerLimitLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/etPlayerLimit"
-        android:layout_alignParentLeft="true"
-        android:text="@string/player_limit_label"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+   <EditText
+       android:id="@+id/etPlayerLimit"
+       style="@style/editText_login_style"
+       android:layout_below="@+id/etPoolFunds"
+       android:background="@drawable/create_pool_background"
+       android:textColorHint="#999"
+       android:textColor="#333"
+       android:hint="Player limit"/>
 
-    <EditText
-        android:id="@+id/etPoolName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:ems="10"
-        android:inputType="textPersonName" >
-
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/btnSubmitPool"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etPlayerLimit"
-        android:layout_marginTop="18dp"
-        android:onClick="onSubmitButton"
-        android:text="@string/submit_label" />
+   <Button
+       android:id="@+id/btnSubmitPool"
+       style="@style/button_login_style"
+       android:layout_below="@+id/etPlayerLimit"
+       android:layout_marginTop="30dp"
+       android:background="@drawable/login_button"
+       android:onClick="onSubmitButton"
+       android:text="Create" />
 
 </RelativeLayout>

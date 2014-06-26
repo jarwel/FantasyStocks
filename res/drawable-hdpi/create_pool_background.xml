@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Set the border color here -->
+    <item>
+        <shape>
+            <solid android:color="#0f6a94" />
+        </shape>
+    </item>
+
+    <!--  Replace border color with background color (transparent effect), 
+  	but keep the margins on left, right and bottom -->
+    <item android:bottom="1dp"
+        android:left="1dp"
+        android:right="1dp">
+        <shape>
+            <solid android:color="#f0f0f0" />
+        </shape>
+    </item>
+
+    <!-- draw another block to cut-off the left and right bars -->
+    <item android:bottom="1dp">
+        <shape>
+            <solid android:color="#f0f0f0" />
+        </shape>
+    </item>
+
+</layer-list>
