@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 
 import com.fantasystocks.adapter.PoolAdapter;
 import com.fantasystocks.model.Pool;
@@ -21,7 +23,7 @@ import com.parse.ParseQuery;
 public class JoinPoolActivity extends Activity implements OnItemClickListener {
 
 	private ListView lvPools;
-
+	private SearchView svPool;
 	private PoolAdapter poolAdapter;
 	private List<Pool> pools = Lists.newArrayList();
 
@@ -34,14 +36,31 @@ public class JoinPoolActivity extends Activity implements OnItemClickListener {
 		poolAdapter = new PoolAdapter(this, pools);
 		lvPools.setAdapter(poolAdapter);
 		lvPools.setOnItemClickListener(this);
+		svPool = (SearchView) findViewById(R.id.svPool);
+		svPool.setOnQueryTextListener(new OnQueryTextListener() {
+	       @Override
+	       public boolean onQueryTextSubmit(String query) {
+	            return true;
+	       }
+
+	       @Override
+	       public boolean onQueryTextChange(String queryString) {
+	    	   fetchPoolResults(queryString);
+	           return false;
+	       }
+	   });
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		ParseQuery<Pool> query = ParseQuery.getQuery(Pool.class);
-		query.findInBackground(new FindCallback<Pool>() {
+		fetchPoolResults("");
+	}
 
+	public void fetchPoolResults(String queryString) {
+		ParseQuery<Pool> query = ParseQuery.getQuery(Pool.class);
+		query.whereContains("canonicalName", queryString);
+		query.findInBackground(new FindCallback<Pool>() {
 			@Override
 			public void done(List<Pool> results, ParseException parseException) {
 				if (parseException == null) {
@@ -60,6 +79,7 @@ public class JoinPoolActivity extends Activity implements OnItemClickListener {
 		Intent intent = new Intent(this, ViewPoolActivity.class);
 		intent.putExtra("poolId", pool.getObjectId());
 		intent.putExtra("poolName", pool.getName());
+		intent.putExtra("poolImageUrl", pool.getPoolImageUrl());
 		startActivity(intent);
 	}
 	

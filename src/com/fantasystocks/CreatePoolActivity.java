@@ -38,6 +38,7 @@ public class CreatePoolActivity extends Activity {
 		pool.setFunds(funds);
 		pool.setPlayerLimit(playerLimit);
 		pool.setPoolImageUrl();
+		pool.setCanonicalName(name);
 		pool.saveInBackground(new SaveCallback() {
 			@Override
 			public void done(ParseException parseException) {

@@ -3,8 +3,6 @@ package com.fantasystocks.model;
 import java.io.Serializable;
 import java.util.Random;
 
-import android.util.Log;
-
 import com.fantasystocks.utils.Utils;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
@@ -36,7 +34,16 @@ public class Pool extends ParseObject implements Serializable {
 	public void setFunds(double funds) {
 		put("funds", funds);
 	}
+	
+	public void setCanonicalName(String name) {
+		name = name.toLowerCase();
+		put("canonicalName", name);
+	}
 
+	public String getCanonicalName() {
+		return getString("canonicalName");
+	}
+	
 	public String getPoolImageUrl() {
 		return getString("poolImageUrl");
 	}
