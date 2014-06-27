@@ -27,7 +27,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
 
 		Player player = getItem(position);
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_home, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, parent, false);
 		}
 
 		ImageView ivPlayerImage = (ImageView) convertView.findViewById(R.id.ivItemImage);

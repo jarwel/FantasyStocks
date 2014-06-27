@@ -3,6 +3,8 @@ package com.fantasystocks.model;
 import java.io.Serializable;
 import java.util.Random;
 
+import android.util.Log;
+
 import com.fantasystocks.utils.Utils;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
@@ -49,7 +51,9 @@ public class Pool extends ParseObject implements Serializable {
 	}
 
 	public String getGain(Player portfolio) {
-		return String.format("+$%.2f", new Random().nextDouble());
+		Log.d("ss", new Random().nextInt(8) + "");
+		String sign = new Random().nextInt(8) > 4 ? "+" : "-";
+		return String.format(sign + "$%.2f", new Random().nextDouble());
 	}
 
 }
