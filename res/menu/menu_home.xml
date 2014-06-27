@@ -1,22 +1,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-	
+
     <item
         android:id="@+id/action_create"
         android:orderInCategory="98"
         android:showAsAction="always"
-        android:title="CREATE"/>
-    
+        android:title="@string/create_pool_label"/>
     <item
         android:id="@+id/action_join"
         android:orderInCategory="97"
         android:showAsAction="always"
-        android:title="JOIN"/>
-    
+        android:title="@string/find_pool_label"/>
     <item
         android:id="@+id/action_logout"
+        android:icon="@drawable/ic_action_logout"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:icon="@drawable/ic_action_logout"
         android:title="Log out"/>
 
 </menu>

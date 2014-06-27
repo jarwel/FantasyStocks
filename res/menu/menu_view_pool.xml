@@ -5,6 +5,6 @@
         android:id="@+id/action_join_pool"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:title="JOIN POOL"/>
+        android:title="@string/join_pool_label"/>
 
 </menu>

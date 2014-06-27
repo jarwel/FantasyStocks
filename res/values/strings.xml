@@ -9,8 +9,6 @@
     <string name="title_activity_view_poftfolio">View Portfolio</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="my_pools_label">My Pools</string>
-    <string name="join_pool_label">Join Pool</string>
-    <string name="create_pool_label">Create Pool</string>
     <string name="current_funds_label">Current Value:</string>
     <string name="title_activity_buy">Buy Security</string>
     <string name="symbol_label">Symbol:</string>
@@ -25,5 +23,8 @@
     <string name="password">Password</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
+    <string name="find_pool_label">FIND</string>
+    <string name="create_pool_label">CREATE</string>
+    <string name="join_pool_label">JOIN</string>
 
 </resources>

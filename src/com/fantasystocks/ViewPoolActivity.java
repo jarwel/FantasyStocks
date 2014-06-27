@@ -29,7 +29,6 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	private String poolId;
 	private List<Player> players;
 
-	private TextView tvPoolName;
 	private ListView lvPlayers;
 	private PlayerAdapter playerAdapter;
 
@@ -37,13 +36,13 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_pool);
-		tvPoolName = (TextView) findViewById(R.id.tvPoolName);
 		lvPlayers = (ListView) findViewById(R.id.lvPlayers);
 
 		poolId = getIntent().getStringExtra("poolId");
 		String poolName = getIntent().getStringExtra("poolName");
-
-		tvPoolName.setText(poolName);
+		String poolImageUrl = getIntent().getStringExtra("poolImageUrl");
+		getActionBar().setTitle(poolName);
+		getActionBar().setIcon(getResources().getIdentifier(poolImageUrl, "drawable", getPackageName()));
 
 		players = Lists.newArrayList();
 		playerAdapter = new PlayerAdapter(getBaseContext(), players);

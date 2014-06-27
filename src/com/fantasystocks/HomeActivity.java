@@ -90,6 +90,7 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 		Intent intent = new Intent(this, ViewPoolActivity.class);
 		intent.putExtra("poolId", player.getPool().getObjectId());
 		intent.putExtra("poolName", player.getPool().getName());
+		intent.putExtra("poolImageUrl", player.getPool().getPoolImageUrl());
 		startActivity(intent);
 	}
 }
