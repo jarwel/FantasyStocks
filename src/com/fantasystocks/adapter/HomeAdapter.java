@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,11 +38,13 @@ public class HomeAdapter extends ArrayAdapter<Player> {
 		TextView tvPlayerNetGain = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
 		ImageView ivGainArrow = (ImageView) convertView.findViewById(R.id.ivGainArrow);
 
+		tvPoolTitle.setText(pool.getName());
+		
+		tvPlayerRank.setText(pool.getRank(null));
+		tvPlayerRank.setTypeface(null, Typeface.BOLD);
+		
 		int photoMediaUrl = context.getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", context.getPackageName());
 		ivPoolImage.setImageResource(photoMediaUrl);
-
-		tvPoolTitle.setText(pool.getName());
-		tvPlayerRank.setText(pool.getRank(null));
 		
 		String netGain = pool.getGain(null);
 		tvPlayerNetGain.setText(netGain);
@@ -54,7 +57,6 @@ public class HomeAdapter extends ArrayAdapter<Player> {
 		} else {
 			tvPlayerNetGain.setTextColor(Color.parseColor("#0e5878"));
 		}
-		
 		
 		return convertView;
 	}

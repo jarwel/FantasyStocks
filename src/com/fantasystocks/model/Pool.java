@@ -51,7 +51,6 @@ public class Pool extends ParseObject implements Serializable {
 	}
 
 	public String getGain(Player portfolio) {
-		Log.d("ss", new Random().nextInt(8) + "");
 		String sign = new Random().nextInt(8) > 4 ? "+" : "-";
 		return String.format(sign + "$%.2f", new Random().nextDouble());
 	}
