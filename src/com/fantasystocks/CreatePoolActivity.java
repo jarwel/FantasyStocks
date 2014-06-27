@@ -2,6 +2,7 @@ package com.fantasystocks;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -21,6 +22,7 @@ public class CreatePoolActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_pool);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		etPoolName = (EditText) findViewById(R.id.etPoolName);
 		etPoolFunds = (EditText) findViewById(R.id.etPoolFunds);
 		etPlayerLimit = (EditText) findViewById(R.id.etPlayerLimit);
@@ -57,5 +59,16 @@ public class CreatePoolActivity extends Activity {
 				}
 			}
 		});
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected (MenuItem item) {
+		switch (item.getItemId()) { 	
+		case android.R.id.home: 
+			finish(); 
+			return true;	
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

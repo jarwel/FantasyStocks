@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -28,6 +29,7 @@ public class JoinPoolActivity extends Activity implements OnItemClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_join_pool);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		lvPools = (ListView) findViewById(R.id.lvPools);
 		poolAdapter = new PoolAdapter(this, pools);
 		lvPools.setAdapter(poolAdapter);
@@ -59,5 +61,16 @@ public class JoinPoolActivity extends Activity implements OnItemClickListener {
 		intent.putExtra("poolId", pool.getObjectId());
 		intent.putExtra("poolName", pool.getName());
 		startActivity(intent);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected (MenuItem item) {
+		switch (item.getItemId()) { 	
+		case android.R.id.home: 
+			finish(); 
+			return true;	
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }
