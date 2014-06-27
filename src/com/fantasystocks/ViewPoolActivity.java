@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.fantasystocks.adapter.PlayerAdapter;
 import com.fantasystocks.model.Player;
@@ -36,6 +35,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_pool);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		lvPlayers = (ListView) findViewById(R.id.lvPlayers);
 
 		poolId = getIntent().getStringExtra("poolId");
@@ -73,6 +73,9 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 					finish();
 				}
 			});
+			return true;
+		case android.R.id.home: 
+			finish(); 
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

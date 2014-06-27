@@ -37,18 +37,7 @@ public class JoinPoolActivity extends Activity implements OnItemClickListener {
 		lvPools.setAdapter(poolAdapter);
 		lvPools.setOnItemClickListener(this);
 		svPool = (SearchView) findViewById(R.id.svPool);
-		svPool.setOnQueryTextListener(new OnQueryTextListener() {
-	       @Override
-	       public boolean onQueryTextSubmit(String query) {
-	            return true;
-	       }
-
-	       @Override
-	       public boolean onQueryTextChange(String queryString) {
-	    	   fetchPoolResults(queryString);
-	           return false;
-	       }
-	   });
+		svPool.setOnQueryTextListener(handleTextInSearchView);
 	}
 
 	@Override
@@ -56,10 +45,22 @@ public class JoinPoolActivity extends Activity implements OnItemClickListener {
 		super.onResume();
 		fetchPoolResults("");
 	}
+	
+	public OnQueryTextListener handleTextInSearchView = new OnQueryTextListener() {
+	       @Override
+	       public boolean onQueryTextChange(String queryString) {
+	    	   fetchPoolResults(queryString);
+	           return false;
+	       }   
+	       @Override
+	       public boolean onQueryTextSubmit(String query) {
+	            return true;
+	       }
+	   };
 
 	public void fetchPoolResults(String queryString) {
 		ParseQuery<Pool> query = ParseQuery.getQuery(Pool.class);
-		query.whereContains("canonicalName", queryString);
+		query.whereContains("canonicalName", queryString.toLowerCase());
 		query.findInBackground(new FindCallback<Pool>() {
 			@Override
 			public void done(List<Pool> results, ParseException parseException) {
