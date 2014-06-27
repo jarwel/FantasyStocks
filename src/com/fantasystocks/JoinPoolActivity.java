@@ -4,11 +4,14 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
@@ -38,6 +41,10 @@ public class JoinPoolActivity extends Activity implements OnItemClickListener {
 		lvPools.setOnItemClickListener(this);
 		svPool = (SearchView) findViewById(R.id.svPool);
 		svPool.setOnQueryTextListener(handleTextInSearchView);
+		
+		AutoCompleteTextView searchText = (AutoCompleteTextView) svPool.findViewById(svPool.getContext().getResources().getIdentifier("android:id/search_src_text", null, null));
+		searchText.setHintTextColor(Color.parseColor("#AAAAAA"));
+		searchText.setTextSize(14);
 	}
 
 	@Override
