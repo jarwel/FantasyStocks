@@ -5,9 +5,28 @@
     android:background="#F0F0F0"
     tools:context="${packageName}.${activityClass}" >
 
+    <TextView
+        android:id="@+id/tvCashLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Cash Available:"
+        android:textSize="22dp" />
+
+    <TextView
+        android:id="@+id/tvCash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="$10000.00"
+        android:textSize="22dp" />
+
     <EditText
-        android:id="@+id/etPoolName"
+        android:id="@+id/etSecuritySymbol"
         style="@style/editText_login_style"
+        android:layout_below="@+id/tvCashLabel"
         android:background="@drawable/create_pool_background"
         android:hint="Enter stock symbol"
         android:textColor="#333"
@@ -19,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/etPoolName"
+        android:layout_below="@+id/etSecuritySymbol"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"

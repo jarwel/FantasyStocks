@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Current Funds:"
+        android:text="Total Value:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tvSecuritySymbolLabel"
-        android:text="Total Gain:"
+        android:text="Gain:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView

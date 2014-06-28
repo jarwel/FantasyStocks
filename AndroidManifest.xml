@@ -43,7 +43,7 @@
         </activity>
         <activity
             android:name="com.fantasystocks.ViewPlayerActivity"
-            android:label="@string/title_activity_view_poftfolio" >
+            android:label="@string/title_activity_view_player" >
         </activity>
         <activity
             android:name="com.fantasystocks.TradeActivity"

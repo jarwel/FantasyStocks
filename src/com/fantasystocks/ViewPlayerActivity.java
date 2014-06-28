@@ -31,6 +31,13 @@ public class ViewPlayerActivity extends Activity {
 		lvLots = (ListView) findViewById(R.id.lvLots);
 
 		playerId = getIntent().getStringExtra("playerId");
+		String playerName = getIntent().getStringExtra("playerName");
+		String playerImageUrl = getIntent().getStringExtra("playerImageUrl");
+
+		getActionBar().setTitle(String.format("%s's Portfolio", playerName));
+		if (playerImageUrl != null) {
+			getActionBar().setIcon(getResources().getIdentifier(playerImageUrl, "drawable", getPackageName()));
+		}
 
 		lotsAdapter = new ArrayAdapter<Lot>(getBaseContext(), android.R.layout.simple_list_item_1, Lists.<Lot> newArrayList());
 		lvLots.setAdapter(lotsAdapter);

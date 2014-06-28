@@ -44,7 +44,6 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 		query.whereEqualTo("user", ParseUser.getCurrentUser());
 		query.include("pool");
 		query.findInBackground(new FindCallback<Player>() {
-
 			@Override
 			public void done(List<Player> results, ParseException parseException) {
 				if (parseException == null) {

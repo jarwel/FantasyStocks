@@ -6,7 +6,7 @@
     tools:context="${packageName}.${activityClass}" >
 
     <EditText
-       android:id="@+id/etPoolName"
+       android:id="@+id/etSecuritySymbol"
        style="@style/editText_login_style"
        android:background="@drawable/create_pool_background"
        android:textColorHint="#999"
@@ -17,7 +17,7 @@
        android:id="@+id/etPoolFunds"
        style="@style/editText_login_style"
        android:hint="Funds for each player"
-       android:layout_below="@+id/etPoolName"
+       android:layout_below="@+id/etSecuritySymbol"
        android:textColorHint="#999"
        android:textColor="#333"
        android:background="@drawable/create_pool_background"/>

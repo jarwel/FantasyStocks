@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.fantasystocks.adapter.PlayerAdapter;
 import com.fantasystocks.model.Player;
@@ -41,8 +40,11 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		poolId = getIntent().getStringExtra("poolId");
 		String poolName = getIntent().getStringExtra("poolName");
 		String poolImageUrl = getIntent().getStringExtra("poolImageUrl");
+
 		getActionBar().setTitle(poolName);
-		getActionBar().setIcon(getResources().getIdentifier(poolImageUrl, "drawable", getPackageName()));
+		if (poolImageUrl != null) {
+			getActionBar().setIcon(getResources().getIdentifier(poolImageUrl, "drawable", getPackageName()));
+		}
 
 		players = Lists.newArrayList();
 		playerAdapter = new PlayerAdapter(getBaseContext(), players);
@@ -82,8 +84,10 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Player player = playerAdapter.getItem(position);
-		Intent intent = new Intent(ViewPoolActivity.this, ViewPlayerActivity.class);
+		Intent intent = new Intent(this, ViewPlayerActivity.class);
 		intent.putExtra("playerId", player.getObjectId());
+		intent.putExtra("playerName", player.getUser().getString("name"));
+		intent.putExtra("playerImageUrl", player.getUser().getString("imageUrl"));
 		startActivity(intent);
 	}
 

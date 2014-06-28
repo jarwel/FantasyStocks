@@ -3,10 +3,10 @@
 
     <string name="app_name">Fantasy Stocks</string>
     <string name="title_activity_home">My Pools</string>
-    <string name="title_activity_find_pool">Join Pool</string>
+    <string name="title_activity_find_pool">Find Pools</string>
     <string name="title_activity_create_pool">Create Pool</string>
     <string name="title_activity_view_pool">View Pool</string>
-    <string name="title_activity_view_poftfolio">View Portfolio</string>
+    <string name="title_activity_view_player">View Player</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="my_pools_label">My Pools</string>
     <string name="current_funds_label">Current Value:</string>

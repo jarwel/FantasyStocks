@@ -14,21 +14,12 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/tvGain"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tvFundsLabel"
         android:layout_below="@+id/tvFundsLabel"
-        android:text="Top Player:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvGain"
-        android:layout_below="@+id/tvGain"
-        android:text="Your position:"
+        android:text="Date Range:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView

@@ -21,7 +21,7 @@ public class CreatePoolActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_pool);
-		etPoolName = (EditText) findViewById(R.id.etPoolName);
+		etPoolName = (EditText) findViewById(R.id.etSecuritySymbol);
 		etPoolFunds = (EditText) findViewById(R.id.etPoolFunds);
 		etPlayerLimit = (EditText) findViewById(R.id.etPlayerLimit);
 	}
