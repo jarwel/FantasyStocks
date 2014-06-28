@@ -24,7 +24,7 @@
        android:id="@+id/btnLogin"
        style="@style/button_login_style"
        android:layout_below="@+id/etLoginPassword"
-       android:layout_marginTop="30dp"
+       android:layout_marginTop="40dp"
        android:background="@drawable/login_button"
        android:text="@string/logIn" />
    
@@ -35,5 +35,16 @@
        android:layout_marginBottom="20dp"
        android:background="@drawable/signup_button"
        android:text="@string/signUp" />
+
+   <TextView
+       android:id="@+id/tvLoginError"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/etLoginPassword"
+       android:layout_below="@+id/etLoginPassword"
+       android:textColor="#FF0000"
+       android:layout_marginTop="12dp"
+       android:layout_marginLeft="5dp"
+       android:textSize="12sp"/>
 
 </RelativeLayout>

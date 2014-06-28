@@ -35,6 +35,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_pool);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		lvPlayers = (ListView) findViewById(R.id.lvPlayers);
 
 		poolId = getIntent().getStringExtra("poolId");
@@ -75,6 +76,9 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 					finish();
 				}
 			});
+			return true;
+		case android.R.id.home: 
+			finish(); 
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

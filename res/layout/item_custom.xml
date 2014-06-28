@@ -45,4 +45,12 @@
         android:textColor="#666"
         android:textSize="12dp" />
 
+    <ImageView
+        android:id="@+id/ivGainArrow"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_alignBottom="@+id/tvSubTitleBottom"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/tvSubTitleBottom" />
+
 </RelativeLayout>

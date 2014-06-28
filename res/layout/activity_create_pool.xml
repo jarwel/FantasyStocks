@@ -2,42 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   	android:background="#F0F0F0"
+    android:background="#F0F0F0"
     tools:context="${packageName}.${activityClass}" >
 
     <EditText
-       android:id="@+id/etSecuritySymbol"
-       style="@style/editText_login_style"
-       android:background="@drawable/create_pool_background"
-       android:textColorHint="#999"
-       android:textColor="#333"
-       android:hint="Pool Name" />
-   
+        android:id="@+id/etPoolName"
+        style="@style/editText_login_style"
+        android:background="@drawable/create_pool_background"
+        android:hint="Pool Name"
+        android:textColor="#333"
+        android:textColorHint="#999" />
+
     <EditText
-       android:id="@+id/etPoolFunds"
-       style="@style/editText_login_style"
-       android:hint="Funds for each player"
-       android:layout_below="@+id/etSecuritySymbol"
-       android:textColorHint="#999"
-       android:textColor="#333"
-       android:background="@drawable/create_pool_background"/>
+        android:id="@+id/etPoolFunds"
+        style="@style/editText_login_style"
+        android:layout_below="@+id/etSecuritySymbol"
+        android:background="@drawable/create_pool_background"
+        android:hint="Funds for each player"
+        android:textColor="#333"
+        android:textColorHint="#999" />
 
-   <EditText
-       android:id="@+id/etPlayerLimit"
-       style="@style/editText_login_style"
-       android:layout_below="@+id/etPoolFunds"
-       android:background="@drawable/create_pool_background"
-       android:textColorHint="#999"
-       android:textColor="#333"
-       android:hint="Player limit"/>
+    <EditText
+        android:id="@+id/etPlayerLimit"
+        style="@style/editText_login_style"
+        android:layout_below="@+id/etPoolFunds"
+        android:background="@drawable/create_pool_background"
+        android:hint="Player limit"
+        android:textColor="#333"
+        android:textColorHint="#999" />
 
-   <Button
-       android:id="@+id/btnSubmitPool"
-       style="@style/button_login_style"
-       android:layout_below="@+id/etPlayerLimit"
-       android:layout_marginTop="30dp"
-       android:background="@drawable/login_button"
-       android:onClick="onSubmitButton"
-       android:text="Create" />
+    <Button
+        android:id="@+id/btnSubmitPool"
+        style="@style/button_login_style"
+        android:layout_below="@+id/etPlayerLimit"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/login_button"
+        android:onClick="onSubmitButton"
+        android:text="Create" />
 
 </RelativeLayout>

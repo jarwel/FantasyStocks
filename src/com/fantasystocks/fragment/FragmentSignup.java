@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.fantasystocks.LoginActivity;
 import com.fantasystocks.R;
@@ -26,6 +26,7 @@ public class FragmentSignup extends Fragment implements OnClickListener {
 	EditText etSignUpName;
 	EditText etSignUpEmail;
 	Button btnSignUp;
+	TextView tvSignupError;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -44,6 +45,7 @@ public class FragmentSignup extends Fragment implements OnClickListener {
 		etSignUpEmail = (EditText) view.findViewById(R.id.etSignUpEmail);
 		etSignUpPassword = (EditText) view.findViewById(R.id.etSignUpPassword);
 		etSignUpName = (EditText) view.findViewById(R.id.etSignUpName);
+		tvSignupError = (TextView) view.findViewById(R.id.tvSignupError);
 		btnSignUp = (Button) view.findViewById(R.id.btnSignUp);
 		btnSignUp.setOnClickListener(this);
 	}
@@ -67,7 +69,7 @@ public class FragmentSignup extends Fragment implements OnClickListener {
 		if (!name.isEmpty() && !password.isEmpty() && !email.isEmpty()) {
 			signup(name, password, email);
 		} else {
-			Toast.makeText(listener, "Please check the entered values", Toast.LENGTH_LONG).show();
+			tvSignupError.setText("Please check the entered values.");
 		}
 	}
 
@@ -83,11 +85,15 @@ public class FragmentSignup extends Fragment implements OnClickListener {
 			public void done(ParseException e) {
 				if (e == null) {
 					Log.d("Success LoginActivity", "User is signed up");
-					// Handle post sign up flow - showing the tour
 					((LoginActivity) listener).launchMainActivity();
-
 				} else {
-					Log.d("Error LoginActivity", "" + e);
+					if (e.getCode() == 125) {
+						tvSignupError.setText("Invalid email entered. Please try again.");
+					} else if (e.getCode() == 202) {
+						tvSignupError.setText("Email already exists. Please try again.");
+					} else {
+						tvSignupError.setText("Something went wrong. Please try again: " + e.getCode());
+					}
 				}
 			}
 		});

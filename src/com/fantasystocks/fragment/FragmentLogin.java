@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.fantasystocks.LoginActivity;
 import com.fantasystocks.R;
@@ -25,6 +25,7 @@ public class FragmentLogin extends Fragment implements OnClickListener{
 	EditText etLoginEmail;
 	Button btnLogin;
 	Button btnSignUpLauncher;
+	TextView tvLoginError;
  
 	@Override
 	public void onAttach(Activity activity) {
@@ -45,6 +46,7 @@ public class FragmentLogin extends Fragment implements OnClickListener{
 		etLoginPassword = (EditText) view.findViewById(R.id.etLoginPassword);
 		btnLogin = (Button) view.findViewById(R.id.btnLogin);
 		btnSignUpLauncher = (Button) view.findViewById(R.id.btnSignUpLauncher);
+		tvLoginError = (TextView) view.findViewById(R.id.tvLoginError);
 		btnLogin.setOnClickListener(this);
 		btnSignUpLauncher.setOnClickListener(this);
 	}
@@ -70,7 +72,7 @@ public class FragmentLogin extends Fragment implements OnClickListener{
 		if (!email.isEmpty() && !password.isEmpty()) {
 			login(email, password);
 		} else {
-			Toast.makeText(listener, "Please check the entered values", Toast.LENGTH_SHORT).show();
+			tvLoginError.setText("Please check the entered values.");
 		}
 	}
 	
@@ -82,7 +84,12 @@ public class FragmentLogin extends Fragment implements OnClickListener{
 					Log.d("Success LoginActivity", "User is logged In with username: " + ParseUser.getCurrentUser().getUsername());
 					((LoginActivity) listener).launchMainActivity();
 				} else {
-					Log.d("Error LoginActivity", "" + e);
+					if (e.getCode() == 101) {
+						tvLoginError.setText("The credentials you entered are incorrect.");
+					} else {
+						tvLoginError.setText("Something went wrong. Please try again: " + e.getCode());
+					}
+					
 				}
 			}
 		});

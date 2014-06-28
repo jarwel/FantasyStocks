@@ -29,8 +29,19 @@
        android:id="@+id/btnSignUp"
        style="@style/button_login_style"
        android:layout_below="@+id/etSignUpPassword"
-       android:layout_marginTop="30dp"
+       android:layout_marginTop="40dp"
        android:background="@drawable/login_button"
        android:text="@string/signUp" />
+
+    <TextView
+       android:id="@+id/tvSignupError"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignLeft="@+id/etSignUpPassword"
+       android:layout_below="@+id/etSignUpPassword"
+       android:textColor="#FF0000"
+       android:layout_marginTop="12dp"
+       android:layout_marginLeft="5dp"
+       android:textSize="12sp"/>
 
 </RelativeLayout>

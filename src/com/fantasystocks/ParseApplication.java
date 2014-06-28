@@ -22,8 +22,8 @@ public class ParseApplication extends Application {
 		ParseObject.registerSubclass(Pool.class);
 		ParseObject.registerSubclass(Player.class);
 		ParseObject.registerSubclass(Lot.class);
-		// Parse.initialize(this, SAUMITRA_APP_ID, SAUMITRA_SECRET);
-		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
+		Parse.initialize(this, SAUMITRA_APP_ID, SAUMITRA_SECRET);
+		//Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
 		Intent i = null;
 		if (Utils.isUserLoggedIn()) {
 			i = new Intent(this, HomeActivity.class);
