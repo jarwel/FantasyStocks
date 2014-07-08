@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -17,8 +18,7 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.fantasystocks.client.YahooFinanceClient;
-import com.fantasystocks.model.Lot;
-import com.fantasystocks.model.Player;
+import com.fantasystocks.model.Portfolio;
 import com.fantasystocks.model.Quote;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -26,18 +26,20 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
 public class TradeActivity extends Activity {
-	private static final DecimalFormat dollarFormat = new DecimalFormat("$##,##,##,##,##,##,##0.00");
+	private static final DecimalFormat dollarFormat = new DecimalFormat("$###,###,###,###,##0.00");
 
-	private Player player;
+	private Portfolio portfolio;
 	private Quote quote;
 
 	private TextView tvCash;
 	private TextView tvSecurityName;
 	private TextView tvSecurityPrice;
+	private TextView tvOrderTotalLabel;
 	private TextView tvOrderTotal;
 	private TextView tvSecuritySymbol;
 	private EditText etOrderShares;
 	private EditText etSecuritySymbol;
+	private Button btnPlaceOrder;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,44 +49,49 @@ public class TradeActivity extends Activity {
 		tvSecurityName = (TextView) findViewById(R.id.tvSecurityName);
 		tvSecuritySymbol = (TextView) findViewById(R.id.tvSecuritySymbol);
 		tvSecurityPrice = (TextView) findViewById(R.id.tvSecurityPrice);
+		tvOrderTotalLabel = (TextView) findViewById(R.id.tvOrderTotalLabel);
 		tvOrderTotal = (TextView) findViewById(R.id.tvOrderTotal);
 		etOrderShares = (EditText) findViewById(R.id.etOrderShares);
 		etSecuritySymbol = (EditText) findViewById(R.id.etSecuritySymbol);
-		etSecuritySymbol.requestFocus();
+		btnPlaceOrder = (Button) findViewById(R.id.btnPlaceOrder);
 
-		String playerId = getIntent().getStringExtra("playerId");
-		loadPlayer(playerId);
+		String portfolioId = getIntent().getStringExtra("portfolioId");
+		loadPortfolio(portfolioId);
 		setListeners();
 	}
 
 	public void onPlaceOrderClicked(View view) {
 		String symbol = etSecuritySymbol.getText().toString();
 		int shares = Integer.parseInt(etOrderShares.getText().toString());
-		double costBasis = shares * quote.getPrice();
-
-		Lot lot = new Lot();
-		lot.setPlayer(player);
-		lot.setSymbol(symbol);
-		lot.setShares(shares);
-		lot.setCostBasis(costBasis);
-		lot.saveInBackground(new SaveCallback() {
+		final double costBasis = shares * quote.getPrice();
+		portfolio.addLot(symbol, shares, costBasis, new SaveCallback() {
 			@Override
 			public void done(ParseException parseException) {
 				if (parseException != null) {
 					parseException.printStackTrace();
+				} else {
+					portfolio.setCash(portfolio.getCash() - costBasis);
+					portfolio.saveInBackground(new SaveCallback() {
+						@Override
+						public void done(ParseException parseException) {
+							if (parseException != null) {
+								parseException.printStackTrace();
+							}
+							finish();
+						}
+					});
 				}
-				finish();
 			}
 		});
 	}
 
-	private void loadPlayer(String playerId) {
-		ParseQuery<Player> query = ParseQuery.getQuery("Player");
-		query.getInBackground(playerId, new GetCallback<Player>() {
-			public void done(Player result, ParseException parseException) {
+	private void loadPortfolio(String portfolioId) {
+		ParseQuery<Portfolio> query = ParseQuery.getQuery("Portfolio");
+		query.getInBackground(portfolioId, new GetCallback<Portfolio>() {
+			public void done(Portfolio result, ParseException parseException) {
 				if (parseException == null) {
-					player = result;
-					tvCash.setText(dollarFormat.format(player.getCash()));
+					portfolio = result;
+					tvCash.setText(dollarFormat.format(portfolio.getCash()));
 				} else {
 					parseException.printStackTrace();
 				}
@@ -119,13 +126,23 @@ public class TradeActivity extends Activity {
 	}
 
 	private void calculateTotals() {
+		tvOrderTotalLabel.setText("");
 		tvOrderTotal.setText("");
+		btnPlaceOrder.setClickable(false);
 		try {
 			String orderNum = etOrderShares.getText().toString();
 			if (!orderNum.isEmpty()) {
 				int shares = Integer.parseInt(etOrderShares.getText().toString());
 				double total = quote.getPrice() * shares;
 				tvOrderTotal.setText(dollarFormat.format(total));
+				if (total <= portfolio.getCash()) {
+					tvOrderTotal.setTextColor(getResources().getColor(R.color.text_gray));
+					tvOrderTotalLabel.setText(R.string.order_total_label);
+					btnPlaceOrder.setClickable(true);
+				} else {
+					tvOrderTotal.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+					tvOrderTotalLabel.setText(R.string.insufficient_funds_label);
+				}
 			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

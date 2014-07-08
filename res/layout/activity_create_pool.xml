@@ -16,7 +16,7 @@
     <EditText
         android:id="@+id/etPoolFunds"
         style="@style/editText_login_style"
-        android:layout_below="@+id/etSecuritySymbol"
+        android:layout_below="@+id/etPoolName"
         android:background="@drawable/create_pool_background"
         android:hint="Funds for each player"
         android:textColor="#333"

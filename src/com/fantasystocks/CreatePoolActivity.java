@@ -6,7 +6,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import com.fantasystocks.model.Player;
 import com.fantasystocks.model.Pool;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -43,10 +42,7 @@ public class CreatePoolActivity extends Activity {
 			@Override
 			public void done(ParseException parseException) {
 				if (parseException == null) {
-					Player player = new Player();
-					player.setUser(ParseUser.getCurrentUser());
-					player.setPool(pool);
-					player.saveInBackground(new SaveCallback() {
+					pool.addPortfolio(ParseUser.getCurrentUser(), new SaveCallback() {
 						@Override
 						public void done(ParseException parseException) {
 							if (parseException != null) {

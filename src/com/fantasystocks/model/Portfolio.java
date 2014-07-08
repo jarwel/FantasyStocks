@@ -3,9 +3,10 @@ package com.fantasystocks.model;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
-@ParseClassName("Player")
-public class Player extends ParseObject {
+@ParseClassName("Portfolio")
+public class Portfolio extends ParseObject {
 
 	public ParseUser getUser() {
 		return getParseUser("user");
@@ -31,8 +32,13 @@ public class Player extends ParseObject {
 		put("cash", cash);
 	}
 
-	public void addLot(Lot lot) {
-		getRelation("lots").add(lot);
+	public void addLot(String symbol, int shares, double costBasis, SaveCallback callback) {
+		Lot lot = new Lot();
+		lot.setPortfolio(this);
+		lot.setSymbol(symbol);
+		lot.setShares(shares);
+		lot.setCostBasis(costBasis);
+		lot.saveInBackground(callback);
 	}
 
 }

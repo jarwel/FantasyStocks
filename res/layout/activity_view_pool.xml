@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="14dp"
-        android:text="Players:"
+        android:text="Portfolios:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -32,7 +32,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ListView
-        android:id="@+id/lvPlayers"
+        android:id="@+id/lvPortfolios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

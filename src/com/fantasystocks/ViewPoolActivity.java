@@ -12,8 +12,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.fantasystocks.adapter.PlayerAdapter;
-import com.fantasystocks.model.Player;
+import com.fantasystocks.adapter.PortfolioAdapter;
+import com.fantasystocks.model.Portfolio;
 import com.fantasystocks.model.Pool;
 import com.google.common.collect.Lists;
 import com.parse.FindCallback;
@@ -26,17 +26,17 @@ import com.parse.SaveCallback;
 public class ViewPoolActivity extends Activity implements OnItemClickListener {
 
 	private String poolId;
-	private List<Player> players;
+	private List<Portfolio> portfolios;
 
-	private ListView lvPlayers;
-	private PlayerAdapter playerAdapter;
+	private ListView lvPortfolios;
+	private PortfolioAdapter portfolioAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_pool);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		lvPlayers = (ListView) findViewById(R.id.lvPlayers);
+		lvPortfolios = (ListView) findViewById(R.id.lvPortfolios);
 
 		poolId = getIntent().getStringExtra("poolId");
 		String poolName = getIntent().getStringExtra("poolName");
@@ -47,11 +47,11 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 			getActionBar().setIcon(getResources().getIdentifier(poolImageUrl, "drawable", getPackageName()));
 		}
 
-		players = Lists.newArrayList();
-		playerAdapter = new PlayerAdapter(getBaseContext(), players);
-		lvPlayers.setAdapter(playerAdapter);
-		lvPlayers.setOnItemClickListener(this);
-		loadPlayers(poolId);
+		portfolios = Lists.newArrayList();
+		portfolioAdapter = new PortfolioAdapter(getBaseContext(), portfolios);
+		lvPortfolios.setAdapter(portfolioAdapter);
+		lvPortfolios.setOnItemClickListener(this);
+		loadPortfolios(poolId);
 	}
 
 	@Override
@@ -64,10 +64,10 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_join_pool:
-			Player player = new Player();
-			player.setUser(ParseUser.getCurrentUser());
-			player.setPool(ParseObject.createWithoutData(Pool.class, poolId));
-			player.saveInBackground(new SaveCallback() {
+			Portfolio portfolio = new Portfolio();
+			portfolio.setUser(ParseUser.getCurrentUser());
+			portfolio.setPool(ParseObject.createWithoutData(Pool.class, poolId));
+			portfolio.saveInBackground(new SaveCallback() {
 				@Override
 				public void done(ParseException parseException) {
 					if (parseException != null) {
@@ -77,8 +77,8 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 				}
 			});
 			return true;
-		case android.R.id.home: 
-			finish(); 
+		case android.R.id.home:
+			finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -87,24 +87,24 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Player player = playerAdapter.getItem(position);
-		Intent intent = new Intent(this, ViewPlayerActivity.class);
-		intent.putExtra("playerId", player.getObjectId());
-		intent.putExtra("playerName", player.getUser().getString("name"));
-		intent.putExtra("playerImageUrl", player.getUser().getString("imageUrl"));
+		Portfolio portfolio = portfolioAdapter.getItem(position);
+		Intent intent = new Intent(this, ViewPortfolioActivity.class);
+		intent.putExtra("portfolioId", portfolio.getObjectId());
+		intent.putExtra("portfolioName", portfolio.getUser().getString("name"));
+		intent.putExtra("portfolioImageUrl", portfolio.getUser().getString("imageUrl"));
 		startActivity(intent);
 	}
 
-	private void loadPlayers(String poolId) {
-		ParseQuery<Player> query = ParseQuery.getQuery("Player");
+	private void loadPortfolios(String poolId) {
+		ParseQuery<Portfolio> query = ParseQuery.getQuery("Portfolio");
 		query.whereEqualTo("pool", ParseObject.createWithoutData("Pool", poolId));
 		query.include("user");
-		query.findInBackground(new FindCallback<Player>() {
+		query.findInBackground(new FindCallback<Portfolio>() {
 			@Override
-			public void done(List<Player> results, ParseException parseException) {
+			public void done(List<Portfolio> results, ParseException parseException) {
 				if (parseException == null) {
-					playerAdapter.clear();
-					playerAdapter.addAll(results);
+					portfolioAdapter.clear();
+					portfolioAdapter.addAll(results);
 				} else {
 					parseException.printStackTrace();
 				}

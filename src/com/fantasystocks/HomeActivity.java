@@ -13,7 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.fantasystocks.adapter.HomeAdapter;
-import com.fantasystocks.model.Player;
+import com.fantasystocks.model.Portfolio;
 import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -25,14 +25,14 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 	private ListView lvPools;
 
 	private HomeAdapter homeAdapter;
-	private List<Player> players = Lists.newArrayList();
+	private List<Portfolio> portfolios = Lists.newArrayList();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		lvPools = (ListView) findViewById(R.id.lvPools);
-		homeAdapter = new HomeAdapter(this, players);
+		homeAdapter = new HomeAdapter(this, portfolios);
 		lvPools.setAdapter(homeAdapter);
 		lvPools.setOnItemClickListener(this);
 	}
@@ -40,12 +40,12 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		ParseQuery<Player> query = ParseQuery.getQuery("Player");
+		ParseQuery<Portfolio> query = ParseQuery.getQuery("Portfolio");
 		query.whereEqualTo("user", ParseUser.getCurrentUser());
 		query.include("pool");
-		query.findInBackground(new FindCallback<Player>() {
+		query.findInBackground(new FindCallback<Portfolio>() {
 			@Override
-			public void done(List<Player> results, ParseException parseException) {
+			public void done(List<Portfolio> results, ParseException parseException) {
 				if (parseException == null) {
 					homeAdapter.clear();
 					homeAdapter.addAll(results);
@@ -70,7 +70,7 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 			startActivity(intent);
 			return true;
 		case R.id.action_join:
-			Intent intent2 = new Intent(this, JoinPoolActivity.class);
+			Intent intent2 = new Intent(this, FindPoolActivity.class);
 			startActivity(intent2);
 			return true;
 		case R.id.action_logout:
@@ -85,11 +85,11 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Player player = homeAdapter.getItem(position);
+		Portfolio portfolio = homeAdapter.getItem(position);
 		Intent intent = new Intent(this, ViewPoolActivity.class);
-		intent.putExtra("poolId", player.getPool().getObjectId());
-		intent.putExtra("poolName", player.getPool().getName());
-		intent.putExtra("poolImageUrl", player.getPool().getPoolImageUrl());
+		intent.putExtra("poolId", portfolio.getPool().getObjectId());
+		intent.putExtra("poolName", portfolio.getPool().getName());
+		intent.putExtra("poolImageUrl", portfolio.getPool().getPoolImageUrl());
 		startActivity(intent);
 	}
 }

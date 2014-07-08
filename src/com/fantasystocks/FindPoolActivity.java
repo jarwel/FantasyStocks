@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,7 +22,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
-public class JoinPoolActivity extends Activity implements OnItemClickListener {
+public class FindPoolActivity extends Activity implements OnItemClickListener {
 
 	private ListView lvPools;
 	private SearchView svPool;
@@ -33,7 +32,7 @@ public class JoinPoolActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_join_pool);
+		setContentView(R.layout.activity_find_pool);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		lvPools = (ListView) findViewById(R.id.lvPools);
 		poolAdapter = new PoolAdapter(this, pools);
@@ -41,8 +40,9 @@ public class JoinPoolActivity extends Activity implements OnItemClickListener {
 		lvPools.setOnItemClickListener(this);
 		svPool = (SearchView) findViewById(R.id.svPool);
 		svPool.setOnQueryTextListener(handleTextInSearchView);
-		
-		AutoCompleteTextView searchText = (AutoCompleteTextView) svPool.findViewById(svPool.getContext().getResources().getIdentifier("android:id/search_src_text", null, null));
+
+		AutoCompleteTextView searchText = (AutoCompleteTextView) svPool.findViewById(svPool.getContext().getResources()
+				.getIdentifier("android:id/search_src_text", null, null));
 		searchText.setHintTextColor(Color.parseColor("#AAAAAA"));
 		searchText.setTextSize(14);
 	}
@@ -52,18 +52,19 @@ public class JoinPoolActivity extends Activity implements OnItemClickListener {
 		super.onResume();
 		fetchPoolResults("");
 	}
-	
+
 	public OnQueryTextListener handleTextInSearchView = new OnQueryTextListener() {
-	       @Override
-	       public boolean onQueryTextChange(String queryString) {
-	    	   fetchPoolResults(queryString);
-	           return false;
-	       }   
-	       @Override
-	       public boolean onQueryTextSubmit(String query) {
-	            return true;
-	       }
-	   };
+		@Override
+		public boolean onQueryTextChange(String queryString) {
+			fetchPoolResults(queryString);
+			return false;
+		}
+
+		@Override
+		public boolean onQueryTextSubmit(String query) {
+			return true;
+		}
+	};
 
 	public void fetchPoolResults(String queryString) {
 		ParseQuery<Pool> query = ParseQuery.getQuery(Pool.class);
@@ -90,13 +91,13 @@ public class JoinPoolActivity extends Activity implements OnItemClickListener {
 		intent.putExtra("poolImageUrl", pool.getPoolImageUrl());
 		startActivity(intent);
 	}
-	
+
 	@Override
-	public boolean onOptionsItemSelected (MenuItem item) {
-		switch (item.getItemId()) { 	
-		case android.R.id.home: 
-			finish(); 
-			return true;	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

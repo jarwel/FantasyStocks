@@ -6,7 +6,7 @@
     <string name="title_activity_find_pool">Find Pool</string>
     <string name="title_activity_create_pool">Create Pool</string>
     <string name="title_activity_view_pool">View Pool</string>
-    <string name="title_activity_view_player">View Player</string>
+    <string name="title_activity_view_portfolio">View portfolio</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="my_pools_label">My Pools</string>
     <string name="current_funds_label">Current Value:</string>
@@ -17,7 +17,7 @@
     <string name="place_order_label">Place Order</string>
     <string name="trade_label">Trade</string>
     <string name="submit_label">Submit</string>
-    <string name="player_limit_label">Player Limit:</string>
+    <string name="portfolio_limit_label">portfolio Limit:</string>
     <string name="logIn">Log in</string>
     <string name="signUp">Sign up</string>
     <string name="password">Password</string>
@@ -26,5 +26,10 @@
     <string name="find_pool_label">FIND</string>
     <string name="create_pool_label">CREATE</string>
     <string name="join_pool_label">JOIN</string>
+    <string name="cash_available_label">Available for trade</string>
+    <string name="symbol_hint">Enter stock symbol</string>
+    <string name="shares_hint">Enter shares to purchase</string>
+    <string name="order_total_label">Order Total</string>
+    <string name="insufficient_funds_label">Insufficient Funds</string>
 
 </resources>

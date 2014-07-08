@@ -30,18 +30,18 @@ public class PoolAdapter extends ArrayAdapter<Pool> {
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, parent, false);
 		}
-		
+
 		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
 		TextView tvPoolTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
 		TextView tvAvailableSlots = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
-		TextView tvTotalPlayerLimit = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
+		TextView tvTotalSlots = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
 		tvAvailableSlots.setTextColor(Color.parseColor("#FF0000"));
-		
+
 		int photoMediaUrl = context.getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", context.getPackageName());
 		ivPoolImage.setImageResource(photoMediaUrl);
-		
+
 		tvPoolTitle.setText(pool.getName());
-		tvTotalPlayerLimit.setText("Total: " + pool.getPlayerLimit());
+		tvTotalSlots.setText("Total: " + pool.getPlayerLimit());
 		tvAvailableSlots.setText("Open: " + new Random().nextInt(8) + "");
 		return convertView;
 	}

@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/tvPlayerRank"
+        android:id="@+id/tvPortfolioRank"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -12,11 +12,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/tvPlayerName"
+        android:id="@+id/tvPortfolioName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="5 Players"
+        android:text="5 portfolios"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>

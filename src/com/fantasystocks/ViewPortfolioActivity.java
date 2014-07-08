@@ -10,16 +10,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.fantasystocks.model.Lot;
-import com.fantasystocks.model.Player;
+import com.fantasystocks.model.Portfolio;
 import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-public class ViewPlayerActivity extends Activity {
+public class ViewPortfolioActivity extends Activity {
 
-	private String playerId;
+	private String portfolioId;
 
 	private ListView lvLots;
 	private ArrayAdapter<Lot> lotsAdapter;
@@ -27,16 +27,16 @@ public class ViewPlayerActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_view_player);
+		setContentView(R.layout.activity_view_portfolio);
 		lvLots = (ListView) findViewById(R.id.lvLots);
 
-		playerId = getIntent().getStringExtra("playerId");
-		String playerName = getIntent().getStringExtra("playerName");
-		String playerImageUrl = getIntent().getStringExtra("playerImageUrl");
+		portfolioId = getIntent().getStringExtra("portfolioId");
+		String portfolioName = getIntent().getStringExtra("portfolioName");
+		String portfolioImageUrl = getIntent().getStringExtra("portfolioImageUrl");
 
-		getActionBar().setTitle(String.format("%s's Portfolio", playerName));
-		if (playerImageUrl != null) {
-			getActionBar().setIcon(getResources().getIdentifier(playerImageUrl, "drawable", getPackageName()));
+		getActionBar().setTitle(String.format("%s's Portfolio", portfolioName));
+		if (portfolioImageUrl != null) {
+			getActionBar().setIcon(getResources().getIdentifier(portfolioImageUrl, "drawable", getPackageName()));
 		}
 
 		lotsAdapter = new ArrayAdapter<Lot>(getBaseContext(), android.R.layout.simple_list_item_1, Lists.<Lot> newArrayList());
@@ -47,7 +47,7 @@ public class ViewPlayerActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		ParseQuery<Lot> query = ParseQuery.getQuery("Lot");
-		query.whereEqualTo("player", ParseObject.createWithoutData(Player.class, playerId));
+		query.whereEqualTo("portfolio", ParseObject.createWithoutData(Portfolio.class, portfolioId));
 		query.findInBackground(new FindCallback<Lot>() {
 			@Override
 			public void done(List<Lot> results, ParseException parseException) {
@@ -62,8 +62,8 @@ public class ViewPlayerActivity extends Activity {
 	}
 
 	public void onTradeClicked(View view) {
-		Intent intent = new Intent(ViewPlayerActivity.this, TradeActivity.class);
-		intent.putExtra("playerId", playerId);
+		Intent intent = new Intent(ViewPortfolioActivity.this, TradeActivity.class);
+		intent.putExtra("portfolioId", portfolioId);
 		startActivity(intent);
 	}
 

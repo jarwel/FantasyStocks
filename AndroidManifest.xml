@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.fantasystocks.JoinPoolActivity"
+            android:name="com.fantasystocks.FindPoolActivity"
             android:label="@string/title_activity_find_pool" >
         </activity>
         <activity
@@ -42,8 +42,8 @@
             android:label="@string/title_activity_view_pool" >
         </activity>
         <activity
-            android:name="com.fantasystocks.ViewPlayerActivity"
-            android:label="@string/title_activity_view_player" >
+            android:name="com.fantasystocks.ViewPortfolioActivity"
+            android:label="@string/title_activity_view_portfolio" >
         </activity>
         <activity
             android:name="com.fantasystocks.TradeActivity"

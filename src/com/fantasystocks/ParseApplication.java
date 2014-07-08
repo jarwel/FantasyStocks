@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.fantasystocks.model.Lot;
-import com.fantasystocks.model.Player;
+import com.fantasystocks.model.Portfolio;
 import com.fantasystocks.model.Pool;
 import com.fantasystocks.utils.Utils;
 import com.parse.Parse;
@@ -20,10 +20,10 @@ public class ParseApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		ParseObject.registerSubclass(Pool.class);
-		ParseObject.registerSubclass(Player.class);
+		ParseObject.registerSubclass(Portfolio.class);
 		ParseObject.registerSubclass(Lot.class);
-		Parse.initialize(this, SAUMITRA_APP_ID, SAUMITRA_SECRET);
-		//Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
+		// Parse.initialize(this, SAUMITRA_APP_ID, SAUMITRA_SECRET);
+		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
 		Intent i = null;
 		if (Utils.isUserLoggedIn()) {
 			i = new Intent(this, HomeActivity.class);
