@@ -23,8 +23,6 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
-		Portfolio portfolio = getItem(position);
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, parent, false);
 		}
@@ -32,8 +30,9 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 		ImageView ivPortfolioImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
 		TextView tvPortfolioName = (TextView) convertView.findViewById(R.id.tvItemTitle);
 		TextView tvPortfolioRank = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
-		TextView tvGain = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
+		TextView tvPortfolioGain = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
 
+		Portfolio portfolio = getItem(position);
 		String imageResourceUrl = portfolio.getUser().getString("imageUrl") == null ? "pool_img_4" : portfolio.getUser().getString("imageUrl");
 		int photoMediaUrl = context.getResources().getIdentifier(imageResourceUrl, "drawable", context.getPackageName());
 		ivPortfolioImage.setImageResource(photoMediaUrl);

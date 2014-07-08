@@ -5,7 +5,9 @@ import java.util.Locale;
 import java.util.Random;
 
 import com.fantasystocks.utils.Utils;
+import com.parse.GetCallback;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -65,12 +67,20 @@ public class Pool extends ParseObject implements Serializable {
 		return String.format(sign + "$%.2f", new Random().nextDouble());
 	}
 
-	public void addPortfolio(ParseUser user, SaveCallback callback) {
-		Portfolio portfolio = new Portfolio();
-		portfolio.setUser(user);
-		portfolio.setPool(this);
-		portfolio.setCash(getFunds());
-		portfolio.saveInBackground(callback);
+	public void addPortfolio(final ParseUser user, final SaveCallback callback) {
+		fetchIfNeededInBackground(new GetCallback<Pool>() {
+			@Override
+			public void done(Pool pool, ParseException parseException) {
+				if (parseException != null) {
+					callback.done(parseException);
+				}
+				Portfolio portfolio = new Portfolio();
+				portfolio.setUser(user);
+				portfolio.setPool(pool);
+				portfolio.setCash(pool.getFunds());
+				portfolio.saveInBackground(callback);
+			}
+		});
 	}
 
 }

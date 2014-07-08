@@ -39,4 +39,13 @@
         android:layout_below="@+id/textView5" >
     </ListView>
 
+    <Button
+        android:id="@+id/btnJoinPool"
+        style="@style/button_login_style"
+        android:layout_below="@+id/lvPortfolios"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/login_button"
+        android:onClick="onJoinPoolClicked"
+        android:text="@string/join_pool_label" />
+
 </RelativeLayout>

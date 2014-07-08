@@ -16,17 +16,13 @@ import com.fantasystocks.R;
 import com.fantasystocks.model.Pool;
 
 public class PoolAdapter extends ArrayAdapter<Pool> {
-	Context context;
 
 	public PoolAdapter(Context context, List<Pool> pools) {
 		super(context, R.layout.item_pool, pools);
-		this.context = context;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
-		Pool pool = getItem(position);
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, parent, false);
 		}
@@ -37,7 +33,8 @@ public class PoolAdapter extends ArrayAdapter<Pool> {
 		TextView tvTotalSlots = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
 		tvAvailableSlots.setTextColor(Color.parseColor("#FF0000"));
 
-		int photoMediaUrl = context.getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", context.getPackageName());
+		Pool pool = getItem(position);
+		int photoMediaUrl = getContext().getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", getContext().getPackageName());
 		ivPoolImage.setImageResource(photoMediaUrl);
 
 		tvPoolTitle.setText(pool.getName());

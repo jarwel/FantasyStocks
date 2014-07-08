@@ -5,7 +5,6 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,8 +12,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.fantasystocks.adapter.PortfolioAdapter;
-import com.fantasystocks.model.Portfolio;
 import com.fantasystocks.model.Pool;
+import com.fantasystocks.model.Portfolio;
 import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -55,26 +54,8 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_view_pool, menu);
-		return true;
-	}
-
-	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.action_join_pool:
-			Pool pool = ParseObject.createWithoutData(Pool.class, poolId);
-			pool.addPortfolio(ParseUser.getCurrentUser(), new SaveCallback() {
-				@Override
-				public void done(ParseException parseException) {
-					if (parseException != null) {
-						parseException.printStackTrace();
-					}
-					finish();
-				}
-			});
-			return true;
 		case android.R.id.home:
 			finish();
 			return true;
@@ -91,6 +72,19 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		intent.putExtra("portfolioName", portfolio.getUser().getString("name"));
 		intent.putExtra("portfolioImageUrl", portfolio.getUser().getString("imageUrl"));
 		startActivity(intent);
+	}
+
+	public void onJoinPoolClicked(View view) {
+		Pool pool = ParseObject.createWithoutData(Pool.class, poolId);
+		pool.addPortfolio(ParseUser.getCurrentUser(), new SaveCallback() {
+			@Override
+			public void done(ParseException parseException) {
+				if (parseException != null) {
+					parseException.printStackTrace();
+				}
+				finish();
+			}
+		});
 	}
 
 	private void loadPortfolios(String poolId) {

@@ -92,17 +92,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/textView9" >
     </ListView>
 
     <Button
         android:id="@+id/btnTrade"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView9"
-        android:layout_alignBottom="@+id/textView9"
-        android:layout_alignParentRight="true"
+        style="@style/button_login_style"
+        android:layout_below="@+id/lvLots"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/login_button"
         android:onClick="onTradeClicked"
         android:text="@string/trade_label" />
 

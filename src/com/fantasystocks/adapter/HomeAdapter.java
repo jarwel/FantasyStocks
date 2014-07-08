@@ -26,9 +26,6 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
-		Portfolio portfolio = getItem(position);
-		Pool pool = portfolio.getPool();
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, parent, false);
 		}
@@ -38,6 +35,9 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 		TextView tvPortfolioRank = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
 		TextView tvPortfolioNetGain = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
 		ImageView ivGainArrow = (ImageView) convertView.findViewById(R.id.ivGainArrow);
+
+		Portfolio portfolio = getItem(position);
+		Pool pool = portfolio.getPool();
 
 		tvPoolTitle.setText(pool.getName());
 

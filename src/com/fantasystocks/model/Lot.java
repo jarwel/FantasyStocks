@@ -38,9 +38,4 @@ public class Lot extends ParseObject {
 		put("costBasis", costBasis);
 	}
 
-	@Override
-	public String toString() {
-		return getSymbol();
-	}
-
 }

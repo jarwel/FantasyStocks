@@ -1,6 +1,7 @@
 package com.fantasystocks;
 
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -68,7 +69,7 @@ public class FindPoolActivity extends Activity implements OnItemClickListener {
 
 	public void fetchPoolResults(String queryString) {
 		ParseQuery<Pool> query = ParseQuery.getQuery(Pool.class);
-		query.whereContains("canonicalName", queryString.toLowerCase());
+		query.whereContains("canonicalName", queryString.toLowerCase(Locale.getDefault()));
 		query.findInBackground(new FindCallback<Pool>() {
 			@Override
 			public void done(List<Pool> results, ParseException parseException) {

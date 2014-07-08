@@ -1,6 +1,8 @@
 package com.fantasystocks.model;
 
+import com.parse.GetCallback;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -32,13 +34,21 @@ public class Portfolio extends ParseObject {
 		put("cash", cash);
 	}
 
-	public void addLot(String symbol, int shares, double costBasis, SaveCallback callback) {
-		Lot lot = new Lot();
-		lot.setPortfolio(this);
-		lot.setSymbol(symbol);
-		lot.setShares(shares);
-		lot.setCostBasis(costBasis);
-		lot.saveInBackground(callback);
+	public void addLot(final String symbol, final int shares, final double costBasis, final SaveCallback callback) {
+		fetchIfNeededInBackground(new GetCallback<Portfolio>() {
+			@Override
+			public void done(Portfolio portfolio, ParseException parseException) {
+				if (parseException != null) {
+					callback.done(parseException);
+				}
+				Lot lot = new Lot();
+				lot.setPortfolio(portfolio);
+				lot.setSymbol(symbol);
+				lot.setShares(shares);
+				lot.setCostBasis(costBasis);
+				lot.saveInBackground(callback);
+			}
+		});
 	}
 
 }

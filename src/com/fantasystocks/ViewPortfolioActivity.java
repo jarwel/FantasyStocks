@@ -7,9 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.fantasystocks.adapter.LotAdapter;
 import com.fantasystocks.model.Lot;
 import com.fantasystocks.model.Portfolio;
 import com.google.common.collect.Lists;
@@ -23,7 +23,7 @@ public class ViewPortfolioActivity extends Activity {
 	private String portfolioId;
 
 	private ListView lvLots;
-	private ArrayAdapter<Lot> lotsAdapter;
+	private LotAdapter lotAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +41,8 @@ public class ViewPortfolioActivity extends Activity {
 			getActionBar().setIcon(getResources().getIdentifier(portfolioImageUrl, "drawable", getPackageName()));
 		}
 
-		lotsAdapter = new ArrayAdapter<Lot>(getBaseContext(), android.R.layout.simple_list_item_1, Lists.<Lot> newArrayList());
-		lvLots.setAdapter(lotsAdapter);
+		lotAdapter = new LotAdapter(getBaseContext(), Lists.<Lot> newArrayList());
+		lvLots.setAdapter(lotAdapter);
 	}
 
 	@Override
@@ -54,8 +54,8 @@ public class ViewPortfolioActivity extends Activity {
 			@Override
 			public void done(List<Lot> results, ParseException parseException) {
 				if (parseException == null) {
-					lotsAdapter.clear();
-					lotsAdapter.addAll(results);
+					lotAdapter.clear();
+					lotAdapter.addAll(results);
 				} else {
 					parseException.getStackTrace();
 				}

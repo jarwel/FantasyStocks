@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/tvPortfolioRank"
+        android:id="@+id/tvLotSymbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -13,24 +13,24 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/tvPortfolioName"
+        android:id="@+id/tvLotShares"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvPortfolioRank"
-        android:layout_alignBottom="@+id/tvPortfolioRank"
+        android:layout_alignBaseline="@+id/tvLotSymbol"
+        android:layout_alignBottom="@+id/tvLotSymbol"
         android:layout_marginLeft="24dp"
-        android:layout_toRightOf="@+id/tvPortfolioRank"
+        android:layout_toRightOf="@+id/tvLotSymbol"
         android:text="200"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/tvGain"
+        android:id="@+id/tvLotGain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvPortfolioName"
-        android:layout_alignBottom="@+id/tvPortfolioName"
+        android:layout_alignBaseline="@+id/tvLotShares"
+        android:layout_alignBottom="@+id/tvLotShares"
         android:layout_marginLeft="39dp"
-        android:layout_toRightOf="@+id/tvPortfolioName"
+        android:layout_toRightOf="@+id/tvLotShares"
         android:text="+100.00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
