@@ -18,20 +18,31 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tvLotSymbol"
         android:layout_alignBottom="@+id/tvLotSymbol"
-        android:layout_marginLeft="24dp"
+        android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/tvLotSymbol"
         android:text="200"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/tvLotGain"
+        android:id="@+id/tvLotPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tvLotShares"
         android:layout_alignBottom="@+id/tvLotShares"
-        android:layout_marginLeft="39dp"
+        android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/tvLotShares"
         android:text="+100.00"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/tvLotValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvLotShares"
+        android:layout_alignBottom="@+id/tvLotShares"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/tvLotPrice"
+        android:text="$10,000.00"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

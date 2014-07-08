@@ -7,6 +7,7 @@ import java.util.Set;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -48,6 +49,7 @@ public class YahooFinanceClient {
 			String query = String.format(QUOTE_QUERY_FORMAT, setToQueryString(symbols));
 			String request = String.format(URL_FORMAT, URLEncoder.encode(query, Charsets.UTF_8.name()));
 			requestQueue.add(new JsonObjectRequest(Method.GET, request, null, onSuccess, onError));
+			Log.d("debug", request);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

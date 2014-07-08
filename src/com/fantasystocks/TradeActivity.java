@@ -1,7 +1,5 @@
 package com.fantasystocks;
 
-import java.text.DecimalFormat;
-
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -18,7 +16,6 @@ import android.widget.TextView;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
-import com.fantasystocks.client.YahooFinanceClient;
 import com.fantasystocks.model.Portfolio;
 import com.fantasystocks.model.Quote;
 import com.parse.GetCallback;
@@ -27,7 +24,6 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
 public class TradeActivity extends Activity {
-	private static final DecimalFormat dollarFormat = new DecimalFormat("$###,###,###,###,##0.00");
 
 	private Portfolio portfolio;
 	private Quote quote;
@@ -104,7 +100,7 @@ public class TradeActivity extends Activity {
 			public void done(Portfolio result, ParseException parseException) {
 				if (parseException == null) {
 					portfolio = result;
-					tvFundsAvailable.setText(dollarFormat.format(portfolio.getCash()));
+					tvFundsAvailable.setText(RestApplication.dollarFormat.format(portfolio.getCash()));
 				} else {
 					parseException.printStackTrace();
 				}
@@ -118,7 +114,7 @@ public class TradeActivity extends Activity {
 		tvSecurityPrice.setText("");
 		tvSecuritySymbol.setText("");
 		if (symbol != null && !symbol.isEmpty()) {
-			YahooFinanceClient.getInstance(this).fetchQuote(symbol, new Listener<JSONObject>() {
+			RestApplication.getFinanceClient().fetchQuote(symbol, new Listener<JSONObject>() {
 				@Override
 				public void onResponse(JSONObject response) {
 					Quote newQuote = Quote.fromJSONObject(response);
@@ -126,7 +122,7 @@ public class TradeActivity extends Activity {
 						quote = newQuote;
 						tvSecurityName.setText(quote.getName());
 						tvSecuritySymbol.setText(quote.getSymbol());
-						tvSecurityPrice.setText(dollarFormat.format(quote.getPrice()));
+						tvSecurityPrice.setText(RestApplication.dollarFormat.format(quote.getPrice()));
 					}
 				}
 			}, new ErrorListener() {
@@ -147,7 +143,7 @@ public class TradeActivity extends Activity {
 			if (!orderNum.isEmpty()) {
 				int shares = Integer.parseInt(etOrderShares.getText().toString());
 				double total = quote.getPrice() * shares;
-				tvOrderTotal.setText(dollarFormat.format(total));
+				tvOrderTotal.setText(RestApplication.dollarFormat.format(total));
 				if (total <= portfolio.getCash()) {
 					tvOrderTotal.setTextColor(getResources().getColor(R.color.text_gray));
 					tvOrderTotalLabel.setText(R.string.order_total_label);
