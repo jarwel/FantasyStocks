@@ -64,10 +64,8 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_join_pool:
-			Portfolio portfolio = new Portfolio();
-			portfolio.setUser(ParseUser.getCurrentUser());
-			portfolio.setPool(ParseObject.createWithoutData(Pool.class, poolId));
-			portfolio.saveInBackground(new SaveCallback() {
+			Pool pool = ParseObject.createWithoutData(Pool.class, poolId);
+			pool.addPortfolio(ParseUser.getCurrentUser(), new SaveCallback() {
 				@Override
 				public void done(ParseException parseException) {
 					if (parseException != null) {

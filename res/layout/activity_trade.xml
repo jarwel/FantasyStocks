@@ -125,7 +125,7 @@
         android:layout_below="@+id/showTotal"
         android:layout_marginTop="30dp"
         android:background="@drawable/login_button"
-        android:clickable="false"
+        android:enabled="false"
         android:onClick="onPlaceOrderClicked"
         android:text="@string/place_order_label" />
 

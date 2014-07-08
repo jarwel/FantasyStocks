@@ -66,12 +66,12 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_create:
-			Intent intent = new Intent(this, CreatePoolActivity.class);
-			startActivity(intent);
+			Intent createIntent = new Intent(this, CreatePoolActivity.class);
+			startActivity(createIntent);
 			return true;
 		case R.id.action_join:
-			Intent intent2 = new Intent(this, FindPoolActivity.class);
-			startActivity(intent2);
+			Intent findIntent = new Intent(this, FindPoolActivity.class);
+			startActivity(findIntent);
 			return true;
 		case R.id.action_logout:
 			ParseUser.logOut();

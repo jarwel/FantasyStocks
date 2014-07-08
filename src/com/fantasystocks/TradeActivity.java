@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,6 +46,7 @@ public class TradeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trade);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		tvCash = (TextView) findViewById(R.id.tvCash);
 		tvSecurityName = (TextView) findViewById(R.id.tvSecurityName);
 		tvSecuritySymbol = (TextView) findViewById(R.id.tvSecuritySymbol);
@@ -58,6 +60,17 @@ public class TradeActivity extends Activity {
 		String portfolioId = getIntent().getStringExtra("portfolioId");
 		loadPortfolio(portfolioId);
 		setListeners();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	public void onPlaceOrderClicked(View view) {
@@ -128,7 +141,7 @@ public class TradeActivity extends Activity {
 	private void calculateTotals() {
 		tvOrderTotalLabel.setText("");
 		tvOrderTotal.setText("");
-		btnPlaceOrder.setClickable(false);
+		btnPlaceOrder.setEnabled(false);
 		try {
 			String orderNum = etOrderShares.getText().toString();
 			if (!orderNum.isEmpty()) {
@@ -138,9 +151,9 @@ public class TradeActivity extends Activity {
 				if (total <= portfolio.getCash()) {
 					tvOrderTotal.setTextColor(getResources().getColor(R.color.text_gray));
 					tvOrderTotalLabel.setText(R.string.order_total_label);
-					btnPlaceOrder.setClickable(true);
+					btnPlaceOrder.setEnabled(true);
 				} else {
-					tvOrderTotal.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+					tvOrderTotal.setTextColor(getResources().getColor(R.color.text_red));
 					tvOrderTotalLabel.setText(R.string.insufficient_funds_label);
 				}
 			}

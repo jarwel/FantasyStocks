@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -28,6 +29,7 @@ public class ViewPortfolioActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_portfolio);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		lvLots = (ListView) findViewById(R.id.lvLots);
 
 		portfolioId = getIntent().getStringExtra("portfolioId");
@@ -59,6 +61,17 @@ public class ViewPortfolioActivity extends Activity {
 				}
 			}
 		});
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	public void onTradeClicked(View view) {
