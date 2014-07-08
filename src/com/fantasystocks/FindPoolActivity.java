@@ -35,8 +35,9 @@ public class FindPoolActivity extends Activity implements OnItemClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_pool);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		lvPools = (ListView) findViewById(R.id.lvPools);
-		poolAdapter = new PoolAdapter(this, pools);
+		lvPools = (ListView) findViewById(R.id.lvPools);	
+		poolAdapter = new PoolAdapter(getBaseContext(), pools);
+		
 		lvPools.setAdapter(poolAdapter);
 		lvPools.setOnItemClickListener(this);
 		svPool = (SearchView) findViewById(R.id.svPool);
@@ -90,6 +91,7 @@ public class FindPoolActivity extends Activity implements OnItemClickListener {
 		intent.putExtra("poolId", pool.getObjectId());
 		intent.putExtra("poolName", pool.getName());
 		intent.putExtra("poolImageUrl", pool.getPoolImageUrl());
+		intent.putExtra("canJoinPool", true);
 		startActivity(intent);
 	}
 

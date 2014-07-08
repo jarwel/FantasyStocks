@@ -32,7 +32,7 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		lvPools = (ListView) findViewById(R.id.lvPools);
-		homeAdapter = new HomeAdapter(this, portfolios);
+		homeAdapter = new HomeAdapter(getBaseContext(), portfolios);
 		lvPools.setAdapter(homeAdapter);
 		lvPools.setOnItemClickListener(this);
 	}
@@ -90,6 +90,7 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 		intent.putExtra("poolId", portfolio.getPool().getObjectId());
 		intent.putExtra("poolName", portfolio.getPool().getName());
 		intent.putExtra("poolImageUrl", portfolio.getPool().getPoolImageUrl());
+		intent.putExtra("canJoinPool", false);
 		startActivity(intent);
 	}
 }

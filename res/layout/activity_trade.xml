@@ -6,7 +6,7 @@
     tools:context="${packageName}.${activityClass}" >
 
     <TextView
-        android:id="@+id/tvCashLabel"
+        android:id="@+id/tvFundsAvailableLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -17,7 +17,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/tvCash"
+        android:id="@+id/tvFundsAvailable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -29,7 +29,7 @@
     <EditText
         android:id="@+id/etSecuritySymbol"
         style="@style/editText_login_style"
-        android:layout_below="@+id/tvCashLabel"
+        android:layout_below="@+id/tvFundsAvailableLabel"
         android:background="@drawable/create_pool_background"
         android:hint="@string/symbol_hint"
         android:inputType="textCapCharacters"

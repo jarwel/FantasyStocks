@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.fantasystocks.adapter.PortfolioAdapter;
@@ -28,6 +29,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	private List<Portfolio> portfolios;
 
 	private ListView lvPortfolios;
+	private Button btnJoinPool;
 	private PortfolioAdapter portfolioAdapter;
 
 	@Override
@@ -36,14 +38,19 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		setContentView(R.layout.activity_view_pool);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		lvPortfolios = (ListView) findViewById(R.id.lvPortfolios);
+		btnJoinPool = (Button) findViewById(R.id.btnJoinPool);
 
 		poolId = getIntent().getStringExtra("poolId");
 		String poolName = getIntent().getStringExtra("poolName");
 		String poolImageUrl = getIntent().getStringExtra("poolImageUrl");
+		boolean canJoinPool = getIntent().getBooleanExtra("canJoinPool", false);
 
 		getActionBar().setTitle(poolName);
 		if (poolImageUrl != null) {
 			getActionBar().setIcon(getResources().getIdentifier(poolImageUrl, "drawable", getPackageName()));
+		}
+		if (!canJoinPool) {
+			btnJoinPool.setVisibility(View.GONE);
 		}
 
 		portfolios = Lists.newArrayList();
@@ -67,10 +74,13 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Portfolio portfolio = portfolioAdapter.getItem(position);
+		String userId = portfolio.getUser().getObjectId();
 		Intent intent = new Intent(this, ViewPortfolioActivity.class);
 		intent.putExtra("portfolioId", portfolio.getObjectId());
 		intent.putExtra("portfolioName", portfolio.getUser().getString("name"));
 		intent.putExtra("portfolioImageUrl", portfolio.getUser().getString("imageUrl"));
+		intent.putExtra("portfolioCash", portfolio.getCash());
+		intent.putExtra("canTrade", ParseUser.getCurrentUser().getObjectId().equals(userId));
 		startActivity(intent);
 	}
 

@@ -32,7 +32,7 @@ public class TradeActivity extends Activity {
 	private Portfolio portfolio;
 	private Quote quote;
 
-	private TextView tvCash;
+	private TextView tvFundsAvailable;
 	private TextView tvSecurityName;
 	private TextView tvSecurityPrice;
 	private TextView tvOrderTotalLabel;
@@ -47,7 +47,7 @@ public class TradeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trade);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		tvCash = (TextView) findViewById(R.id.tvCash);
+		tvFundsAvailable = (TextView) findViewById(R.id.tvFundsAvailable);
 		tvSecurityName = (TextView) findViewById(R.id.tvSecurityName);
 		tvSecuritySymbol = (TextView) findViewById(R.id.tvSecuritySymbol);
 		tvSecurityPrice = (TextView) findViewById(R.id.tvSecurityPrice);
@@ -104,7 +104,7 @@ public class TradeActivity extends Activity {
 			public void done(Portfolio result, ParseException parseException) {
 				if (parseException == null) {
 					portfolio = result;
-					tvCash.setText(dollarFormat.format(portfolio.getCash()));
+					tvFundsAvailable.setText(dollarFormat.format(portfolio.getCash()));
 				} else {
 					parseException.printStackTrace();
 				}
