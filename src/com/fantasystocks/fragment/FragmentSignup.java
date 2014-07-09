@@ -21,12 +21,12 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 public class FragmentSignup extends Fragment implements OnClickListener {
-	FragmentActivity listener;
-	EditText etSignUpPassword;
-	EditText etSignUpName;
-	EditText etSignUpEmail;
-	Button btnSignUp;
-	TextView tvSignupError;
+	private FragmentActivity listener;
+	private EditText etSignUpPassword;
+	private EditText etSignUpName;
+	private EditText etSignUpEmail;
+	private Button btnSignUp;
+	private TextView tvSignupError;
 
 	@Override
 	public void onAttach(Activity activity) {

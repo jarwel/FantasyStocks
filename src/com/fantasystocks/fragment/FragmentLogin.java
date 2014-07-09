@@ -19,28 +19,27 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
-public class FragmentLogin extends Fragment implements OnClickListener{
-	FragmentActivity listener;
-	EditText etLoginPassword;
-	EditText etLoginEmail;
-	Button btnLogin;
-	Button btnSignUpLauncher;
-	TextView tvLoginError;
- 
+public class FragmentLogin extends Fragment implements OnClickListener {
+	private FragmentActivity listener;
+	private EditText etLoginPassword;
+	private EditText etLoginEmail;
+	private Button btnLogin;
+	private Button btnSignUpLauncher;
+	private TextView tvLoginError;
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		this.listener = (FragmentActivity) activity;
 	}
-	
+
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_login, container, false);
 		setupViews(view);
 		return view;
 	}
-	
+
 	public void setupViews(View view) {
 		etLoginEmail = (EditText) view.findViewById(R.id.etLoginEmail);
 		etLoginPassword = (EditText) view.findViewById(R.id.etLoginPassword);
@@ -54,18 +53,18 @@ public class FragmentLogin extends Fragment implements OnClickListener{
 	@Override
 	public void onClick(View view) {
 		int id = view.getId();
-		switch(id) {
+		switch (id) {
 		case R.id.btnLogin:
 			onLoginClick();
 			break;
 		case R.id.btnSignUpLauncher:
 			((LoginActivity) listener).onSignUpLauncherClick();
-			break;		
+			break;
 		default:
-			break;	
+			break;
 		}
 	}
-	
+
 	public void onLoginClick() {
 		String email = etLoginEmail.getText().toString();
 		String password = etLoginPassword.getText().toString();
@@ -75,7 +74,7 @@ public class FragmentLogin extends Fragment implements OnClickListener{
 			tvLoginError.setText("Please check the entered values.");
 		}
 	}
-	
+
 	/* In our case email = username */
 	public void login(String email, String password) {
 		ParseUser.logInInBackground(email, password, new LogInCallback() {
@@ -89,10 +88,10 @@ public class FragmentLogin extends Fragment implements OnClickListener{
 					} else {
 						tvLoginError.setText("Something went wrong. Please try again: " + e.getCode());
 					}
-					
+
 				}
 			}
 		});
 	}
-	
+
 }
