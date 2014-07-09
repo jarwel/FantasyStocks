@@ -22,22 +22,23 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 
 public class YahooFinanceClient {
-	private static YahooFinanceClient instance;
 
 	private static final String URL_FORMAT = "http://query.yahooapis.com/v1/public/yql?q=%s&env=store://datatables.org/alltableswithkeys&format=json";
 	private static final String QUOTE_QUERY_FORMAT = "select * from yahoo.finance.quotes where symbol in (%s)";
 
 	private final RequestQueue requestQueue;
 
+	private static YahooFinanceClient instance;
+
+	private YahooFinanceClient(Context context) {
+		this.requestQueue = Volley.newRequestQueue(context);
+	}
+
 	public static YahooFinanceClient getInstance(Context context) {
 		if (instance == null) {
 			instance = new YahooFinanceClient(context.getApplicationContext());
 		}
 		return instance;
-	}
-
-	private YahooFinanceClient(Context context) {
-		this.requestQueue = Volley.newRequestQueue(context);
 	}
 
 	public void fetchQuote(String symbol, Listener<JSONObject> onSuccess, ErrorListener onError) {

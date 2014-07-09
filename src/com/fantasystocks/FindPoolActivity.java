@@ -18,7 +18,6 @@ import android.widget.SearchView.OnQueryTextListener;
 
 import com.fantasystocks.adapter.PoolAdapter;
 import com.fantasystocks.model.Pool;
-import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -28,16 +27,15 @@ public class FindPoolActivity extends Activity implements OnItemClickListener {
 	private ListView lvPools;
 	private SearchView svPool;
 	private PoolAdapter poolAdapter;
-	private List<Pool> pools = Lists.newArrayList();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_pool);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		lvPools = (ListView) findViewById(R.id.lvPools);	
-		poolAdapter = new PoolAdapter(getBaseContext(), pools);
-		
+		lvPools = (ListView) findViewById(R.id.lvPools);
+		poolAdapter = new PoolAdapter(getBaseContext());
+
 		lvPools.setAdapter(poolAdapter);
 		lvPools.setOnItemClickListener(this);
 		svPool = (SearchView) findViewById(R.id.svPool);

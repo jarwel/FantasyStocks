@@ -67,6 +67,8 @@
     </style>
 
     <color name="text_gray">#AAA</color>
-    <color name="text_red">#FF9494</color>
+    <color name="text_red">#990000</color>
+    <color name="text_green">#009900</color>
+    <color name="text_blue">#000099</color>
 
 </resources>

@@ -1,6 +1,5 @@
 package com.fantasystocks.adapter;
 
-import java.util.List;
 import java.util.Random;
 
 import android.content.Context;
@@ -14,11 +13,12 @@ import android.widget.TextView;
 
 import com.fantasystocks.R;
 import com.fantasystocks.model.Pool;
+import com.google.common.collect.Lists;
 
 public class PoolAdapter extends ArrayAdapter<Pool> {
 
-	public PoolAdapter(Context context, List<Pool> pools) {
-		super(context, R.layout.item_pool, pools);
+	public PoolAdapter(Context context) {
+		super(context, R.layout.item_pool, Lists.<Pool> newArrayList());
 	}
 
 	@Override

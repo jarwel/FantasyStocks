@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.fantasystocks.LoginActivity;
 import com.fantasystocks.R;
-import com.fantasystocks.utils.Utils;
+import com.fantasystocks.util.Utils;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;

@@ -1,7 +1,5 @@
 package com.fantasystocks;
 
-import java.text.DecimalFormat;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +8,12 @@ import com.fantasystocks.client.YahooFinanceClient;
 import com.fantasystocks.model.Lot;
 import com.fantasystocks.model.Pool;
 import com.fantasystocks.model.Portfolio;
-import com.fantasystocks.utils.Utils;
+import com.fantasystocks.util.FinanceFormatter;
+import com.fantasystocks.util.Utils;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
 public class RestApplication extends Application {
-	public static final DecimalFormat dollarFormat = new DecimalFormat("###,###,###,###,##0.00");
 
 	private static final String PARSE_APPLICATION_ID = "bcmueWmVJzWaQacYZa3bXKHECJMyxzkwUl1plVjz";
 	private static final String PARSE_CLIENT_KEY = "0CGF2GuilFib12Jm3rzA3XNwnLtUZ1k8AUzKQNl8";
@@ -46,5 +44,9 @@ public class RestApplication extends Application {
 
 	public static YahooFinanceClient getFinanceClient() {
 		return YahooFinanceClient.getInstance(RestApplication.context);
+	}
+
+	public static FinanceFormatter getFormatter() {
+		return FinanceFormatter.getInstance(RestApplication.context);
 	}
 }

@@ -10,8 +10,9 @@ import com.fantasystocks.fragment.FragmentLogin;
 import com.fantasystocks.fragment.FragmentSignup;
 
 public class LoginActivity extends FragmentActivity {
-	Fragment loginFragment;
-	Fragment signupFragment;
+
+	private Fragment loginFragment;
+	private Fragment signupFragment;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class LoginActivity extends FragmentActivity {
 		}
 		ft.commit();
 	}
-	
+
 	/* Listening to events in fragment */
 	public void launchMainActivity() {
 		Intent i = new Intent(this, HomeActivity.class);

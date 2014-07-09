@@ -1,5 +1,11 @@
 package com.fantasystocks.model;
 
+import java.util.List;
+import java.util.Set;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 import com.parse.GetCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
@@ -34,6 +40,19 @@ public class Portfolio extends ParseObject {
 		put("cash", cash);
 	}
 
+	public List<Lot> getLots() {
+		return getList("lots");
+	}
+
+	public Set<String> getSymbols() {
+		return Sets.newHashSet(Iterables.transform(getLots(), new Function<Lot, String>() {
+			@Override
+			public String apply(Lot lot) {
+				return lot.getSymbol();
+			}
+		}));
+	}
+
 	public void addLot(final String symbol, final int shares, final double costBasis, final SaveCallback callback) {
 		fetchIfNeededInBackground(new GetCallback<Portfolio>() {
 			@Override
@@ -41,12 +60,21 @@ public class Portfolio extends ParseObject {
 				if (parseException != null) {
 					callback.done(parseException);
 				}
-				Lot lot = new Lot();
+				final Lot lot = new Lot();
 				lot.setPortfolio(portfolio);
 				lot.setSymbol(symbol);
 				lot.setShares(shares);
 				lot.setCostBasis(costBasis);
-				lot.saveInBackground(callback);
+				lot.saveInBackground(new SaveCallback() {
+					@Override
+					public void done(ParseException parseException) {
+						if (parseException != null) {
+							callback.done(parseException);
+						}
+						add("lots", lot);
+						saveInBackground(callback);
+					}
+				});
 			}
 		});
 	}

@@ -100,7 +100,7 @@ public class TradeActivity extends Activity {
 			public void done(Portfolio result, ParseException parseException) {
 				if (parseException == null) {
 					portfolio = result;
-					tvFundsAvailable.setText(RestApplication.dollarFormat.format(portfolio.getCash()));
+					tvFundsAvailable.setText(RestApplication.getFormatter().formatCurrency(portfolio.getCash()));
 				} else {
 					parseException.printStackTrace();
 				}
@@ -122,7 +122,7 @@ public class TradeActivity extends Activity {
 						quote = newQuote;
 						tvSecurityName.setText(quote.getName());
 						tvSecuritySymbol.setText(quote.getSymbol());
-						tvSecurityPrice.setText(RestApplication.dollarFormat.format(quote.getPrice()));
+						tvSecurityPrice.setText(RestApplication.getFormatter().formatCurrency(quote.getPrice()));
 					}
 				}
 			}, new ErrorListener() {
@@ -143,7 +143,7 @@ public class TradeActivity extends Activity {
 			if (!orderNum.isEmpty()) {
 				int shares = Integer.parseInt(etOrderShares.getText().toString());
 				double total = quote.getPrice() * shares;
-				tvOrderTotal.setText(RestApplication.dollarFormat.format(total));
+				tvOrderTotal.setText(RestApplication.getFormatter().formatCurrency(total));
 				if (total <= portfolio.getCash()) {
 					tvOrderTotal.setTextColor(getResources().getColor(R.color.text_gray));
 					tvOrderTotalLabel.setText(R.string.order_total_label);

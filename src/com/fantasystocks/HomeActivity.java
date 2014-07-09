@@ -14,7 +14,6 @@ import android.widget.ListView;
 
 import com.fantasystocks.adapter.HomeAdapter;
 import com.fantasystocks.model.Portfolio;
-import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -23,16 +22,14 @@ import com.parse.ParseUser;
 public class HomeActivity extends Activity implements OnItemClickListener {
 
 	private ListView lvPools;
-
 	private HomeAdapter homeAdapter;
-	private List<Portfolio> portfolios = Lists.newArrayList();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		lvPools = (ListView) findViewById(R.id.lvPools);
-		homeAdapter = new HomeAdapter(getBaseContext(), portfolios);
+		homeAdapter = new HomeAdapter(getBaseContext());
 		lvPools.setAdapter(homeAdapter);
 		lvPools.setOnItemClickListener(this);
 	}
@@ -40,20 +37,7 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		ParseQuery<Portfolio> query = ParseQuery.getQuery("Portfolio");
-		query.whereEqualTo("user", ParseUser.getCurrentUser());
-		query.include("pool");
-		query.findInBackground(new FindCallback<Portfolio>() {
-			@Override
-			public void done(List<Portfolio> results, ParseException parseException) {
-				if (parseException == null) {
-					homeAdapter.clear();
-					homeAdapter.addAll(results);
-				} else {
-					parseException.printStackTrace();
-				}
-			}
-		});
+		loadPortfolios();
 	}
 
 	@Override
@@ -93,4 +77,23 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 		intent.putExtra("canJoinPool", false);
 		startActivity(intent);
 	}
+
+	private void loadPortfolios() {
+		ParseQuery<Portfolio> query = ParseQuery.getQuery("Portfolio");
+		query.whereEqualTo("user", ParseUser.getCurrentUser());
+		query.include("pool");
+		query.include("lots");
+		query.findInBackground(new FindCallback<Portfolio>() {
+			@Override
+			public void done(List<Portfolio> results, ParseException parseException) {
+				if (parseException == null) {
+					homeAdapter.clear();
+					homeAdapter.addAll(results);
+				} else {
+					parseException.printStackTrace();
+				}
+			}
+		});
+	}
+
 }

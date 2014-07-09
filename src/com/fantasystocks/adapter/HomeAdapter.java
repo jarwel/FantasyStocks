@@ -1,10 +1,12 @@
 package com.fantasystocks.adapter;
 
-import java.util.List;
+import java.util.Map;
+
+import org.json.JSONObject;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +14,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.fantasystocks.R;
-import com.fantasystocks.model.Portfolio;
+import com.fantasystocks.RestApplication;
+import com.fantasystocks.model.Lot;
 import com.fantasystocks.model.Pool;
+import com.fantasystocks.model.Portfolio;
+import com.fantasystocks.model.Quote;
+import com.google.common.collect.Lists;
 
 public class HomeAdapter extends ArrayAdapter<Portfolio> {
-	Context context;
 
-	public HomeAdapter(Context context, List<Portfolio> portfolios) {
-		super(context, 0, portfolios);
-		this.context = context;
+	public HomeAdapter(Context context) {
+		super(context, R.layout.item_custom, Lists.<Portfolio> newArrayList());
 	}
 
 	@Override
@@ -31,34 +38,56 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 		}
 
 		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
+		ImageView ivGainArrow = (ImageView) convertView.findViewById(R.id.ivGainArrow);
 		TextView tvPoolTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
 		TextView tvPortfolioRank = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
 		TextView tvPortfolioNetGain = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
-		ImageView ivGainArrow = (ImageView) convertView.findViewById(R.id.ivGainArrow);
 
 		Portfolio portfolio = getItem(position);
 		Pool pool = portfolio.getPool();
 
 		tvPoolTitle.setText(pool.getName());
-
 		tvPortfolioRank.setText(pool.getRank(null));
 		tvPortfolioRank.setTypeface(null, Typeface.BOLD);
 
-		int photoMediaUrl = context.getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", context.getPackageName());
+		int photoMediaUrl = getContext().getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", getContext().getPackageName());
 		ivPoolImage.setImageResource(photoMediaUrl);
 
-		String netGain = pool.getGain(null);
-		tvPortfolioNetGain.setText(netGain);
-		if (netGain.substring(0, 1).equals("+")) {
-			ivGainArrow.setImageResource(R.drawable.icon_arrow_green);
-			tvPortfolioNetGain.setTextColor(Color.parseColor("#009900"));
-		} else if (netGain.substring(0, 1).equals("-")) {
-			ivGainArrow.setImageResource(R.drawable.icon_arrow_red);
-			tvPortfolioNetGain.setTextColor(Color.parseColor("#990000"));
-		} else {
-			tvPortfolioNetGain.setTextColor(Color.parseColor("#0e5878"));
-		}
+		tvPortfolioNetGain.setText("--");
+		tvPortfolioNetGain.setTextColor(getContext().getResources().getColor(android.R.color.black));
+		ivGainArrow.setImageResource(android.R.color.transparent);
+
+		populateWithQuote(portfolio, tvPortfolioNetGain, ivGainArrow);
 
 		return convertView;
+	}
+
+	private void populateWithQuote(final Portfolio portfolio, final TextView tvPortfolioNetGain, final ImageView ivGainArrow) {
+		RestApplication.getFinanceClient().fetchQuotes(portfolio.getSymbols(), new Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				double costBasis = 0;
+				double currentValue = 0;
+				Map<String, Quote> quotes = Quote.fromJSONArray(response);
+				for (Lot lot : portfolio.getLots()) {
+					Quote quote = quotes.get(lot.getSymbol());
+					if (quote == null) {
+						return;
+					}
+					costBasis += lot.getCostBasis();
+					currentValue += lot.getShares() * quote.getPrice();
+				}
+				double priceChange = currentValue - costBasis;
+				double percentChange = priceChange / costBasis;
+				tvPortfolioNetGain.setText(RestApplication.getFormatter().formatPercent(percentChange));
+				tvPortfolioNetGain.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
+				ivGainArrow.setImageResource(RestApplication.getFormatter().getImageResource(priceChange));
+			}
+		}, new ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				Log.e(getClass().getName(), String.format("error fetching quote for symbols"));
+			}
+		});
 	}
 }

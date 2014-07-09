@@ -15,7 +15,6 @@ import android.widget.ListView;
 import com.fantasystocks.adapter.PortfolioAdapter;
 import com.fantasystocks.model.Pool;
 import com.fantasystocks.model.Portfolio;
-import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -26,7 +25,6 @@ import com.parse.SaveCallback;
 public class ViewPoolActivity extends Activity implements OnItemClickListener {
 
 	private String poolId;
-	private List<Portfolio> portfolios;
 
 	private ListView lvPortfolios;
 	private Button btnJoinPool;
@@ -53,8 +51,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 			btnJoinPool.setVisibility(View.GONE);
 		}
 
-		portfolios = Lists.newArrayList();
-		portfolioAdapter = new PortfolioAdapter(getBaseContext(), portfolios);
+		portfolioAdapter = new PortfolioAdapter(getBaseContext());
 		lvPortfolios.setAdapter(portfolioAdapter);
 		lvPortfolios.setOnItemClickListener(this);
 		loadPortfolios(poolId);

@@ -1,4 +1,4 @@
-package com.fantasystocks.utils;
+package com.fantasystocks.util;
 
 import java.util.Random;
 

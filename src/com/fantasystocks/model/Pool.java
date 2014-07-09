@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.Random;
 
-import com.fantasystocks.utils.Utils;
+import com.fantasystocks.util.Utils;
 import com.parse.GetCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
@@ -62,7 +62,7 @@ public class Pool extends ParseObject implements Serializable {
 		return String.format("%sth", new Random().nextInt(7) + 3);
 	}
 
-	public String getGain(Portfolio portfolio) {
+	public String getChange(Portfolio portfolio) {
 		String sign = new Random().nextInt(8) > 4 ? "+" : "-";
 		return String.format(sign + "$%.2f", new Random().nextDouble());
 	}

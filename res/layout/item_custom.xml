@@ -22,7 +22,7 @@
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/ivItemImage"
         android:text="Medium Text"
-        android:textSize="16dp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvSubTitleTop"
@@ -33,7 +33,7 @@
         android:layout_marginRight="30dp"
         android:text="TextView"
         android:textColor="#666"
-        android:textSize="12dp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/tvSubTitleBottom"
@@ -43,7 +43,7 @@
         android:layout_alignLeft="@+id/tvSubTitleTop"
         android:text="TextView"
         android:textColor="#666"
-        android:textSize="12dp" />
+        android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/ivGainArrow"

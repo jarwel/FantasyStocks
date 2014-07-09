@@ -1,7 +1,5 @@
 package com.fantasystocks.adapter;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +10,12 @@ import android.widget.TextView;
 
 import com.fantasystocks.R;
 import com.fantasystocks.model.Portfolio;
+import com.google.common.collect.Lists;
 
 public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
-	Context context;
 
-	public PortfolioAdapter(Context context, List<Portfolio> portfolios) {
-		super(context, R.layout.item_portfolio, portfolios);
-		this.context = context;
+	public PortfolioAdapter(Context context) {
+		super(context, R.layout.item_portfolio, Lists.<Portfolio> newArrayList());
 	}
 
 	@Override
@@ -34,7 +31,7 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 
 		Portfolio portfolio = getItem(position);
 		String imageResourceUrl = portfolio.getUser().getString("imageUrl") == null ? "pool_img_4" : portfolio.getUser().getString("imageUrl");
-		int photoMediaUrl = context.getResources().getIdentifier(imageResourceUrl, "drawable", context.getPackageName());
+		int photoMediaUrl = getContext().getResources().getIdentifier(imageResourceUrl, "drawable", getContext().getPackageName());
 		ivPortfolioImage.setImageResource(photoMediaUrl);
 		// tvportfolioRank.setText(pool.getRank(portfolio));
 		tvPortfolioName.setText(portfolio.getUser().getString("name"));
