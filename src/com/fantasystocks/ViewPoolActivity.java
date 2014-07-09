@@ -76,7 +76,6 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		intent.putExtra("portfolioId", portfolio.getObjectId());
 		intent.putExtra("portfolioName", portfolio.getUser().getString("name"));
 		intent.putExtra("portfolioImageUrl", portfolio.getUser().getString("imageUrl"));
-		intent.putExtra("portfolioCash", portfolio.getCash());
 		intent.putExtra("canTrade", ParseUser.getCurrentUser().getObjectId().equals(userId));
 		startActivity(intent);
 	}

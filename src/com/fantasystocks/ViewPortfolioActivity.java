@@ -1,7 +1,5 @@
 package com.fantasystocks;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +10,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fantasystocks.adapter.LotAdapter;
-import com.fantasystocks.model.Lot;
 import com.fantasystocks.model.Portfolio;
-import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 public class ViewPortfolioActivity extends Activity {
@@ -40,7 +36,7 @@ public class ViewPortfolioActivity extends Activity {
 		portfolioId = getIntent().getStringExtra("portfolioId");
 		String portfolioName = getIntent().getStringExtra("portfolioName");
 		String portfolioImageUrl = getIntent().getStringExtra("portfolioImageUrl");
-		double cash = getIntent().getDoubleExtra("portfolioCash", 0);
+
 		boolean canTrade = getIntent().getBooleanExtra("canTrade", false);
 
 		getActionBar().setTitle(String.format("%s's Portfolio", portfolioName));
@@ -50,7 +46,6 @@ public class ViewPortfolioActivity extends Activity {
 		if (!canTrade) {
 			btnTrade.setVisibility(View.GONE);
 		}
-		tvCash.setText(RestApplication.getFormatter().formatCurrency(cash));
 
 		lotAdapter = new LotAdapter(getBaseContext());
 		lvLots.setAdapter(lotAdapter);
@@ -59,7 +54,7 @@ public class ViewPortfolioActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		loadLots();
+		loadPortfolio();
 	}
 
 	@Override
@@ -79,20 +74,19 @@ public class ViewPortfolioActivity extends Activity {
 		startActivity(intent);
 	}
 
-	private void loadLots() {
-		ParseQuery<Lot> query = ParseQuery.getQuery("Lot");
-		query.whereEqualTo("portfolio", ParseObject.createWithoutData(Portfolio.class, portfolioId));
-		query.findInBackground(new FindCallback<Lot>() {
-			@Override
-			public void done(List<Lot> results, ParseException parseException) {
+	private void loadPortfolio() {
+		ParseQuery<Portfolio> query = ParseQuery.getQuery("Portfolio");
+		query.include("lots");
+		query.getInBackground(portfolioId, new GetCallback<Portfolio>() {
+			public void done(Portfolio result, ParseException parseException) {
 				if (parseException == null) {
+					tvCash.setText(RestApplication.getFormatter().formatCurrency(result.getCash()));
 					lotAdapter.clear();
-					lotAdapter.addAll(results);
+					lotAdapter.addAll(result.getLots());
 				} else {
-					parseException.getStackTrace();
+					parseException.printStackTrace();
 				}
 			}
 		});
 	}
-
 }
