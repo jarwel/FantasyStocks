@@ -53,8 +53,13 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 		tvPortfolioChange.setText("--");
 		tvPortfolioChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 
-		Request<JSONObject> request = populateWithQuote(portfolio, tvPortfolioChange);
-		convertView.setTag(request.getTag());
+		if (portfolio.getSymbols().isEmpty()) {
+			tvPortfolioChange.setText(RestApplication.getFormatter().formatPercent(0));
+			tvPortfolioChange.setTextColor(RestApplication.getFormatter().getColorResource(0));
+		} else {
+			Request<JSONObject> request = populateWithQuote(portfolio, tvPortfolioChange);
+			convertView.setTag(request.getTag());
+		}
 
 		return convertView;
 	}
@@ -79,5 +84,4 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 			}
 		});
 	}
-
 }

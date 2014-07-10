@@ -1,7 +1,6 @@
 package com.fantasystocks.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,7 @@ public class PoolAdapter extends ArrayAdapter<Pool> {
 		int availableSlots = pool.getPlayerLimit() - pool.getPlayerCount();
 		tvAvailableSlots.setText(String.format("Open: %d", availableSlots));
 		if (availableSlots < 2) {
-			tvAvailableSlots.setTextColor(Color.parseColor("#FF0000"));
+			tvAvailableSlots.setTextColor(getContext().getResources().getColor(R.color.text_red));
 		}
 
 		return convertView;
