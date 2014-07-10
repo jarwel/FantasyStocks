@@ -1,5 +1,7 @@
 package com.fantasystocks.adapter;
 
+import java.util.Map;
+
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -10,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.android.volley.Request;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
@@ -19,11 +20,15 @@ import com.fantasystocks.RestApplication;
 import com.fantasystocks.model.Lot;
 import com.fantasystocks.model.Quote;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class LotAdapter extends ArrayAdapter<Lot> {
 
+	private Map<String, Quote> quotes;
+
 	public LotAdapter(Context context) {
 		super(context, R.layout.item_lot, Lists.<Lot> newArrayList());
+		quotes = Maps.newHashMap();
 	}
 
 	@Override
@@ -31,8 +36,6 @@ public class LotAdapter extends ArrayAdapter<Lot> {
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_lot, parent, false);
 		}
-
-		RestApplication.getFinanceClient().cancel(convertView.getTag());
 
 		TextView tvLotSymbol = (TextView) convertView.findViewById(R.id.tvLotSymbol);
 		TextView tvLotPercentChange = (TextView) convertView.findViewById(R.id.tvLotPercentChange);
@@ -49,28 +52,33 @@ public class LotAdapter extends ArrayAdapter<Lot> {
 		tvLotValueChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 		tvLotValue.setTextColor(getContext().getResources().getColor(android.R.color.black));
 
-		Request<JSONObject> request = populateWithQuote(lot, tvLotPercentChange, tvLotValueChange, tvLotValue);
-		convertView.setTag(request.getTag());
+		Quote quote = quotes.get(lot.getSymbol());
+		if (quote == null) {
+			fetchQuote(lot.getSymbol());
+		} else {
+			double currentValue = quote.getPrice() * lot.getShares();
+			double priceChange = currentValue - lot.getCostBasis();
+			double percentChange = priceChange / lot.getCostBasis();
+
+			tvLotPercentChange.setText(RestApplication.getFormatter().formatPercent(percentChange));
+			tvLotValueChange.setText(RestApplication.getFormatter().formatChange(priceChange));
+			tvLotValue.setText(RestApplication.getFormatter().formatCurrency(currentValue));
+
+			tvLotPercentChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
+			tvLotValueChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
+		}
 
 		return convertView;
 	}
 
-	private Request<JSONObject> populateWithQuote(final Lot lot, final TextView tvLotPercentChange, final TextView tvLotValueChange, final TextView tvLotValue) {
-		return RestApplication.getFinanceClient().fetchQuote(lot.getSymbol(), new Listener<JSONObject>() {
+	private void fetchQuote(final String symbol) {
+		RestApplication.getFinanceClient().fetchQuote(symbol, new Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				Quote quote = Quote.fromJSONObject(response);
 				if (quote != null) {
-					double currentValue = quote.getPrice() * lot.getShares();
-					double priceChange = currentValue - lot.getCostBasis();
-					double percentChange = priceChange / lot.getCostBasis();
-
-					tvLotPercentChange.setText(RestApplication.getFormatter().formatPercent(percentChange));
-					tvLotValueChange.setText(RestApplication.getFormatter().formatChange(priceChange));
-					tvLotValue.setText(RestApplication.getFormatter().formatCurrency(currentValue));
-
-					tvLotPercentChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
-					tvLotValueChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
+					quotes.put(symbol, quote);
+					notifyDataSetChanged();
 				}
 			}
 		}, new ErrorListener() {

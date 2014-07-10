@@ -1,6 +1,7 @@
 package com.fantasystocks.adapter;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONObject;
 
@@ -14,22 +15,24 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Request;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.fantasystocks.R;
 import com.fantasystocks.RestApplication;
-import com.fantasystocks.model.Lot;
 import com.fantasystocks.model.Pool;
 import com.fantasystocks.model.Portfolio;
 import com.fantasystocks.model.Quote;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 public class HomeAdapter extends ArrayAdapter<Portfolio> {
 
+	private Map<String, Quote> quotes;
+
 	public HomeAdapter(Context context) {
 		super(context, R.layout.item_custom, Lists.<Portfolio> newArrayList());
+		quotes = Maps.newHashMap();
 	}
 
 	@Override
@@ -37,8 +40,6 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, parent, false);
 		}
-
-		RestApplication.getFinanceClient().cancel(convertView.getTag());
 
 		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
 		ImageView ivGainArrow = (ImageView) convertView.findViewById(R.id.ivGainArrow);
@@ -60,33 +61,26 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 		tvPortfolioNetGain.setTextColor(getContext().getResources().getColor(android.R.color.black));
 		ivGainArrow.setImageResource(android.R.color.transparent);
 
-		Request<JSONObject> request = populateWithQuote(portfolio, tvPortfolioNetGain, ivGainArrow);
-		convertView.setTag(request.getTag());
+		if (!quotes.keySet().containsAll(portfolio.getSymbols())) {
+			fetchQuotes(portfolio.getSymbols());
+		} else {
+			double currentValue = portfolio.getCurrentValue(quotes);
+			double priceChange = currentValue - portfolio.getStartingFunds();
+			double percentChange = priceChange / portfolio.getStartingFunds();
+			tvPortfolioNetGain.setText(RestApplication.getFormatter().formatPercent(percentChange));
+			tvPortfolioNetGain.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
+			ivGainArrow.setImageResource(RestApplication.getFormatter().getImageResource(priceChange));
+		}
 
 		return convertView;
 	}
 
-	private Request<JSONObject> populateWithQuote(final Portfolio portfolio, final TextView tvPortfolioNetGain, final ImageView ivGainArrow) {
-		return RestApplication.getFinanceClient().fetchQuotes(portfolio.getSymbols(), new Listener<JSONObject>() {
+	private void fetchQuotes(final Set<String> symbols) {
+		RestApplication.getFinanceClient().fetchQuotes(symbols, new Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
-				Map<String, Quote> quotes = Quote.fromJSONArray(response);
-
-				double currentValue = portfolio.getCash();
-				for (Lot lot : portfolio.getLots()) {
-					Quote quote = quotes.get(lot.getSymbol());
-					if (quote == null) {
-						return;
-					}
-					currentValue += lot.getShares() * quote.getPrice();
-				}
-
-				double priceChange = currentValue - portfolio.getStartingFunds();
-				double percentChange = priceChange / portfolio.getStartingFunds();
-				tvPortfolioNetGain.setText(RestApplication.getFormatter().formatPercent(percentChange));
-				tvPortfolioNetGain.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
-				ivGainArrow.setImageResource(RestApplication.getFormatter().getImageResource(priceChange));
-
+				quotes.putAll(Quote.fromJSONArray(response));
+				notifyDataSetChanged();
 			}
 		}, new ErrorListener() {
 			@Override
