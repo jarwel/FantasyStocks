@@ -47,17 +47,18 @@ public class LotAdapter extends ArrayAdapter<Lot> {
 		tvLotValueChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 		tvLotValue.setTextColor(getContext().getResources().getColor(android.R.color.black));
 
-		populateWithQuote(lot, tvLotPercentChange, tvLotValueChange, tvLotValue);
+		populateWithQuote(position, lot, tvLotPercentChange, tvLotValueChange, tvLotValue);
 
 		return convertView;
 	}
 
-	private void populateWithQuote(final Lot lot, final TextView tvLotPercentChange, final TextView tvLotValueChange, final TextView tvLotValue) {
+	private void populateWithQuote(final int position, final Lot lot, final TextView tvLotPercentChange, final TextView tvLotValueChange,
+			final TextView tvLotValue) {
 		RestApplication.getFinanceClient().fetchQuote(lot.getSymbol(), new Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				Quote quote = Quote.fromJSONObject(response);
-				if (quote != null) {
+				if (quote != null && lot.equals(getItem(position))) {
 					double currentValue = quote.getPrice() * lot.getShares();
 					double priceChange = currentValue - lot.getCostBasis();
 					double percentChange = priceChange / lot.getCostBasis();

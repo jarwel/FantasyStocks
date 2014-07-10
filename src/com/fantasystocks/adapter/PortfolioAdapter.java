@@ -50,19 +50,19 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 		tvPortfolioChange.setText("--");
 		tvPortfolioChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 
-		populateWithQuote(portfolio, tvPortfolioChange);
+		populateWithQuote(position, portfolio, tvPortfolioChange);
 
 		return convertView;
 	}
 
-	private void populateWithQuote(final Portfolio portfolio, final TextView tvPortfolioChange) {
+	private void populateWithQuote(final int position, final Portfolio portfolio, final TextView tvPortfolioChange) {
 		RestApplication.getFinanceClient().fetchQuotes(portfolio.getSymbols(), new Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				Map<String, Quote> quotes = Quote.fromJSONArray(response);
 
 				Double currentValue = portfolio.getCurrentValue(quotes);
-				if (currentValue != null) {
+				if (currentValue != null && portfolio.equals(getItem(position))) {
 					double priceChange = currentValue - portfolio.getStartingFunds();
 					double percentChange = priceChange / portfolio.getStartingFunds();
 					tvPortfolioChange.setText(RestApplication.getFormatter().formatPercent(percentChange));
