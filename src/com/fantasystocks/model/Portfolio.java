@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.base.Function;
+import com.google.common.base.Objects;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.parse.GetCallback;
 import com.parse.ParseClassName;
@@ -40,8 +42,17 @@ public class Portfolio extends ParseObject {
 		put("cash", cash);
 	}
 
+	public double getStartingFunds() {
+		return getDouble("startingFunds");
+	}
+
+	public void setStartingFunds(double startingFunds) {
+		put("startingFunds", startingFunds);
+	}
+
 	public List<Lot> getLots() {
-		return getList("lots");
+		List<Lot> lots = getList("lots");
+		return Objects.firstNonNull(lots, Lists.<Lot> newArrayList());
 	}
 
 	public Set<String> getSymbols() {

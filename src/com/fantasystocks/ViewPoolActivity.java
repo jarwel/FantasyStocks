@@ -97,6 +97,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		ParseQuery<Portfolio> query = ParseQuery.getQuery("Portfolio");
 		query.whereEqualTo("pool", ParseObject.createWithoutData("Pool", poolId));
 		query.include("user");
+		query.include("lots");
 		query.findInBackground(new FindCallback<Portfolio>() {
 			@Override
 			public void done(List<Portfolio> results, ParseException parseException) {

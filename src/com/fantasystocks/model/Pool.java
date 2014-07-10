@@ -78,6 +78,7 @@ public class Pool extends ParseObject implements Serializable {
 				portfolio.setUser(user);
 				portfolio.setPool(pool);
 				portfolio.setCash(pool.getFunds());
+				portfolio.setStartingFunds(pool.getFunds());
 				portfolio.saveInBackground(callback);
 			}
 		});

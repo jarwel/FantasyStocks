@@ -66,19 +66,17 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 		RestApplication.getFinanceClient().fetchQuotes(portfolio.getSymbols(), new Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
-				double costBasis = 0;
-				double currentValue = 0;
+				double currentValue = portfolio.getCash();
 				Map<String, Quote> quotes = Quote.fromJSONArray(response);
 				for (Lot lot : portfolio.getLots()) {
 					Quote quote = quotes.get(lot.getSymbol());
 					if (quote == null) {
 						return;
 					}
-					costBasis += lot.getCostBasis();
 					currentValue += lot.getShares() * quote.getPrice();
 				}
-				double priceChange = currentValue - costBasis;
-				double percentChange = priceChange / costBasis;
+				double priceChange = currentValue - portfolio.getStartingFunds();
+				double percentChange = priceChange / portfolio.getStartingFunds();
 				tvPortfolioNetGain.setText(RestApplication.getFormatter().formatPercent(percentChange));
 				tvPortfolioNetGain.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
 				ivGainArrow.setImageResource(RestApplication.getFormatter().getImageResource(priceChange));
@@ -90,4 +88,5 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 			}
 		});
 	}
+
 }
