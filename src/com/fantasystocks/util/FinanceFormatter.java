@@ -10,8 +10,8 @@ import com.fantasystocks.R;
 public class FinanceFormatter {
 
 	private final DecimalFormat currencyFormat = new DecimalFormat("$###,###,###,###,##0.00");
-	private final DecimalFormat changeFormat = new DecimalFormat("+###,###,###,###,##0.00");
-	private final DecimalFormat percentFormat = new DecimalFormat("+###,###,###,###,##0.00%");
+	private final DecimalFormat changeFormat = new DecimalFormat("+###,###,###,###,##0.00;-#");
+	private final DecimalFormat percentFormat = new DecimalFormat("+###,###,###,###,##0.00%;-#%");
 	private final int redColorResource;
 	private final int greenColorResource;
 	private final int blueColorResource;
