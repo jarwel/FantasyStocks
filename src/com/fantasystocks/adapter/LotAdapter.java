@@ -37,10 +37,15 @@ public class LotAdapter extends ArrayAdapter<Lot> {
 		TextView tvLotValue = (TextView) convertView.findViewById(R.id.tvLotValue);
 
 		Lot lot = getItem(position);
+
 		tvLotSymbol.setText(lot.getSymbol());
 		tvLotPercentChange.setText("--");
 		tvLotValueChange.setText("--");
 		tvLotValue.setText("--");
+
+		tvLotPercentChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
+		tvLotValueChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
+		tvLotValue.setTextColor(getContext().getResources().getColor(android.R.color.black));
 
 		populateWithQuote(lot, tvLotPercentChange, tvLotValueChange, tvLotValue);
 

@@ -42,9 +42,13 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 		Portfolio portfolio = getItem(position);
 		tvPortfolioName.setText(portfolio.getUser().getString("name"));
 		tvPortfolioRank.setText(RestApplication.getFormatter().formatRank(position + 1));
+
 		String imageResourceUrl = portfolio.getUser().getString("imageUrl") == null ? "pool_img_4" : portfolio.getUser().getString("imageUrl");
 		int photoMediaUrl = getContext().getResources().getIdentifier(imageResourceUrl, "drawable", getContext().getPackageName());
 		ivPortfolioImage.setImageResource(photoMediaUrl);
+
+		tvPortfolioChange.setText("--");
+		tvPortfolioChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 
 		populateWithQuote(portfolio, tvPortfolioChange);
 
