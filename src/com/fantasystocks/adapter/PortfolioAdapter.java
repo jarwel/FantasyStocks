@@ -35,10 +35,7 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, parent, false);
 		}
 
-		Request<JSONObject> request = (Request<JSONObject>) convertView.getTag();
-		if (request != null) {
-			request.cancel();
-		}
+		RestApplication.getFinanceClient().cancel(convertView.getTag());
 
 		ImageView ivPortfolioImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
 		TextView tvPortfolioName = (TextView) convertView.findViewById(R.id.tvItemTitle);
@@ -56,7 +53,8 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 		tvPortfolioChange.setText("--");
 		tvPortfolioChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 
-		convertView.setTag(populateWithQuote(portfolio, tvPortfolioChange));
+		Request<JSONObject> request = populateWithQuote(portfolio, tvPortfolioChange);
+		convertView.setTag(request.getTag());
 
 		return convertView;
 	}

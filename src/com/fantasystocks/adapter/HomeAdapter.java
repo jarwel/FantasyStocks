@@ -38,10 +38,7 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, parent, false);
 		}
 
-		Request<JSONObject> request = (Request<JSONObject>) convertView.getTag();
-		if (request != null) {
-			request.cancel();
-		}
+		RestApplication.getFinanceClient().cancel(convertView.getTag());
 
 		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
 		ImageView ivGainArrow = (ImageView) convertView.findViewById(R.id.ivGainArrow);
@@ -63,7 +60,8 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 		tvPortfolioNetGain.setTextColor(getContext().getResources().getColor(android.R.color.black));
 		ivGainArrow.setImageResource(android.R.color.transparent);
 
-		convertView.setTag(populateWithQuote(portfolio, tvPortfolioNetGain, ivGainArrow));
+		Request<JSONObject> request = populateWithQuote(portfolio, tvPortfolioNetGain, ivGainArrow);
+		convertView.setTag(request.getTag());
 
 		return convertView;
 	}

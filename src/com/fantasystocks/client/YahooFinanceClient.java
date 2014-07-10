@@ -32,7 +32,7 @@ public class YahooFinanceClient {
 	private static YahooFinanceClient instance;
 
 	private YahooFinanceClient(Context context) {
-		this.requestQueue = Volley.newRequestQueue(context);
+		requestQueue = Volley.newRequestQueue(context);
 	}
 
 	public static YahooFinanceClient getInstance(Context context) {
@@ -55,6 +55,12 @@ public class YahooFinanceClient {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	public void cancel(Object tag) {
+		if (tag != null) {
+			requestQueue.cancelAll(tag);
 		}
 	}
 

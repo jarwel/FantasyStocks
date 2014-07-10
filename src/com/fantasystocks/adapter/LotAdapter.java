@@ -32,10 +32,7 @@ public class LotAdapter extends ArrayAdapter<Lot> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_lot, parent, false);
 		}
 
-		Request<JSONObject> request = (Request<JSONObject>) convertView.getTag();
-		if (request != null) {
-			request.cancel();
-		}
+		RestApplication.getFinanceClient().cancel(convertView.getTag());
 
 		TextView tvLotSymbol = (TextView) convertView.findViewById(R.id.tvLotSymbol);
 		TextView tvLotPercentChange = (TextView) convertView.findViewById(R.id.tvLotPercentChange);
@@ -52,7 +49,8 @@ public class LotAdapter extends ArrayAdapter<Lot> {
 		tvLotValueChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 		tvLotValue.setTextColor(getContext().getResources().getColor(android.R.color.black));
 
-		convertView.setTag(populateWithQuote(lot, tvLotPercentChange, tvLotValueChange, tvLotValue));
+		Request<JSONObject> request = populateWithQuote(lot, tvLotPercentChange, tvLotValueChange, tvLotValue);
+		convertView.setTag(request.getTag());
 
 		return convertView;
 	}

@@ -150,7 +150,6 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	}
 
 	private List<Portfolio> orderByCurrentValue(List<Portfolio> portfolios, Map<String, Quote> quotes) {
-
 		final Map<String, Double> values = Maps.newHashMap();
 		for (Portfolio portfolio : portfolios) {
 			Double currentValue = portfolio.getCurrentValue(quotes);
