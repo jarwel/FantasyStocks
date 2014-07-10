@@ -40,6 +40,8 @@ public class PoolAdapter extends ArrayAdapter<Pool> {
 		tvAvailableSlots.setText(String.format("Open: %d", availableSlots));
 		if (availableSlots < 2) {
 			tvAvailableSlots.setTextColor(getContext().getResources().getColor(R.color.text_red));
+		} else {
+			tvAvailableSlots.setTextColor(getContext().getResources().getColor(android.R.color.black));
 		}
 
 		return convertView;
