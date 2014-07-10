@@ -18,6 +18,8 @@ import android.widget.SearchView.OnQueryTextListener;
 
 import com.fantasystocks.adapter.PoolAdapter;
 import com.fantasystocks.model.Pool;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -77,7 +79,12 @@ public class FindPoolActivity extends Activity implements OnItemClickListener {
 			public void done(List<Pool> results, ParseException parseException) {
 				if (parseException == null) {
 					poolAdapter.clear();
-					poolAdapter.addAll(results);
+					poolAdapter.addAll(Lists.newArrayList(Iterables.filter(results, new Predicate<Pool>() {
+						@Override
+						public boolean apply(Pool pool) {
+							return pool.getPlayerCount() < pool.getPlayerLimit();
+						}
+					})));
 				} else {
 					parseException.printStackTrace();
 				}
