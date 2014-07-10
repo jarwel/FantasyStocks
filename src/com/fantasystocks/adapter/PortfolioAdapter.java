@@ -52,10 +52,9 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 		int photoMediaUrl = getContext().getResources().getIdentifier(imageResourceUrl, "drawable", getContext().getPackageName());
 		ivPortfolioImage.setImageResource(photoMediaUrl);
 
-		tvPortfolioChange.setText("--");
-		tvPortfolioChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
-
 		if (!quotes.keySet().containsAll(portfolio.getSymbols())) {
+			tvPortfolioChange.setText("--");
+			tvPortfolioChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 			fetchQuotes(portfolio.getSymbols());
 		} else {
 			Double currentValue = portfolio.getCurrentValue(quotes);

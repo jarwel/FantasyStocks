@@ -44,16 +44,14 @@ public class LotAdapter extends ArrayAdapter<Lot> {
 
 		Lot lot = getItem(position);
 		tvLotSymbol.setText(lot.getSymbol());
-		tvLotPercentChange.setText("--");
-		tvLotValueChange.setText("--");
-		tvLotValue.setText("--");
-
-		tvLotPercentChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
-		tvLotValueChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
-		tvLotValue.setTextColor(getContext().getResources().getColor(android.R.color.black));
 
 		Quote quote = quotes.get(lot.getSymbol());
 		if (quote == null) {
+			tvLotPercentChange.setText("--");
+			tvLotValueChange.setText("--");
+			tvLotValue.setText("--");
+			tvLotPercentChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
+			tvLotValueChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 			fetchQuote(lot.getSymbol());
 		} else {
 			double currentValue = quote.getPrice() * lot.getShares();

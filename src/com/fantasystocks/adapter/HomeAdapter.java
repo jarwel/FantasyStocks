@@ -57,11 +57,10 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 		int photoMediaUrl = getContext().getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", getContext().getPackageName());
 		ivPoolImage.setImageResource(photoMediaUrl);
 
-		tvPortfolioNetGain.setText("--");
-		tvPortfolioNetGain.setTextColor(getContext().getResources().getColor(android.R.color.black));
-		ivGainArrow.setImageResource(android.R.color.transparent);
-
 		if (!quotes.keySet().containsAll(portfolio.getSymbols())) {
+			tvPortfolioNetGain.setText("--");
+			tvPortfolioNetGain.setTextColor(getContext().getResources().getColor(android.R.color.black));
+			ivGainArrow.setImageResource(android.R.color.transparent);
 			fetchQuotes(portfolio.getSymbols());
 		} else {
 			double currentValue = portfolio.getCurrentValue(quotes);
