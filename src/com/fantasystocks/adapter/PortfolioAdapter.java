@@ -13,12 +13,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.fantasystocks.R;
 import com.fantasystocks.RestApplication;
-import com.fantasystocks.model.Lot;
 import com.fantasystocks.model.Portfolio;
 import com.fantasystocks.model.Quote;
 import com.google.common.collect.Lists;
@@ -42,6 +41,7 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 
 		Portfolio portfolio = getItem(position);
 		tvPortfolioName.setText(portfolio.getUser().getString("name"));
+		tvPortfolioRank.setText(RestApplication.getFormatter().formatRank(position + 1));
 		String imageResourceUrl = portfolio.getUser().getString("imageUrl") == null ? "pool_img_4" : portfolio.getUser().getString("imageUrl");
 		int photoMediaUrl = getContext().getResources().getIdentifier(imageResourceUrl, "drawable", getContext().getPackageName());
 		ivPortfolioImage.setImageResource(photoMediaUrl);
@@ -55,19 +55,15 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 		RestApplication.getFinanceClient().fetchQuotes(portfolio.getSymbols(), new Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
-				double currentValue = portfolio.getCash();
 				Map<String, Quote> quotes = Quote.fromJSONArray(response);
-				for (Lot lot : portfolio.getLots()) {
-					Quote quote = quotes.get(lot.getSymbol());
-					if (quote == null) {
-						return;
-					}
-					currentValue += lot.getShares() * quote.getPrice();
+
+				Double currentValue = portfolio.getCurrentValue(quotes);
+				if (currentValue != null) {
+					double priceChange = currentValue - portfolio.getStartingFunds();
+					double percentChange = priceChange / portfolio.getStartingFunds();
+					tvPortfolioChange.setText(RestApplication.getFormatter().formatPercent(percentChange));
+					tvPortfolioChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
 				}
-				double priceChange = currentValue - portfolio.getStartingFunds();
-				double percentChange = priceChange / portfolio.getStartingFunds();
-				tvPortfolioChange.setText(RestApplication.getFormatter().formatPercent(percentChange));
-				tvPortfolioChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
 			}
 		}, new ErrorListener() {
 			@Override

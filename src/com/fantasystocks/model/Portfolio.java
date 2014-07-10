@@ -1,6 +1,7 @@
 package com.fantasystocks.model;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.google.common.base.Function;
@@ -62,6 +63,18 @@ public class Portfolio extends ParseObject {
 				return lot.getSymbol();
 			}
 		}));
+	}
+
+	public Double getCurrentValue(Map<String, Quote> quotes) {
+		double value = getCash();
+		for (Lot lot : getLots()) {
+			Quote quote = quotes.get(lot.getSymbol());
+			if (quote == null) {
+				return null;
+			}
+			value += lot.getShares() * quote.getPrice();
+		}
+		return value;
 	}
 
 	public void addLot(final String symbol, final int shares, final double costBasis, final SaveCallback callback) {

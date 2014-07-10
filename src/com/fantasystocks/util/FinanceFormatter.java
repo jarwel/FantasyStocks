@@ -1,6 +1,7 @@
 package com.fantasystocks.util;
 
 import java.text.DecimalFormat;
+import java.util.Locale;
 
 import android.content.Context;
 
@@ -40,6 +41,19 @@ public class FinanceFormatter {
 
 	public String formatPercent(double value) {
 		return percentFormat.format(value);
+	}
+
+	public String formatRank(int value) {
+		switch (value) {
+		case 1:
+			return "1st";
+		case 2:
+			return "2nd";
+		case 3:
+			return "3rd";
+		default:
+			return String.format(Locale.getDefault(), "%dth", value);
+		}
 	}
 
 	public int getColorResource(double value) {

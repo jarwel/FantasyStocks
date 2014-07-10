@@ -1,10 +1,15 @@
 package com.fantasystocks;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,9 +17,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.fantasystocks.adapter.PortfolioAdapter;
 import com.fantasystocks.model.Pool;
 import com.fantasystocks.model.Portfolio;
+import com.fantasystocks.model.Quote;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -102,13 +114,51 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 			@Override
 			public void done(List<Portfolio> results, ParseException parseException) {
 				if (parseException == null) {
-					portfolioAdapter.clear();
-					portfolioAdapter.addAll(results);
+					sortPortfolios(results);
 				} else {
 					parseException.printStackTrace();
 				}
 			}
 		});
+	}
+
+	public void sortPortfolios(final List<Portfolio> portfolios) {
+		Set<String> symbols = Sets.newHashSet();
+		for (Portfolio portfolio : portfolios) {
+			symbols.addAll(portfolio.getSymbols());
+		}
+
+		RestApplication.getFinanceClient().fetchQuotes(symbols, new Listener<JSONObject>() {
+			@Override
+			public void onResponse(JSONObject response) {
+				Map<String, Quote> quotes = Quote.fromJSONArray(response);
+
+				Map<String, Double> values = Maps.newHashMap();
+				for (Portfolio portfolio : portfolios) {
+					Double currentValue = portfolio.getCurrentValue(quotes);
+					values.put(portfolio.getObjectId(), currentValue);
+				}
+
+				List<Portfolio> sorted = orderByValues(portfolios, values);
+				portfolioAdapter.clear();
+				portfolioAdapter.addAll(sorted);
+			}
+		}, new ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				Log.e(getClass().getName(), String.format("error fetching quote for symbols"));
+			}
+		});
+	}
+
+	private List<Portfolio> orderByValues(List<Portfolio> portfolios, final Map<String, Double> values) {
+		Ordering<Portfolio> byValueOrdering = new Ordering<Portfolio>() {
+			@Override
+			public int compare(Portfolio left, Portfolio right) {
+				return -Double.compare(values.get(left.getObjectId()), values.get(right.getObjectId()));
+			}
+		};
+		return byValueOrdering.nullsLast().sortedCopy(portfolios);
 	}
 
 }

@@ -66,8 +66,9 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 		RestApplication.getFinanceClient().fetchQuotes(portfolio.getSymbols(), new Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
-				double currentValue = portfolio.getCash();
 				Map<String, Quote> quotes = Quote.fromJSONArray(response);
+
+				double currentValue = portfolio.getCash();
 				for (Lot lot : portfolio.getLots()) {
 					Quote quote = quotes.get(lot.getSymbol());
 					if (quote == null) {
