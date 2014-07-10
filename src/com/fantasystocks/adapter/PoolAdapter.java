@@ -1,7 +1,5 @@
 package com.fantasystocks.adapter;
 
-import java.util.Random;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -31,7 +29,6 @@ public class PoolAdapter extends ArrayAdapter<Pool> {
 		TextView tvPoolTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
 		TextView tvAvailableSlots = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
 		TextView tvTotalSlots = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
-		tvAvailableSlots.setTextColor(Color.parseColor("#FF0000"));
 
 		Pool pool = getItem(position);
 		int photoMediaUrl = getContext().getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", getContext().getPackageName());
@@ -39,7 +36,13 @@ public class PoolAdapter extends ArrayAdapter<Pool> {
 
 		tvPoolTitle.setText(pool.getName());
 		tvTotalSlots.setText("Total: " + pool.getPlayerLimit());
-		tvAvailableSlots.setText("Open: " + new Random().nextInt(8) + "");
+
+		int availableSlots = pool.getPlayerLimit() - pool.getPlayerCount();
+		tvAvailableSlots.setText(String.format("Open: %d", availableSlots));
+		if (availableSlots < 2) {
+			tvAvailableSlots.setTextColor(Color.parseColor("#FF0000"));
+		}
+
 		return convertView;
 	}
 }

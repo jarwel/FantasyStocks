@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
@@ -37,6 +38,11 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, parent, false);
 		}
 
+		Request<JSONObject> request = (Request<JSONObject>) convertView.getTag();
+		if (request != null) {
+			request.cancel();
+		}
+
 		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
 		ImageView ivGainArrow = (ImageView) convertView.findViewById(R.id.ivGainArrow);
 		TextView tvPoolTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
@@ -57,13 +63,13 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 		tvPortfolioNetGain.setTextColor(getContext().getResources().getColor(android.R.color.black));
 		ivGainArrow.setImageResource(android.R.color.transparent);
 
-		populateWithQuote(position, portfolio, tvPortfolioNetGain, ivGainArrow);
+		convertView.setTag(populateWithQuote(portfolio, tvPortfolioNetGain, ivGainArrow));
 
 		return convertView;
 	}
 
-	private void populateWithQuote(final int position, final Portfolio portfolio, final TextView tvPortfolioNetGain, final ImageView ivGainArrow) {
-		RestApplication.getFinanceClient().fetchQuotes(portfolio.getSymbols(), new Listener<JSONObject>() {
+	private Request<JSONObject> populateWithQuote(final Portfolio portfolio, final TextView tvPortfolioNetGain, final ImageView ivGainArrow) {
+		return RestApplication.getFinanceClient().fetchQuotes(portfolio.getSymbols(), new Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				Map<String, Quote> quotes = Quote.fromJSONArray(response);
@@ -77,13 +83,12 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 					currentValue += lot.getShares() * quote.getPrice();
 				}
 
-				if (portfolio.equals(getItem(position))) {
-					double priceChange = currentValue - portfolio.getStartingFunds();
-					double percentChange = priceChange / portfolio.getStartingFunds();
-					tvPortfolioNetGain.setText(RestApplication.getFormatter().formatPercent(percentChange));
-					tvPortfolioNetGain.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
-					ivGainArrow.setImageResource(RestApplication.getFormatter().getImageResource(priceChange));
-				}
+				double priceChange = currentValue - portfolio.getStartingFunds();
+				double percentChange = priceChange / portfolio.getStartingFunds();
+				tvPortfolioNetGain.setText(RestApplication.getFormatter().formatPercent(percentChange));
+				tvPortfolioNetGain.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
+				ivGainArrow.setImageResource(RestApplication.getFormatter().getImageResource(priceChange));
+
 			}
 		}, new ErrorListener() {
 			@Override

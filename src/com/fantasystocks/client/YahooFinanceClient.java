@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
@@ -41,18 +42,19 @@ public class YahooFinanceClient {
 		return instance;
 	}
 
-	public void fetchQuote(String symbol, Listener<JSONObject> onSuccess, ErrorListener onError) {
-		fetchQuotes(ImmutableSet.of(symbol), onSuccess, onError);
+	public Request<JSONObject> fetchQuote(String symbol, Listener<JSONObject> onSuccess, ErrorListener onError) {
+		return fetchQuotes(ImmutableSet.of(symbol), onSuccess, onError);
 	}
 
-	public void fetchQuotes(Set<String> symbols, Listener<JSONObject> onSuccess, ErrorListener onError) {
+	public Request<JSONObject> fetchQuotes(Set<String> symbols, Listener<JSONObject> onSuccess, ErrorListener onError) {
 		try {
 			String query = String.format(QUOTE_QUERY_FORMAT, setToQueryString(symbols));
 			String request = String.format(URL_FORMAT, URLEncoder.encode(query, Charsets.UTF_8.name()));
-			requestQueue.add(new JsonObjectRequest(Method.GET, request, null, onSuccess, onError));
 			Log.d("debug", request);
+			return requestQueue.add(new JsonObjectRequest(Method.GET, request, null, onSuccess, onError));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
 

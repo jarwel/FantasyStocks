@@ -122,36 +122,41 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		});
 	}
 
-	public void sortPortfolios(final List<Portfolio> portfolios) {
+	private void sortPortfolios(final List<Portfolio> portfolios) {
 		Set<String> symbols = Sets.newHashSet();
 		for (Portfolio portfolio : portfolios) {
 			symbols.addAll(portfolio.getSymbols());
 		}
 
-		RestApplication.getFinanceClient().fetchQuotes(symbols, new Listener<JSONObject>() {
-			@Override
-			public void onResponse(JSONObject response) {
-				Map<String, Quote> quotes = Quote.fromJSONArray(response);
-
-				Map<String, Double> values = Maps.newHashMap();
-				for (Portfolio portfolio : portfolios) {
-					Double currentValue = portfolio.getCurrentValue(quotes);
-					values.put(portfolio.getObjectId(), currentValue);
+		if (symbols.isEmpty()) {
+			portfolioAdapter.clear();
+			portfolioAdapter.addAll(portfolios);
+		} else {
+			RestApplication.getFinanceClient().fetchQuotes(symbols, new Listener<JSONObject>() {
+				@Override
+				public void onResponse(JSONObject response) {
+					Map<String, Quote> quotes = Quote.fromJSONArray(response);
+					List<Portfolio> sorted = orderByCurrentValue(portfolios, quotes);
+					portfolioAdapter.clear();
+					portfolioAdapter.addAll(sorted);
 				}
-
-				List<Portfolio> sorted = orderByValues(portfolios, values);
-				portfolioAdapter.clear();
-				portfolioAdapter.addAll(sorted);
-			}
-		}, new ErrorListener() {
-			@Override
-			public void onErrorResponse(VolleyError error) {
-				Log.e(getClass().getName(), String.format("error fetching quote for symbols"));
-			}
-		});
+			}, new ErrorListener() {
+				@Override
+				public void onErrorResponse(VolleyError error) {
+					Log.e(getClass().getName(), String.format("error fetching quote for symbols"));
+				}
+			});
+		}
 	}
 
-	private List<Portfolio> orderByValues(List<Portfolio> portfolios, final Map<String, Double> values) {
+	private List<Portfolio> orderByCurrentValue(List<Portfolio> portfolios, Map<String, Quote> quotes) {
+
+		final Map<String, Double> values = Maps.newHashMap();
+		for (Portfolio portfolio : portfolios) {
+			Double currentValue = portfolio.getCurrentValue(quotes);
+			values.put(portfolio.getObjectId(), currentValue);
+		}
+
 		Ordering<Portfolio> byValueOrdering = new Ordering<Portfolio>() {
 			@Override
 			public int compare(Portfolio left, Portfolio right) {

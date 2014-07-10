@@ -18,9 +18,11 @@ import android.widget.SearchView.OnQueryTextListener;
 
 import com.fantasystocks.adapter.PoolAdapter;
 import com.fantasystocks.model.Pool;
+import com.google.common.collect.Lists;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 public class FindPoolActivity extends Activity implements OnItemClickListener {
 
@@ -69,6 +71,7 @@ public class FindPoolActivity extends Activity implements OnItemClickListener {
 	public void fetchPoolResults(String queryString) {
 		ParseQuery<Pool> query = ParseQuery.getQuery(Pool.class);
 		query.whereContains("canonicalName", queryString.toLowerCase(Locale.getDefault()));
+		query.whereNotContainedIn("players", Lists.newArrayList(ParseUser.getCurrentUser()));
 		query.findInBackground(new FindCallback<Pool>() {
 			@Override
 			public void done(List<Pool> results, ParseException parseException) {

@@ -24,12 +24,29 @@ public class Pool extends ParseObject implements Serializable {
 		put("name", name);
 	}
 
-	public int getPlayerLimit() {
-		return getInt("playerLimit");
+	public void setCanonicalName(String name) {
+		name = name.toLowerCase(Locale.getDefault());
+		put("canonicalName", name);
+	}
+
+	public String getCanonicalName() {
+		return getString("canonicalName");
 	}
 
 	public void setPlayerLimit(int playerLimit) {
 		put("playerLimit", playerLimit);
+	}
+
+	public int getPlayerLimit() {
+		return getInt("playerLimit");
+	}
+
+	public void setPlayerCount(int playerCount) {
+		put("playerCount", playerCount);
+	}
+
+	public int getPlayerCount() {
+		return getInt("playerCount");
 	}
 
 	public double getFunds() {
@@ -38,15 +55,6 @@ public class Pool extends ParseObject implements Serializable {
 
 	public void setFunds(double funds) {
 		put("funds", funds);
-	}
-
-	public void setCanonicalName(String name) {
-		name = name.toLowerCase(Locale.getDefault());
-		put("canonicalName", name);
-	}
-
-	public String getCanonicalName() {
-		return getString("canonicalName");
 	}
 
 	public String getPoolImageUrl() {
@@ -70,7 +78,7 @@ public class Pool extends ParseObject implements Serializable {
 	public void addPortfolio(final ParseUser user, final SaveCallback callback) {
 		fetchIfNeededInBackground(new GetCallback<Pool>() {
 			@Override
-			public void done(Pool pool, ParseException parseException) {
+			public void done(final Pool pool, ParseException parseException) {
 				if (parseException != null) {
 					callback.done(parseException);
 				}
@@ -79,7 +87,17 @@ public class Pool extends ParseObject implements Serializable {
 				portfolio.setPool(pool);
 				portfolio.setCash(pool.getFunds());
 				portfolio.setStartingFunds(pool.getFunds());
-				portfolio.saveInBackground(callback);
+				portfolio.saveInBackground(new SaveCallback() {
+					@Override
+					public void done(ParseException parseException) {
+						if (parseException != null) {
+							callback.done(parseException);
+						}
+						pool.add("players", user);
+						pool.put("playerCount", pool.getPlayerCount() + 1);
+						pool.saveInBackground(callback);
+					}
+				});
 			}
 		});
 	}

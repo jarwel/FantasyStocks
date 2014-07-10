@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.android.volley.Request;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
@@ -31,13 +32,17 @@ public class LotAdapter extends ArrayAdapter<Lot> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_lot, parent, false);
 		}
 
+		Request<JSONObject> request = (Request<JSONObject>) convertView.getTag();
+		if (request != null) {
+			request.cancel();
+		}
+
 		TextView tvLotSymbol = (TextView) convertView.findViewById(R.id.tvLotSymbol);
 		TextView tvLotPercentChange = (TextView) convertView.findViewById(R.id.tvLotPercentChange);
 		TextView tvLotValueChange = (TextView) convertView.findViewById(R.id.tvLotValueChange);
 		TextView tvLotValue = (TextView) convertView.findViewById(R.id.tvLotValue);
 
 		Lot lot = getItem(position);
-
 		tvLotSymbol.setText(lot.getSymbol());
 		tvLotPercentChange.setText("--");
 		tvLotValueChange.setText("--");
@@ -47,21 +52,21 @@ public class LotAdapter extends ArrayAdapter<Lot> {
 		tvLotValueChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 		tvLotValue.setTextColor(getContext().getResources().getColor(android.R.color.black));
 
-		populateWithQuote(position, lot, tvLotPercentChange, tvLotValueChange, tvLotValue);
+		convertView.setTag(populateWithQuote(lot, tvLotPercentChange, tvLotValueChange, tvLotValue));
 
 		return convertView;
 	}
 
-	private void populateWithQuote(final int position, final Lot lot, final TextView tvLotPercentChange, final TextView tvLotValueChange,
-			final TextView tvLotValue) {
-		RestApplication.getFinanceClient().fetchQuote(lot.getSymbol(), new Listener<JSONObject>() {
+	private Request<JSONObject> populateWithQuote(final Lot lot, final TextView tvLotPercentChange, final TextView tvLotValueChange, final TextView tvLotValue) {
+		return RestApplication.getFinanceClient().fetchQuote(lot.getSymbol(), new Listener<JSONObject>() {
 			@Override
 			public void onResponse(JSONObject response) {
 				Quote quote = Quote.fromJSONObject(response);
-				if (quote != null && lot.equals(getItem(position))) {
+				if (quote != null) {
 					double currentValue = quote.getPrice() * lot.getShares();
 					double priceChange = currentValue - lot.getCostBasis();
 					double percentChange = priceChange / lot.getCostBasis();
+
 					tvLotPercentChange.setText(RestApplication.getFormatter().formatPercent(percentChange));
 					tvLotValueChange.setText(RestApplication.getFormatter().formatChange(priceChange));
 					tvLotValue.setText(RestApplication.getFormatter().formatCurrency(currentValue));
@@ -77,5 +82,4 @@ public class LotAdapter extends ArrayAdapter<Lot> {
 			}
 		});
 	}
-
 }
