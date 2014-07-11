@@ -21,6 +21,7 @@ import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 public class FragmentSignup extends Fragment implements OnClickListener {
+
 	private FragmentActivity listener;
 	private EditText etSignUpPassword;
 	private EditText etSignUpName;

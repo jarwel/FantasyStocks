@@ -10,11 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:queryHint="Search for open pools"
+        android:layout_alignParentTop="true"
         android:iconifiedByDefault="false"
-        android:layout_alignParentTop="true" >
-
-    </SearchView>
+        android:queryHint="Search for open pools" />
 
     <ListView
         android:id="@+id/lvPools"
@@ -22,7 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/svPool" >
-    </ListView>
+        android:layout_below="@+id/svPool" />
 
 </RelativeLayout>

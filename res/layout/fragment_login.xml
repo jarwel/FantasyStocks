@@ -6,45 +6,44 @@
     android:background="#0f6a94"
     android:orientation="vertical" >
 
-   
     <EditText
-       android:id="@+id/etLoginEmail"
-       style="@style/editText_login_style"
-       android:hint="@string/email"
-       android:inputType="textEmailAddress" />
+        android:id="@+id/etLoginEmail"
+        style="@style/editText_login_style"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
 
-   <EditText
-       android:id="@+id/etLoginPassword"
-       style="@style/editText_login_style"
-       android:layout_below="@+id/etLoginEmail"
-       android:hint="@string/password"
-       android:inputType="textPassword"/>
+    <EditText
+        android:id="@+id/etLoginPassword"
+        style="@style/editText_login_style"
+        android:layout_below="@+id/etLoginEmail"
+        android:hint="@string/password"
+        android:inputType="textPassword" />
 
-   <Button
-       android:id="@+id/btnLogin"
-       style="@style/button_login_style"
-       android:layout_below="@+id/etLoginPassword"
-       android:layout_marginTop="40dp"
-       android:background="@drawable/login_button"
-       android:text="@string/logIn" />
-   
-   <Button
-       android:id="@+id/btnSignUpLauncher"
-       style="@style/button_login_style"
-       android:layout_alignParentBottom="true"
-       android:layout_marginBottom="20dp"
-       android:background="@drawable/signup_button"
-       android:text="@string/signUp" />
+    <Button
+        android:id="@+id/btnLogin"
+        style="@style/button_login_style"
+        android:layout_below="@+id/etLoginPassword"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/login_button"
+        android:text="@string/logIn" />
 
-   <TextView
-       android:id="@+id/tvLoginError"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignLeft="@+id/etLoginPassword"
-       android:layout_below="@+id/etLoginPassword"
-       android:textColor="#FF0000"
-       android:layout_marginTop="12dp"
-       android:layout_marginLeft="5dp"
-       android:textSize="12sp"/>
+    <Button
+        android:id="@+id/btnSignUpLauncher"
+        style="@style/button_login_style"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/signup_button"
+        android:text="@string/signUp" />
+
+    <TextView
+        android:id="@+id/tvLoginError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etLoginPassword"
+        android:layout_below="@+id/etLoginPassword"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="12dp"
+        android:textColor="#FF0000"
+        android:textSize="12sp" />
 
 </RelativeLayout>
