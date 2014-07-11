@@ -93,8 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView9" >
-    </ListView>
+        android:layout_below="@+id/textView9" />
 
     <Button
         android:id="@+id/btnTrade"
