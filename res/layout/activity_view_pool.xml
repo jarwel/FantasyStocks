@@ -5,44 +5,49 @@
     tools:context="${packageName}.${activityClass}" >
 
     <TextView
-        android:id="@+id/tvFundsLabel"
+        android:id="@+id/tvPoolDates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="14dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Date Range:"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvPoolStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tvPoolDates"
+        android:layout_marginRight="20dp"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvPoolPlayers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvPoolDates"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
         android:text="Portfolios:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvFundsLabel"
-        android:layout_below="@+id/tvFundsLabel"
-        android:text="Date Range:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView4"
-        android:text="Leaderboard"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <ListView
-        android:id="@+id/lvPortfolios"
+        android:id="@+id/lvPoolPortfolios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView5" />
+        android:layout_below="@+id/tvPoolPlayers" />
 
     <Button
         android:id="@+id/btnJoinPool"
         style="@style/button_login_style"
-        android:layout_below="@+id/lvPortfolios"
+        android:layout_below="@+id/lvPoolPortfolios"
         android:layout_marginTop="30dp"
         android:background="@drawable/login_button"
         android:onClick="onJoinPoolClicked"

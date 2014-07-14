@@ -99,7 +99,6 @@ public class FindPoolActivity extends Activity implements OnItemClickListener {
 		intent.putExtra("poolId", pool.getObjectId());
 		intent.putExtra("poolName", pool.getName());
 		intent.putExtra("poolImageUrl", pool.getPoolImageUrl());
-		intent.putExtra("canJoinPool", true);
 		startActivity(intent);
 	}
 

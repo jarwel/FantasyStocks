@@ -74,7 +74,6 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 		intent.putExtra("poolId", portfolio.getPool().getObjectId());
 		intent.putExtra("poolName", portfolio.getPool().getName());
 		intent.putExtra("poolImageUrl", portfolio.getPool().getPoolImageUrl());
-		intent.putExtra("canJoinPool", false);
 		startActivity(intent);
 	}
 

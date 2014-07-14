@@ -23,13 +23,15 @@
     <string name="password">Password</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
-    <string name="find_pool_label">FIND</string>
-    <string name="create_pool_label">CREATE</string>
     <string name="join_pool_label">Join Pool</string>
-    <string name="cash_available_label">Available for trade</string>
+    <string name="funds_available_label">Funds available to trade</string>
     <string name="symbol_hint">Enter stock symbol</string>
     <string name="shares_hint">Enter shares to purchase</string>
     <string name="order_total_label">Order Total</string>
     <string name="insufficient_funds_label">Insufficient Funds</string>
+    <string name="find_pool_label">FIND</string>
+    <string name="create_pool_label">CREATE</string>
+    <string name="status_open_label">OPEN</string>
+    <string name="status_closed_label">CLOSED</string>
 
 </resources>

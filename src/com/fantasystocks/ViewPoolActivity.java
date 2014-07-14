@@ -1,6 +1,7 @@
 package com.fantasystocks;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -28,6 +30,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -36,36 +39,39 @@ import com.parse.SaveCallback;
 
 public class ViewPoolActivity extends Activity implements OnItemClickListener {
 
-	private String poolId;
-
-	private ListView lvPortfolios;
+	private TextView tvPoolDates;
+	private TextView tvPoolStatus;
+	private TextView tvPoolPlayers;
+	private ListView lvPoolPortfolios;
 	private Button btnJoinPool;
 	private PortfolioAdapter portfolioAdapter;
+
+	private Pool pool;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_pool);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		lvPortfolios = (ListView) findViewById(R.id.lvPortfolios);
+		tvPoolDates = (TextView) findViewById(R.id.tvPoolDates);
+		tvPoolStatus = (TextView) findViewById(R.id.tvPoolStatus);
+		tvPoolPlayers = (TextView) findViewById(R.id.tvPoolPlayers);
+		lvPoolPortfolios = (ListView) findViewById(R.id.lvPoolPortfolios);
 		btnJoinPool = (Button) findViewById(R.id.btnJoinPool);
 
-		poolId = getIntent().getStringExtra("poolId");
+		String poolId = getIntent().getStringExtra("poolId");
 		String poolName = getIntent().getStringExtra("poolName");
 		String poolImageUrl = getIntent().getStringExtra("poolImageUrl");
-		boolean canJoinPool = getIntent().getBooleanExtra("canJoinPool", false);
 
 		getActionBar().setTitle(poolName);
 		if (poolImageUrl != null) {
 			getActionBar().setIcon(getResources().getIdentifier(poolImageUrl, "drawable", getPackageName()));
 		}
-		if (!canJoinPool) {
-			btnJoinPool.setVisibility(View.GONE);
-		}
 
 		portfolioAdapter = new PortfolioAdapter(getBaseContext());
-		lvPortfolios.setAdapter(portfolioAdapter);
-		lvPortfolios.setOnItemClickListener(this);
+		lvPoolPortfolios.setAdapter(portfolioAdapter);
+		lvPoolPortfolios.setOnItemClickListener(this);
+		loadPool(poolId);
 		loadPortfolios(poolId);
 	}
 
@@ -93,7 +99,6 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	}
 
 	public void onJoinPoolClicked(View view) {
-		Pool pool = ParseObject.createWithoutData(Pool.class, poolId);
 		pool.addPortfolio(ParseUser.getCurrentUser(), new SaveCallback() {
 			@Override
 			public void done(ParseException parseException) {
@@ -101,6 +106,37 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 					parseException.printStackTrace();
 				}
 				finish();
+			}
+		});
+	}
+
+	private void loadPool(String poolId) {
+		ParseQuery<Pool> query = ParseQuery.getQuery("Pool");
+		query.getInBackground(poolId, new GetCallback<Pool>() {
+			@Override
+			public void done(Pool result, ParseException parseException) {
+				if (parseException == null) {
+					pool = result;
+
+					String playersLabel = String.format("%d Player%s", pool.getPlayerCount(), pool.getPlayerCount() == 1 ? "" : "s", Locale.getDefault());
+					String formattedStartDate = RestApplication.getFormatter().formatShortDate(pool.getStartDate());
+					String formattedEndDate = RestApplication.getFormatter().formatShortDate(pool.getEndDate());
+					tvPoolDates.setText(String.format("%s - %s", formattedStartDate, formattedEndDate));
+
+					if (pool.isOpen()) {
+						tvPoolStatus.setText(R.string.status_open_label);
+						tvPoolStatus.setTextColor(getResources().getColor(R.color.text_green));
+						tvPoolPlayers.setText(String.format("%s (%d Open)", playersLabel, pool.getOpenCount()));
+						btnJoinPool.setVisibility(View.VISIBLE);
+					} else {
+						tvPoolStatus.setText(R.string.status_closed_label);
+						tvPoolStatus.setTextColor(getResources().getColor(R.color.text_red));
+						tvPoolPlayers.setText(playersLabel);
+						btnJoinPool.setVisibility(View.GONE);
+					}
+				} else {
+					parseException.printStackTrace();
+				}
 			}
 		});
 	}

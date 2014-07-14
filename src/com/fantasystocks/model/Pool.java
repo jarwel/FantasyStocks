@@ -1,6 +1,7 @@
 package com.fantasystocks.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
@@ -41,6 +42,22 @@ public class Pool extends ParseObject implements Serializable {
 		return getInt("playerLimit");
 	}
 
+	public void setStartDate(Date startDate) {
+		put("startDate", startDate);
+	}
+
+	public Date getStartDate() {
+		return getDate("startDate");
+	}
+
+	public void setEndDate(Date endDate) {
+		put("endDate", endDate);
+	}
+
+	public Date getEndDate() {
+		return getDate("endDate");
+	}
+
 	public void setPlayerCount(int playerCount) {
 		put("playerCount", playerCount);
 	}
@@ -66,13 +83,19 @@ public class Pool extends ParseObject implements Serializable {
 		put("poolImageUrl", imageUrl);
 	}
 
-	public String getRank(Portfolio portfolio) {
-		return String.format("%sth", new Random().nextInt(7) + 3);
+	public boolean isOpen() {
+		return getPlayerCount() < getPlayerLimit();
 	}
 
-	public String getChange(Portfolio portfolio) {
-		String sign = new Random().nextInt(8) > 4 ? "+" : "-";
-		return String.format(sign + "$%.2f", new Random().nextDouble());
+	public int getOpenCount() {
+		if (isOpen()) {
+			return getPlayerLimit() - getPlayerCount();
+		}
+		return 0;
+	}
+
+	public String getRank(Portfolio portfolio) {
+		return String.format("%sth", new Random().nextInt(7) + 3);
 	}
 
 	public void addPortfolio(final ParseUser user, final SaveCallback callback) {

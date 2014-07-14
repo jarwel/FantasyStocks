@@ -26,7 +26,7 @@ public class PoolAdapter extends ArrayAdapter<Pool> {
 
 		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
 		TextView tvPoolTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
-		TextView tvAvailableSlots = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
+		TextView tvOpenSlots = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
 		TextView tvTotalSlots = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
 
 		Pool pool = getItem(position);
@@ -36,12 +36,11 @@ public class PoolAdapter extends ArrayAdapter<Pool> {
 		tvPoolTitle.setText(pool.getName());
 		tvTotalSlots.setText("Total: " + pool.getPlayerLimit());
 
-		int availableSlots = pool.getPlayerLimit() - pool.getPlayerCount();
-		tvAvailableSlots.setText(String.format("Open: %d", availableSlots));
-		if (availableSlots < 2) {
-			tvAvailableSlots.setTextColor(getContext().getResources().getColor(R.color.text_red));
+		tvOpenSlots.setText(String.format("Open: %d", pool.getOpenCount()));
+		if (pool.getOpenCount() < 2) {
+			tvOpenSlots.setTextColor(getContext().getResources().getColor(R.color.text_red));
 		} else {
-			tvAvailableSlots.setTextColor(getContext().getResources().getColor(android.R.color.black));
+			tvOpenSlots.setTextColor(getContext().getResources().getColor(android.R.color.black));
 		}
 
 		return convertView;

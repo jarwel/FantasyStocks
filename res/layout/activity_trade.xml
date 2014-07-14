@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:text="@string/cash_available_label"
+        android:text="@string/funds_available_label"
         android:textSize="18sp" />
 
     <TextView

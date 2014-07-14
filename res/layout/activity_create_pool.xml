@@ -11,7 +11,10 @@
         android:background="@drawable/create_pool_background"
         android:hint="Pool Name"
         android:textColor="#333"
-        android:textColorHint="#999" />
+        android:textColorHint="#999" >
+
+        <requestFocus />
+    </EditText>
 
     <EditText
         android:id="@+id/etPoolFunds"
@@ -31,10 +34,36 @@
         android:textColor="#333"
         android:textColorHint="#999" />
 
+    <EditText
+        android:id="@+id/etStartDate"
+        style="@style/editText_login_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPlayerLimit"
+        android:background="@drawable/create_pool_background"
+        android:focusableInTouchMode="false"
+        android:hint="Start date"
+        android:inputType="date"
+        android:textColor="#333"
+        android:textColorHint="#999" />
+
+    <EditText
+        android:id="@+id/etEndDate"
+        style="@style/editText_login_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etStartDate"
+        android:background="@drawable/create_pool_background"
+        android:focusableInTouchMode="false"
+        android:hint="End date"
+        android:inputType="date"
+        android:textColor="#333"
+        android:textColorHint="#999" />
+
     <Button
         android:id="@+id/btnSubmitPool"
         style="@style/button_login_style"
-        android:layout_below="@+id/etPlayerLimit"
+        android:layout_below="@+id/etEndDate"
         android:layout_marginTop="30dp"
         android:background="@drawable/login_button"
         android:onClick="onSubmitButton"

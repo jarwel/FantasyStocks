@@ -8,7 +8,7 @@ import com.fantasystocks.client.YahooFinanceClient;
 import com.fantasystocks.model.Lot;
 import com.fantasystocks.model.Pool;
 import com.fantasystocks.model.Portfolio;
-import com.fantasystocks.util.FinanceFormatter;
+import com.fantasystocks.util.FinanceFormat;
 import com.fantasystocks.util.Utils;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -46,7 +46,7 @@ public class RestApplication extends Application {
 		return YahooFinanceClient.getInstance(RestApplication.context);
 	}
 
-	public static FinanceFormatter getFormatter() {
-		return FinanceFormatter.getInstance(RestApplication.context);
+	public static FinanceFormat getFormatter() {
+		return FinanceFormat.getInstance(RestApplication.context);
 	}
 }
