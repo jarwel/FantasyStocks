@@ -14,15 +14,16 @@ import com.fantasystocks.model.Portfolio;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 public class ViewPortfolioActivity extends Activity {
-
-	private String portfolioId;
 
 	private TextView tvCash;
 	private ListView lvLots;
 	private Button btnTrade;
 	private LotAdapter lotAdapter;
+
+	private String portfolioId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +38,9 @@ public class ViewPortfolioActivity extends Activity {
 		String portfolioName = getIntent().getStringExtra("portfolioName");
 		String portfolioImageUrl = getIntent().getStringExtra("portfolioImageUrl");
 
-		boolean canTrade = getIntent().getBooleanExtra("canTrade", false);
-
 		getActionBar().setTitle(String.format("%s's Portfolio", portfolioName));
 		if (portfolioImageUrl != null) {
 			getActionBar().setIcon(getResources().getIdentifier(portfolioImageUrl, "drawable", getPackageName()));
-		}
-		if (!canTrade) {
-			btnTrade.setVisibility(View.GONE);
 		}
 
 		lotAdapter = new LotAdapter(getBaseContext());
@@ -76,6 +72,7 @@ public class ViewPortfolioActivity extends Activity {
 
 	private void loadPortfolio() {
 		ParseQuery<Portfolio> query = ParseQuery.getQuery("Portfolio");
+		query.include("user");
 		query.include("lots");
 		query.getInBackground(portfolioId, new GetCallback<Portfolio>() {
 			public void done(Portfolio result, ParseException parseException) {
@@ -83,10 +80,15 @@ public class ViewPortfolioActivity extends Activity {
 					tvCash.setText(RestApplication.getFormatter().formatCurrency(result.getCash()));
 					lotAdapter.clear();
 					lotAdapter.addAll(result.getLots());
+
+					if (ParseUser.getCurrentUser().getObjectId().equals(result.getUser().getObjectId())) {
+						btnTrade.setVisibility(View.VISIBLE);
+					}
 				} else {
 					parseException.printStackTrace();
 				}
 			}
 		});
 	}
+
 }

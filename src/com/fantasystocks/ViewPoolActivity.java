@@ -47,6 +47,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	private PortfolioAdapter portfolioAdapter;
 
 	private Pool pool;
+	private boolean canJoin;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		String poolId = getIntent().getStringExtra("poolId");
 		String poolName = getIntent().getStringExtra("poolName");
 		String poolImageUrl = getIntent().getStringExtra("poolImageUrl");
+		canJoin = getIntent().getBooleanExtra("canJoin", false);
 
 		getActionBar().setTitle(poolName);
 		if (poolImageUrl != null) {
@@ -89,12 +91,10 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		Portfolio portfolio = portfolioAdapter.getItem(position);
-		String userId = portfolio.getUser().getObjectId();
 		Intent intent = new Intent(this, ViewPortfolioActivity.class);
 		intent.putExtra("portfolioId", portfolio.getObjectId());
 		intent.putExtra("portfolioName", portfolio.getUser().getString("name"));
 		intent.putExtra("portfolioImageUrl", portfolio.getUser().getString("imageUrl"));
-		intent.putExtra("canTrade", ParseUser.getCurrentUser().getObjectId().equals(userId));
 		startActivity(intent);
 	}
 
@@ -127,12 +127,13 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 						tvPoolStatus.setText(R.string.status_open_label);
 						tvPoolStatus.setTextColor(getResources().getColor(R.color.text_green));
 						tvPoolPlayers.setText(String.format("%s (%d Open)", playersLabel, pool.getOpenCount()));
-						btnJoinPool.setVisibility(View.VISIBLE);
+						if (canJoin) {
+							btnJoinPool.setVisibility(View.VISIBLE);
+						}
 					} else {
 						tvPoolStatus.setText(R.string.status_closed_label);
 						tvPoolStatus.setTextColor(getResources().getColor(R.color.text_red));
 						tvPoolPlayers.setText(playersLabel);
-						btnJoinPool.setVisibility(View.GONE);
 					}
 				} else {
 					parseException.printStackTrace();

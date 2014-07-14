@@ -25,9 +25,6 @@ import com.parse.SaveCallback;
 
 public class TradeActivity extends Activity {
 
-	private Portfolio portfolio;
-	private Quote quote;
-
 	private TextView tvFundsAvailable;
 	private TextView tvSecurityName;
 	private TextView tvSecurityPrice;
@@ -37,6 +34,9 @@ public class TradeActivity extends Activity {
 	private EditText etOrderShares;
 	private EditText etSecuritySymbol;
 	private Button btnPlaceOrder;
+
+	private Portfolio portfolio;
+	private Quote quote;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

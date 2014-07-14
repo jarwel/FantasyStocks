@@ -51,6 +51,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/login_button"
         android:onClick="onJoinPoolClicked"
-        android:text="@string/join_pool_label" />
+        android:text="@string/join_pool_label"
+        android:visibility="gone" />
 
 </RelativeLayout>
