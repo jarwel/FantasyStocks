@@ -6,7 +6,6 @@ import java.util.Set;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,31 +42,34 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 
 		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
 		ImageView ivGainArrow = (ImageView) convertView.findViewById(R.id.ivGainArrow);
-		TextView tvPoolTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
-		TextView tvPortfolioRank = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
-		TextView tvPortfolioNetGain = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
+		TextView tvTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
+		TextView tvValueChange = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
+		TextView tvPercentChange = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
 
 		Portfolio portfolio = getItem(position);
 		Pool pool = portfolio.getPool();
 
-		tvPoolTitle.setText(pool.getName());
-		tvPortfolioRank.setText(pool.getRank(null));
-		tvPortfolioRank.setTypeface(null, Typeface.BOLD);
+		tvTitle.setText(pool.getName());
 
 		int photoMediaUrl = getContext().getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", getContext().getPackageName());
 		ivPoolImage.setImageResource(photoMediaUrl);
 
 		if (!quotes.keySet().containsAll(portfolio.getSymbols())) {
-			tvPortfolioNetGain.setText("--");
-			tvPortfolioNetGain.setTextColor(getContext().getResources().getColor(android.R.color.black));
+			tvValueChange.setText("--");
+			tvValueChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
+			tvPercentChange.setText("--");
+			tvPercentChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 			ivGainArrow.setImageResource(android.R.color.transparent);
 			fetchQuotes(portfolio.getSymbols());
 		} else {
 			double currentValue = portfolio.getCurrentValue(quotes);
 			double priceChange = currentValue - portfolio.getStartingFunds();
 			double percentChange = priceChange / portfolio.getStartingFunds();
-			tvPortfolioNetGain.setText(RestApplication.getFormatter().formatPercent(percentChange));
-			tvPortfolioNetGain.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
+
+			tvValueChange.setText(RestApplication.getFormatter().formatChange(priceChange));
+			tvValueChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
+			tvPercentChange.setText(RestApplication.getFormatter().formatPercent(percentChange));
+			tvPercentChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
 			ivGainArrow.setImageResource(RestApplication.getFormatter().getImageResource(priceChange));
 		}
 

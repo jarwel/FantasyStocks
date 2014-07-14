@@ -1,9 +1,8 @@
 package com.fantasystocks.model;
 
-import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Random;
 
 import com.fantasystocks.util.Utils;
 import com.parse.GetCallback;
@@ -14,8 +13,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 @ParseClassName("Pool")
-public class Pool extends ParseObject implements Serializable {
-	private static final long serialVersionUID = -8673978233324396984L;
+public class Pool extends ParseObject {
 
 	public String getName() {
 		return getString("name");
@@ -84,7 +82,8 @@ public class Pool extends ParseObject implements Serializable {
 	}
 
 	public boolean isOpen() {
-		return getPlayerCount() < getPlayerLimit();
+		Date today = Calendar.getInstance().getTime();
+		return getStartDate().after(today) && getPlayerCount() < getPlayerLimit();
 	}
 
 	public int getOpenCount() {
@@ -92,10 +91,6 @@ public class Pool extends ParseObject implements Serializable {
 			return getPlayerLimit() - getPlayerCount();
 		}
 		return 0;
-	}
-
-	public String getRank(Portfolio portfolio) {
-		return String.format("%sth", new Random().nextInt(7) + 3);
 	}
 
 	public void addPortfolio(final ParseUser user, final SaveCallback callback) {
