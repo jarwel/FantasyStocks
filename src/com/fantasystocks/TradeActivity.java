@@ -147,10 +147,12 @@ public class TradeActivity extends Activity {
 				if (total <= portfolio.getCash()) {
 					tvOrderTotal.setTextColor(getResources().getColor(R.color.text_gray));
 					tvOrderTotalLabel.setText(R.string.order_total_label);
+					tvOrderTotalLabel.setTextColor(getResources().getColor(R.color.text_gray));
 					btnPlaceOrder.setEnabled(true);
 				} else {
 					tvOrderTotal.setTextColor(getResources().getColor(R.color.text_red));
 					tvOrderTotalLabel.setText(R.string.insufficient_funds_label);
+					tvOrderTotalLabel.setTextColor(getResources().getColor(R.color.text_red));
 				}
 			}
 		} catch (NumberFormatException e) {
@@ -162,12 +164,12 @@ public class TradeActivity extends Activity {
 		etSecuritySymbol.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				fetchQuote();
+				// Do nothing
 			}
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				fetchQuote();
+				// Do nothing
 			}
 
 			@Override
@@ -178,12 +180,12 @@ public class TradeActivity extends Activity {
 		etOrderShares.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				calculateTotals();
+				// Do nothing
 			}
 
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-				calculateTotals();
+				// Do nothing
 			}
 
 			@Override

@@ -28,6 +28,7 @@ import com.parse.ParseUser;
 
 public class ViewPortfolioActivity extends Activity {
 
+	private TextView tvRank;
 	private TextView tvCurrentValue;
 	private TextView tvValueChange;
 	private TextView tvPercentChange;
@@ -43,6 +44,7 @@ public class ViewPortfolioActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_portfolio);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		tvRank = (TextView) findViewById(R.id.tvRank);
 		tvCurrentValue = (TextView) findViewById(R.id.tvCurrentValue);
 		tvValueChange = (TextView) findViewById(R.id.tvValueChange);
 		tvPercentChange = (TextView) findViewById(R.id.tvPercentChange);
@@ -53,11 +55,14 @@ public class ViewPortfolioActivity extends Activity {
 		portfolioId = getIntent().getStringExtra("portfolioId");
 		String portfolioName = getIntent().getStringExtra("portfolioName");
 		String portfolioImageUrl = getIntent().getStringExtra("portfolioImageUrl");
+		String poolName = getIntent().getStringExtra("poolName");
+		int poolRank = getIntent().getIntExtra("poolRank", 0);
 
 		getActionBar().setTitle(String.format("%s's Portfolio", portfolioName));
 		if (portfolioImageUrl != null) {
 			getActionBar().setIcon(getResources().getIdentifier(portfolioImageUrl, "drawable", getPackageName()));
 		}
+		tvRank.setText(String.format("%s place in %s", RestApplication.getFormatter().formatRank(poolRank), poolName));
 
 		lotAdapter = new LotAdapter(getBaseContext());
 		lvLots.setAdapter(lotAdapter);
