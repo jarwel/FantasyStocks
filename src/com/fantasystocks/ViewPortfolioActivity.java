@@ -1,16 +1,26 @@
 package com.fantasystocks;
 
+import java.util.Map;
+import java.util.Set;
+
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
 import com.fantasystocks.adapter.LotAdapter;
 import com.fantasystocks.model.Portfolio;
+import com.fantasystocks.model.Quote;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -18,6 +28,9 @@ import com.parse.ParseUser;
 
 public class ViewPortfolioActivity extends Activity {
 
+	private TextView tvCurrentValue;
+	private TextView tvValueChange;
+	private TextView tvPercentChange;
 	private TextView tvCash;
 	private ListView lvLots;
 	private Button btnTrade;
@@ -30,6 +43,9 @@ public class ViewPortfolioActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_portfolio);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		tvCurrentValue = (TextView) findViewById(R.id.tvCurrentValue);
+		tvValueChange = (TextView) findViewById(R.id.tvValueChange);
+		tvPercentChange = (TextView) findViewById(R.id.tvPercentChange);
 		tvCash = (TextView) findViewById(R.id.tvCash);
 		lvLots = (ListView) findViewById(R.id.lvLots);
 		btnTrade = (Button) findViewById(R.id.btnTrade);
@@ -75,13 +91,13 @@ public class ViewPortfolioActivity extends Activity {
 		query.include("user");
 		query.include("lots");
 		query.getInBackground(portfolioId, new GetCallback<Portfolio>() {
-			public void done(Portfolio result, ParseException parseException) {
+			public void done(Portfolio portfolio, ParseException parseException) {
 				if (parseException == null) {
-					tvCash.setText(RestApplication.getFormatter().formatCurrency(result.getCash()));
 					lotAdapter.clear();
-					lotAdapter.addAll(result.getLots());
+					lotAdapter.addAll(portfolio.getLots());
+					calculateTotals(portfolio);
 
-					if (ParseUser.getCurrentUser().getObjectId().equals(result.getUser().getObjectId())) {
+					if (ParseUser.getCurrentUser().getObjectId().equals(portfolio.getUser().getObjectId())) {
 						btnTrade.setVisibility(View.VISIBLE);
 					}
 				} else {
@@ -91,4 +107,36 @@ public class ViewPortfolioActivity extends Activity {
 		});
 	}
 
+	private void calculateTotals(final Portfolio portfolio) {
+		Set<String> symbols = portfolio.getSymbols();
+
+		if (symbols.isEmpty()) {
+			tvCurrentValue.setText(RestApplication.getFormatter().formatCurrency(portfolio.getCash()));
+			tvCash.setText(RestApplication.getFormatter().formatCurrency(portfolio.getCash()));
+		} else {
+
+			RestApplication.getFinanceClient().fetchQuotes(symbols, new Listener<JSONObject>() {
+				@Override
+				public void onResponse(JSONObject response) {
+					Map<String, Quote> quotes = Quote.fromJSONArray(response);
+					Double currentValue = portfolio.getCurrentValue(quotes);
+					if (currentValue != null) {
+						double valueChange = currentValue - portfolio.getStartingFunds();
+						double percentChange = valueChange / portfolio.getStartingFunds();
+						tvCurrentValue.setText(RestApplication.getFormatter().formatCurrency(currentValue));
+						tvCash.setText(RestApplication.getFormatter().formatCurrency(portfolio.getCash()));
+						tvValueChange.setText(RestApplication.getFormatter().formatChange(valueChange));
+						tvValueChange.setTextColor(RestApplication.getFormatter().getColorResource(valueChange));
+						tvPercentChange.setText(RestApplication.getFormatter().formatPercent(percentChange));
+						tvPercentChange.setTextColor(RestApplication.getFormatter().getColorResource(valueChange));
+					}
+				}
+			}, new ErrorListener() {
+				@Override
+				public void onErrorResponse(VolleyError error) {
+					Log.e(getClass().getName(), String.format("error fetching quote for symbols"));
+				}
+			});
+		}
+	}
 }

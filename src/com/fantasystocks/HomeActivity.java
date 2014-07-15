@@ -1,5 +1,6 @@
 package com.fantasystocks;
 
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 
 import com.fantasystocks.adapter.HomeAdapter;
 import com.fantasystocks.model.Portfolio;
+import com.google.common.collect.Ordering;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -84,10 +86,11 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 		query.include("lots");
 		query.findInBackground(new FindCallback<Portfolio>() {
 			@Override
-			public void done(List<Portfolio> results, ParseException parseException) {
+			public void done(List<Portfolio> portfolios, ParseException parseException) {
 				if (parseException == null) {
+					List<Portfolio> sorted = sortPortfolios(portfolios);
 					homeAdapter.clear();
-					homeAdapter.addAll(results);
+					homeAdapter.addAll(sorted);
 				} else {
 					parseException.printStackTrace();
 				}
@@ -95,4 +98,15 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 		});
 	}
 
+	private List<Portfolio> sortPortfolios(List<Portfolio> portfolios) {
+		Ordering<Portfolio> byEndDateOrdering = new Ordering<Portfolio>() {
+			@Override
+			public int compare(Portfolio left, Portfolio right) {
+				Date leftDate = left.getPool().getEndDate();
+				Date rightDate = right.getPool().getEndDate();
+				return leftDate.compareTo(rightDate);
+			}
+		};
+		return byEndDateOrdering.sortedCopy(portfolios);
+	}
 }

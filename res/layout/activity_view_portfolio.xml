@@ -5,87 +5,84 @@
     tools:context="${packageName}.${activityClass}" >
 
     <TextView
-        android:id="@+id/tvTotalValueLabel"
+        android:id="@+id/tvCurrentValueLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
         android:text="Total Value:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/tvTotalValue"
+        android:id="@+id/tvCurrentValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="10dp"
         android:text="$10200.00"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/tvGain"
+        android:id="@+id/tvChangeLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvTotalValueLabel"
-        android:text="Gain:"
+        android:layout_below="@+id/tvCurrentValueLabel"
+        android:layout_marginLeft="10dp"
+        android:text="Change:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/tvPoolDates"
+        android:id="@+id/tvValueChange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvGain"
-        android:layout_alignBottom="@+id/tvGain"
-        android:layout_alignLeft="@+id/tvTotalValue"
+        android:layout_alignBaseline="@+id/tvChangeLabel"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tvChangeLabel"
+        android:layout_marginRight="10dp"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tvPercentChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvValueChange"
+        android:layout_marginRight="10dp"
         android:text="15.25%"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/tvPoolPortfoliosLabel"
+        android:id="@+id/tvLotsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvGain"
-        android:text="Pool Name:"
+        android:layout_below="@+id/tvPercentChange"
+        android:text="Holdings:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/tvTotalValueLabel"
-        android:layout_below="@+id/tvPoolPortfoliosLabel"
-        android:text="Current Position:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/tvCashLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView6"
-        android:text="Cash Remaining:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_below="@+id/tvLotsLabel"
+        android:layout_marginLeft="5dp"
+        android:text="@string/cash_label"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvCash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView7"
-        android:layout_alignRight="@+id/tvTotalValue"
-        android:text="$1000.00"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView7"
-        android:text="Holdings:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_alignBaseline="@+id/tvCashLabel"
+        android:layout_alignBottom="@+id/tvCashLabel"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:textSize="16sp" />
 
     <ListView
         android:id="@+id/lvLots"
@@ -93,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView9" />
+        android:layout_below="@+id/tvCashLabel" />
 
     <Button
         android:id="@+id/btnTrade"

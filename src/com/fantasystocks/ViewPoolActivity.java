@@ -46,7 +46,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	private Button btnJoinPool;
 	private PortfolioAdapter portfolioAdapter;
 
-	private Pool pool;
+	private String poolId;
 	private boolean canJoin;
 
 	@Override
@@ -78,6 +78,13 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		loadPool(poolId);
+		loadPortfolios(poolId);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
@@ -99,6 +106,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	}
 
 	public void onJoinPoolClicked(View view) {
+		Pool pool = ParseObject.createWithoutData(Pool.class, poolId);
 		pool.addPortfolio(ParseUser.getCurrentUser(), new SaveCallback() {
 			@Override
 			public void done(ParseException parseException) {
@@ -114,10 +122,8 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		ParseQuery<Pool> query = ParseQuery.getQuery("Pool");
 		query.getInBackground(poolId, new GetCallback<Pool>() {
 			@Override
-			public void done(Pool result, ParseException parseException) {
+			public void done(Pool pool, ParseException parseException) {
 				if (parseException == null) {
-					pool = result;
-
 					String playersLabel = String.format("%d Player%s", pool.getPlayerCount(), pool.getPlayerCount() == 1 ? "" : "s", Locale.getDefault());
 					String formattedStartDate = RestApplication.getFormatter().formatShortDate(pool.getStartDate());
 					String formattedEndDate = RestApplication.getFormatter().formatShortDate(pool.getEndDate());
@@ -151,7 +157,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 			@Override
 			public void done(List<Portfolio> results, ParseException parseException) {
 				if (parseException == null) {
-					sortPortfolios(results);
+					loadQuotes(results);
 				} else {
 					parseException.printStackTrace();
 				}
@@ -159,7 +165,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		});
 	}
 
-	private void sortPortfolios(final List<Portfolio> portfolios) {
+	private void loadQuotes(final List<Portfolio> portfolios) {
 		Set<String> symbols = Sets.newHashSet();
 		for (Portfolio portfolio : portfolios) {
 			symbols.addAll(portfolio.getSymbols());
