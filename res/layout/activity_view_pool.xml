@@ -12,7 +12,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="Date Range:"
         android:textSize="16sp" />
 
     <TextView
@@ -32,9 +31,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tvPoolDates"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:text="Portfolios:"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textSize="16sp" />
 
     <ListView
         android:id="@+id/lvPoolPortfolios"

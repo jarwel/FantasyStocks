@@ -26,7 +26,7 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class FindPoolActivity extends Activity implements OnItemClickListener {
+public class FindPoolActivity extends Activity implements OnItemClickListener, OnQueryTextListener {
 
 	private ListView lvPools;
 	private SearchView svPool;
@@ -38,12 +38,12 @@ public class FindPoolActivity extends Activity implements OnItemClickListener {
 		setContentView(R.layout.activity_find_pool);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		lvPools = (ListView) findViewById(R.id.lvPools);
+		svPool = (SearchView) findViewById(R.id.svPool);
 		poolAdapter = new PoolAdapter(getBaseContext());
 
 		lvPools.setAdapter(poolAdapter);
 		lvPools.setOnItemClickListener(this);
-		svPool = (SearchView) findViewById(R.id.svPool);
-		svPool.setOnQueryTextListener(handleTextInSearchView);
+		svPool.setOnQueryTextListener(this);
 
 		AutoCompleteTextView searchText = (AutoCompleteTextView) svPool.findViewById(svPool.getContext().getResources()
 				.getIdentifier("android:id/search_src_text", null, null));
@@ -56,19 +56,6 @@ public class FindPoolActivity extends Activity implements OnItemClickListener {
 		super.onResume();
 		fetchPoolResults("");
 	}
-
-	public OnQueryTextListener handleTextInSearchView = new OnQueryTextListener() {
-		@Override
-		public boolean onQueryTextChange(String queryString) {
-			fetchPoolResults(queryString);
-			return false;
-		}
-
-		@Override
-		public boolean onQueryTextSubmit(String query) {
-			return true;
-		}
-	};
 
 	public void fetchPoolResults(String queryString) {
 		ParseQuery<Pool> query = ParseQuery.getQuery(Pool.class);
@@ -112,5 +99,16 @@ public class FindPoolActivity extends Activity implements OnItemClickListener {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		fetchPoolResults(query);
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextChange(String newText) {
+		return true;
 	}
 }

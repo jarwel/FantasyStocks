@@ -21,7 +21,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
-        android:text="$10200.00"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -42,7 +41,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/tvChangeLabel"
         android:layout_marginRight="10dp"
-        android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -52,16 +50,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/tvValueChange"
         android:layout_marginRight="10dp"
-        android:text="15.25%"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/tvLotsLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvPercentChange"
-        android:text="Holdings"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -69,8 +57,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvLotsLabel"
+        android:layout_below="@+id/tvPercentChange"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
         android:text="@string/cash_label"
         android:textSize="16sp" />
 

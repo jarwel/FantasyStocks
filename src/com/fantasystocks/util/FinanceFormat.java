@@ -13,7 +13,7 @@ import com.fantasystocks.R;
 public class FinanceFormat {
 
 	private final DateFormat dateFullFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
-	private final DateFormat dateShortFormat = new SimpleDateFormat("MMMM d", Locale.getDefault());
+	private final DateFormat dateShortFormat = new SimpleDateFormat("MMM d", Locale.getDefault());
 	private final DecimalFormat currencyFormat = new DecimalFormat("$###,###,###,###,##0.00");
 	private final DecimalFormat changeFormat = new DecimalFormat("+$###,###,###,###,##0.00;-$#");
 	private final DecimalFormat percentFormat = new DecimalFormat("+###,###,###,###,##0.00%;-#%");

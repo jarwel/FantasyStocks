@@ -33,6 +33,6 @@
     <string name="create_pool_label">CREATE</string>
     <string name="status_open_label">OPEN</string>
     <string name="status_closed_label">CLOSED</string>
-    <string name="cash_label">Amount in cash:</string>
+    <string name="cash_label">Cash Holdings:</string>
 
 </resources>

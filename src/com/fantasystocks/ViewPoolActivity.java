@@ -130,7 +130,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 					if (pool.isOpen()) {
 						tvPoolStatus.setText(R.string.status_open_label);
 						tvPoolStatus.setTextColor(getResources().getColor(R.color.text_green));
-						tvPoolPlayers.setText(String.format("%s (%d Open)", playersLabel, pool.getOpenCount()));
+						tvPoolPlayers.setText(String.format("%s (%d Available)", playersLabel, pool.getOpenCount()));
 						if (canJoin) {
 							btnJoinPool.setVisibility(View.VISIBLE);
 						}
