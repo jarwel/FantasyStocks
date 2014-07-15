@@ -60,10 +60,10 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		lvPoolPortfolios = (ListView) findViewById(R.id.lvPoolPortfolios);
 		btnJoinPool = (Button) findViewById(R.id.btnJoinPool);
 
-		String poolId = getIntent().getStringExtra("poolId");
+		poolId = getIntent().getStringExtra("poolId");
+		canJoin = getIntent().getBooleanExtra("canJoin", false);
 		String poolName = getIntent().getStringExtra("poolName");
 		String poolImageUrl = getIntent().getStringExtra("poolImageUrl");
-		canJoin = getIntent().getBooleanExtra("canJoin", false);
 
 		getActionBar().setTitle(poolName);
 		if (poolImageUrl != null) {
@@ -73,8 +73,6 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		portfolioAdapter = new PortfolioAdapter(getBaseContext());
 		lvPoolPortfolios.setAdapter(portfolioAdapter);
 		lvPoolPortfolios.setOnItemClickListener(this);
-		loadPool(poolId);
-		loadPortfolios(poolId);
 	}
 
 	@Override
@@ -150,7 +148,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 
 	private void loadPortfolios(String poolId) {
 		ParseQuery<Portfolio> query = ParseQuery.getQuery("Portfolio");
-		query.whereEqualTo("pool", ParseObject.createWithoutData("Pool", poolId));
+		query.whereEqualTo("pool", ParseObject.createWithoutData(Pool.class, poolId));
 		query.include("user");
 		query.include("lots");
 		query.findInBackground(new FindCallback<Portfolio>() {
