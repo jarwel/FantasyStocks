@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,10 +30,12 @@ import com.parse.ParseUser;
 public class ViewPortfolioActivity extends Activity {
 
 	private TextView tvRank;
+	private TextView tvPool;
 	private TextView tvCurrentValue;
 	private TextView tvValueChange;
 	private TextView tvPercentChange;
 	private TextView tvCash;
+	private ImageView ivPool;
 	private ListView lvLots;
 	private Button btnTrade;
 	private LotAdapter lotAdapter;
@@ -45,24 +48,25 @@ public class ViewPortfolioActivity extends Activity {
 		setContentView(R.layout.activity_view_portfolio);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		tvRank = (TextView) findViewById(R.id.tvRank);
+		tvPool = (TextView) findViewById(R.id.tvPool);
 		tvCurrentValue = (TextView) findViewById(R.id.tvCurrentValue);
 		tvValueChange = (TextView) findViewById(R.id.tvValueChange);
 		tvPercentChange = (TextView) findViewById(R.id.tvPercentChange);
 		tvCash = (TextView) findViewById(R.id.tvCash);
+		ivPool = (ImageView) findViewById(R.id.ivPool);
 		lvLots = (ListView) findViewById(R.id.lvLots);
 		btnTrade = (Button) findViewById(R.id.btnTrade);
 
 		portfolioId = getIntent().getStringExtra("portfolioId");
 		String portfolioName = getIntent().getStringExtra("portfolioName");
 		String portfolioImageUrl = getIntent().getStringExtra("portfolioImageUrl");
-		String poolName = getIntent().getStringExtra("poolName");
-		int poolRank = getIntent().getIntExtra("poolRank", 0);
+		int poolRank = getIntent().getIntExtra("portfolioRank", 0);
 
 		getActionBar().setTitle(String.format("%s's Portfolio", portfolioName));
 		if (portfolioImageUrl != null) {
 			getActionBar().setIcon(getResources().getIdentifier(portfolioImageUrl, "drawable", getPackageName()));
 		}
-		tvRank.setText(String.format("%s place in %s", RestApplication.getFormatter().formatRank(poolRank), poolName));
+		tvRank.setText(String.format("%s place in", RestApplication.getFormatter().formatRank(poolRank)));
 
 		lotAdapter = new LotAdapter(getBaseContext());
 		lvLots.setAdapter(lotAdapter);
@@ -94,13 +98,18 @@ public class ViewPortfolioActivity extends Activity {
 	private void loadPortfolio() {
 		ParseQuery<Portfolio> query = ParseQuery.getQuery("Portfolio");
 		query.include("user");
+		query.include("pool");
 		query.include("lots");
 		query.getInBackground(portfolioId, new GetCallback<Portfolio>() {
 			public void done(Portfolio portfolio, ParseException parseException) {
 				if (parseException == null) {
+					tvPool.setText(portfolio.getPool().getName());
+					int photoMediaUrl = getResources().getIdentifier(portfolio.getPool().getPoolImageUrl(), "drawable", getPackageName());
+					ivPool.setImageResource(photoMediaUrl);
+
 					lotAdapter.clear();
 					lotAdapter.addAll(portfolio.getLots());
-					calculateTotals(portfolio);
+					loadQuotes(portfolio);
 
 					if (ParseUser.getCurrentUser().getObjectId().equals(portfolio.getUser().getObjectId())) {
 						btnTrade.setVisibility(View.VISIBLE);
@@ -112,7 +121,7 @@ public class ViewPortfolioActivity extends Activity {
 		});
 	}
 
-	private void calculateTotals(final Portfolio portfolio) {
+	private void loadQuotes(final Portfolio portfolio) {
 		Set<String> symbols = portfolio.getSymbols();
 
 		if (symbols.isEmpty()) {

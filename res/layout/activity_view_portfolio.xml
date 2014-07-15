@@ -9,9 +9,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageView
+        android:id="@+id/ivPool"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignBottom="@+id/tvRank"
+        android:layout_toRightOf="@+id/tvRank" />
+
+    <TextView
+        android:id="@+id/tvPool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ivPool"
+        android:layout_alignBottom="@+id/ivPool"
+        android:layout_toRightOf="@+id/ivPool"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
