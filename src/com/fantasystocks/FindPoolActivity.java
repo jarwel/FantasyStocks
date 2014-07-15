@@ -69,7 +69,7 @@ public class FindPoolActivity extends Activity implements OnItemClickListener, O
 					poolAdapter.addAll(Lists.newArrayList(Iterables.filter(results, new Predicate<Pool>() {
 						@Override
 						public boolean apply(Pool pool) {
-							return pool.getPlayerCount() < pool.getPlayerLimit();
+							return pool.isOpen();
 						}
 					})));
 				} else {
