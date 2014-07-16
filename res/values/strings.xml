@@ -24,7 +24,7 @@
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="join_pool_label">Join Pool</string>
-    <string name="funds_available_label">Funds available</string>
+    <string name="funds_available_label">Available Funds: </string>
     <string name="symbol_hint">Enter stock symbol</string>
     <string name="shares_hint">Enter shares to purchase</string>
     <string name="order_total_label">Order Total</string>
@@ -33,6 +33,6 @@
     <string name="create_pool_label">CREATE</string>
     <string name="status_open_label">OPEN</string>
     <string name="status_closed_label">CLOSED</string>
-    <string name="cash_label">Cash Holdings:</string>
+    <string name="cash_label">Holdings:</string>
 
 </resources>

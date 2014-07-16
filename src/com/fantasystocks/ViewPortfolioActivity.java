@@ -30,12 +30,12 @@ import com.parse.ParseUser;
 public class ViewPortfolioActivity extends Activity {
 
 	private TextView tvRank;
-	private TextView tvPool;
+	private TextView tvPoolNameInPortfolio;
 	private TextView tvCurrentValue;
 	private TextView tvValueChange;
 	private TextView tvPercentChange;
 	private TextView tvCash;
-	private ImageView ivPool;
+	private ImageView ivPoolImageInPortfolio;
 	private ListView lvLots;
 	private Button btnTrade;
 	private LotAdapter lotAdapter;
@@ -48,25 +48,21 @@ public class ViewPortfolioActivity extends Activity {
 		setContentView(R.layout.activity_view_portfolio);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		tvRank = (TextView) findViewById(R.id.tvRank);
-		tvPool = (TextView) findViewById(R.id.tvPool);
+		tvPoolNameInPortfolio = (TextView) findViewById(R.id.tvPoolNameInPortfolio);
 		tvCurrentValue = (TextView) findViewById(R.id.tvCurrentValue);
 		tvValueChange = (TextView) findViewById(R.id.tvValueChange);
 		tvPercentChange = (TextView) findViewById(R.id.tvPercentChange);
 		tvCash = (TextView) findViewById(R.id.tvCash);
-		ivPool = (ImageView) findViewById(R.id.ivPool);
+		ivPoolImageInPortfolio = (ImageView) findViewById(R.id.ivPoolImageInPortfolio);
 		lvLots = (ListView) findViewById(R.id.lvLots);
 		btnTrade = (Button) findViewById(R.id.btnTrade);
 
 		portfolioId = getIntent().getStringExtra("portfolioId");
 		String portfolioName = getIntent().getStringExtra("portfolioName");
-		String portfolioImageUrl = getIntent().getStringExtra("portfolioImageUrl");
 		int poolRank = getIntent().getIntExtra("portfolioRank", 0);
 
 		getActionBar().setTitle(String.format("%s's Portfolio", portfolioName));
-		if (portfolioImageUrl != null) {
-			getActionBar().setIcon(getResources().getIdentifier(portfolioImageUrl, "drawable", getPackageName()));
-		}
-		tvRank.setText(String.format("%s place in", RestApplication.getFormatter().formatRank(poolRank)));
+		tvRank.setText(String.format("%s", RestApplication.getFormatter().formatRank(poolRank)));
 
 		lotAdapter = new LotAdapter(getBaseContext());
 		lvLots.setAdapter(lotAdapter);
@@ -103,9 +99,9 @@ public class ViewPortfolioActivity extends Activity {
 		query.getInBackground(portfolioId, new GetCallback<Portfolio>() {
 			public void done(Portfolio portfolio, ParseException parseException) {
 				if (parseException == null) {
-					tvPool.setText(portfolio.getPool().getName());
+					tvPoolNameInPortfolio.setText(portfolio.getPool().getName());
 					int photoMediaUrl = getResources().getIdentifier(portfolio.getPool().getPoolImageUrl(), "drawable", getPackageName());
-					ivPool.setImageResource(photoMediaUrl);
+					ivPoolImageInPortfolio.setImageResource(photoMediaUrl);
 
 					lotAdapter.clear();
 					lotAdapter.addAll(portfolio.getLots());

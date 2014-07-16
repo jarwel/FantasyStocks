@@ -11,6 +11,16 @@
         </shape>        
     </item>
     
+    <item android:state_enabled="false">
+        <shape>
+            <solid 
+                android:color="#999" />
+            
+            <corners 
+                android:radius="6dp" />
+        </shape>        
+    </item>
+    
     <item>
         <shape>
             <gradient 

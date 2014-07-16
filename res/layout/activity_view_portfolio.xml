@@ -2,120 +2,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F0F0F0"
     tools:context="${packageName}.${activityClass}" >
 
-    <TextView
-        android:id="@+id/tvRank"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <RelativeLayout
+        android:id="@+id/rlViewPortfolio"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_margin="5dp"
+    	android:padding="10dp"
+    	android:background="@drawable/stock_quote_background" >
+    	
+        <ImageView
+            android:id="@+id/ivPoolImageInPortfolio"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"/>
+        
+        <TextView
+            android:id="@+id/tvPoolNameInPortfolio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/ivPoolImageInPortfolio"
+            android:layout_marginLeft="10dp"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+        
+        <TextView
+            android:id="@+id/tvRankTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPoolNameInPortfolio"
+            android:layout_alignLeft="@+id/tvPoolNameInPortfolio"
+            android:text="Current Rank: " />
+        
+       <TextView
+            android:id="@+id/tvRank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tvRankTitle"
+            android:layout_alignTop="@+id/tvRankTitle"
+            android:textStyle="bold"/>
+       
+       <TextView
+            android:id="@+id/tvCurrentValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvRankTitle"
+            android:layout_alignLeft="@+id/tvRankTitle"
+            android:text="Total Value: " />
+        
+       <TextView
+	        android:id="@+id/tvCurrentValue"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/tvCurrentValueLabel"
+	        android:layout_alignTop="@+id/tvCurrentValueLabel"
+	        android:textStyle="bold"
+	        android:layout_alignLeft="@+id/tvRank"/>
 
-    <ImageView
-        android:id="@+id/ivPool"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_alignBottom="@+id/tvRank"
-        android:layout_toRightOf="@+id/tvRank" />
-
-    <TextView
-        android:id="@+id/tvPool"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/ivPool"
-        android:layout_alignBottom="@+id/ivPool"
-        android:layout_toRightOf="@+id/ivPool"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/tvCurrentValueLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvRank"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Total value:"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tvCurrentValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvCurrentValueLabel"
-        android:layout_alignBottom="@+id/tvCurrentValueLabel"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tvChangeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvCurrentValueLabel"
-        android:layout_marginLeft="10dp"
-        android:text="Change:"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tvValueChange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvChangeLabel"
-        android:layout_alignBottom="@+id/tvChangeLabel"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tvPercentChange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvValueChange"
-        android:layout_marginRight="10dp"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tvCashLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvPercentChange"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/cash_label"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tvCash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvCashLabel"
-        android:layout_alignBottom="@+id/tvCashLabel"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="5dp"
-        android:textSize="16sp" />
-
+	    <TextView
+	        android:id="@+id/tvChangeLabel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCurrentValueLabel"
+            android:layout_alignLeft="@+id/tvCurrentValueLabel"
+	        android:text="Net Change: "/>
+	
+	    <TextView
+	        android:id="@+id/tvValueChange"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/tvChangeLabel"
+	        android:layout_alignTop="@+id/tvChangeLabel"
+	        android:textStyle="bold"
+	        android:layout_alignLeft="@+id/tvRank"/>
+	    
+	    <TextView
+	        android:id="@+id/tvPipe"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/tvValueChange"
+	        android:layout_alignTop="@+id/tvValueChange"
+	        android:layout_marginRight="10dp"
+	        android:layout_marginLeft="10dp"
+	        android:text="|"/>
+	
+	    <TextView
+	        android:id="@+id/tvPercentChange"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/tvPipe"
+	        android:layout_alignTop="@+id/tvPipe"
+	        android:textStyle="bold"/>
+	
+	    <TextView
+	        android:id="@+id/tvCashLabel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+            android:layout_below="@+id/tvChangeLabel"
+            android:layout_alignLeft="@+id/tvChangeLabel"
+	        android:text="@string/cash_label"/>
+	
+	    <TextView
+	        android:id="@+id/tvCash"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/tvCashLabel"
+	        android:layout_alignTop="@+id/tvCashLabel"
+	        android:textStyle="bold"
+	        android:layout_alignLeft="@+id/tvRank"/>    
+    	
+    </RelativeLayout>    
+    
+    <Button
+        android:id="@+id/btnTrade"
+        style="@style/button_login_style"
+        android:layout_below="@+id/rlViewPortfolio"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/login_button"
+        android:onClick="onTradeClicked"
+        android:text="@string/trade_label"
+        android:visibility="gone"/>
+    
     <ListView
         android:id="@+id/lvLots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvCashLabel" />
+        android:layout_below="@+id/btnTrade" />
 
-    <Button
-        android:id="@+id/btnTrade"
-        style="@style/button_login_style"
-        android:layout_below="@+id/lvLots"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/login_button"
-        android:onClick="onTradeClicked"
-        android:text="@string/trade_label"
-        android:visibility="gone" />
+
 
 </RelativeLayout>
