@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,7 +68,7 @@ public class CreatePoolActivity extends Activity implements OnClickListener {
 							if (parseException != null) {
 								parseException.printStackTrace();
 							}
-							finish();
+							launchMainActivity();
 						}
 					});
 				} else {
@@ -75,6 +76,12 @@ public class CreatePoolActivity extends Activity implements OnClickListener {
 				}
 			}
 		});
+	}
+	
+	public void launchMainActivity() {
+		Intent i = new Intent(this, HomeActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		startActivity(i);
 	}
 
 	@Override

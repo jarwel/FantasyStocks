@@ -86,7 +86,7 @@ public class FragmentSignup extends Fragment implements OnClickListener {
 			public void done(ParseException e) {
 				if (e == null) {
 					Log.d("Success LoginActivity", "User is signed up");
-					((LoginActivity) listener).launchMainActivity();
+					((LoginActivity) listener).launchTourActivity();
 				} else {
 					if (e.getCode() == 125) {
 						tvSignupError.setText("Invalid email entered. Please try again.");

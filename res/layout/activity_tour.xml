@@ -1,15 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="${packageName}.${activityClass}" >
-
-   	<RelativeLayout
+    	xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/rlHomeTour"
         android:layout_alignParentTop="true"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-    	android:visibility="gone">
+    	android:paddingBottom="15dp"
+    	tools:context="${packageName}.${activityClass}" >
     	
         <TextView
 	        android:id="@+id/tvTour1"
@@ -48,15 +44,32 @@
 	        android:layout_marginBottom="10dp"
 	        android:text="Welcome to the world of Fantasy Stocks. Here you can create your own stock pool, invite your friends and challenge them to in a game of stock trading. It's time to become the king of Stock Market!" />         
         
-    </RelativeLayout>    
-
-    <ListView
-        android:id="@+id/lvPools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rlHomeTour"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true" />
-
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/ivTour1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_above="@+id/btnCreatePool"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tvTour3"
+            android:adjustViewBounds="true"
+            android:src="@drawable/screenshot" />
+        
+        <Button
+	        android:id="@+id/btnCreatePool"
+	        style="@style/button_login_style"
+	        android:layout_above="@+id/btnFindPool"
+	        android:layout_marginTop="15dp"
+	        android:layout_marginBottom="15dp"
+	        android:background="@drawable/login_button"
+	        android:onClick="launchCreatePool"
+	        android:text="Create Pool"/>
+        
+        <Button
+	        android:id="@+id/btnFindPool"
+	        style="@style/button_login_style"
+	        android:layout_alignParentBottom="true"
+	        android:background="@drawable/login_button"
+	        android:onClick="launchFindPool"
+	        android:text="Find Pool"/>
+        
+    </RelativeLayout>   

@@ -53,6 +53,10 @@
             android:name="com.fantasystocks.HomeActivity"
             android:label="@string/title_activity_home" >
         </activity>
+        <activity
+            android:name="com.fantasystocks.TourActivity"
+            android:label="@string/title_activity_tour" >
+        </activity>
     </application>
 
 </manifest>

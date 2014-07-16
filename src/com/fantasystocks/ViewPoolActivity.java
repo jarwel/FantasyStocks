@@ -116,9 +116,15 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 				if (parseException != null) {
 					parseException.printStackTrace();
 				}
-				finish();
+				launchMainActivity();
 			}
 		});
+	}
+	
+	public void launchMainActivity() {
+		Intent i = new Intent(this, HomeActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		startActivity(i);
 	}
 
 	private void loadPool(String poolId) {

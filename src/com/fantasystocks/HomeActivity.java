@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.fantasystocks.adapter.HomeAdapter;
 import com.fantasystocks.model.Portfolio;
@@ -25,12 +26,14 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 
 	private ListView lvPools;
 	private HomeAdapter homeAdapter;
+	private RelativeLayout rlHomeTour;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		lvPools = (ListView) findViewById(R.id.lvPools);
+		rlHomeTour = (RelativeLayout) findViewById(R.id.rlHomeTour);
 		homeAdapter = new HomeAdapter(getBaseContext());
 		lvPools.setAdapter(homeAdapter);
 		lvPools.setOnItemClickListener(this);
@@ -91,6 +94,9 @@ public class HomeActivity extends Activity implements OnItemClickListener {
 					List<Portfolio> sorted = sortPortfolios(portfolios);
 					homeAdapter.clear();
 					homeAdapter.addAll(sorted);
+					if (sorted.size() <= 0) {
+						rlHomeTour.setVisibility(View.VISIBLE);
+					}
 				} else {
 					parseException.printStackTrace();
 				}

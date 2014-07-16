@@ -34,5 +34,7 @@
     <string name="status_open_label">OPEN</string>
     <string name="status_closed_label">CLOSED</string>
     <string name="cash_label">Holdings:</string>
+    <string name="title_activity_tour">TourActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

@@ -17,8 +17,8 @@ public class RestApplication extends Application {
 
 	private static final String PARSE_APPLICATION_ID = "bcmueWmVJzWaQacYZa3bXKHECJMyxzkwUl1plVjz";
 	private static final String PARSE_CLIENT_KEY = "0CGF2GuilFib12Jm3rzA3XNwnLtUZ1k8AUzKQNl8";
-	private static final String SAUMITRA_APP_ID = "3LtVmg0Ldo375b0ZBb7PCkpMGbMOPbuwNf2ayA80";
-	private static final String SAUMITRA_SECRET = "F8NA8wGZJtbJueYnMKwHkJ9RxgGx9v6Sg2VgOb5v";
+	private static final String SAUMITRA_APP_ID = "8wyPzjmCiypaj1zon8v51ccJ1i2xoboadKXB6wW7";
+	private static final String SAUMITRA_SECRET = "wymnEV6RdAFrMfyRKMVcIQg0NZ686ZuUT3WOuGOF";
 
 	private static Context context;
 
@@ -29,8 +29,8 @@ public class RestApplication extends Application {
 		ParseObject.registerSubclass(Pool.class);
 		ParseObject.registerSubclass(Portfolio.class);
 		ParseObject.registerSubclass(Lot.class);
-		// Parse.initialize(this, SAUMITRA_APP_ID, SAUMITRA_SECRET);
-		Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
+		Parse.initialize(this, SAUMITRA_APP_ID, SAUMITRA_SECRET);
+		//Parse.initialize(this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
 		Intent i = null;
 		if (Utils.isUserLoggedIn()) {
 			i = new Intent(this, HomeActivity.class);
