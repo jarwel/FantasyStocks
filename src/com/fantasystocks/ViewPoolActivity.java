@@ -42,6 +42,9 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	private TextView tvPoolDates;
 	private TextView tvPoolStatus;
 	private TextView tvPoolPlayers;
+	private TextView tvPoolAvailableFunds;
+	private TextView tvPoolName;
+	private TextView tvPoolAvailablePlayers;
 	private ListView lvPoolPortfolios;
 	private Button btnJoinPool;
 	private PortfolioAdapter portfolioAdapter;
@@ -57,18 +60,17 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		tvPoolDates = (TextView) findViewById(R.id.tvPoolDates);
 		tvPoolStatus = (TextView) findViewById(R.id.tvPoolStatus);
 		tvPoolPlayers = (TextView) findViewById(R.id.tvPoolPlayers);
+		tvPoolName = (TextView) findViewById(R.id.tvPoolName);
+		tvPoolAvailablePlayers = (TextView) findViewById(R.id.tvPoolAvailablePlayers);
+		tvPoolAvailableFunds = (TextView) findViewById(R.id.tvPoolAvailableFunds);
 		lvPoolPortfolios = (ListView) findViewById(R.id.lvPoolPortfolios);
 		btnJoinPool = (Button) findViewById(R.id.btnJoinPool);
 
 		poolId = getIntent().getStringExtra("poolId");
 		canJoin = getIntent().getBooleanExtra("canJoin", false);
 		String poolName = getIntent().getStringExtra("poolName");
-		String poolImageUrl = getIntent().getStringExtra("poolImageUrl");
 
 		getActionBar().setTitle(poolName);
-		if (poolImageUrl != null) {
-			getActionBar().setIcon(getResources().getIdentifier(poolImageUrl, "drawable", getPackageName()));
-		}
 
 		portfolioAdapter = new PortfolioAdapter(getBaseContext());
 		lvPoolPortfolios.setAdapter(portfolioAdapter);
@@ -123,22 +125,23 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 			@Override
 			public void done(Pool pool, ParseException parseException) {
 				if (parseException == null) {
-					String playersLabel = String.format("%d Player%s", pool.getPlayerCount(), pool.getPlayerCount() == 1 ? "" : "s", Locale.getDefault());
 					String formattedStartDate = RestApplication.getFormatter().formatShortDate(pool.getStartDate());
 					String formattedEndDate = RestApplication.getFormatter().formatShortDate(pool.getEndDate());
 					tvPoolDates.setText(String.format("%s - %s", formattedStartDate, formattedEndDate));
-
+					tvPoolName.setText(pool.getName());
+					tvPoolPlayers.setText(pool.getPlayerCount() + "");
+					tvPoolAvailableFunds.setText("$" + pool.getFunds());
 					if (pool.isOpen()) {
 						tvPoolStatus.setText(R.string.status_open_label);
 						tvPoolStatus.setTextColor(getResources().getColor(R.color.text_green));
-						tvPoolPlayers.setText(String.format("%s (%d Available)", playersLabel, pool.getOpenCount()));
 						if (canJoin) {
 							btnJoinPool.setVisibility(View.VISIBLE);
 						}
+						tvPoolAvailablePlayers.setText(pool.getOpenCount() + "");
 					} else {
 						tvPoolStatus.setText(R.string.status_closed_label);
 						tvPoolStatus.setTextColor(getResources().getColor(R.color.text_red));
-						tvPoolPlayers.setText(playersLabel);
+						tvPoolAvailablePlayers.setText("-");
 					}
 				} else {
 					parseException.printStackTrace();

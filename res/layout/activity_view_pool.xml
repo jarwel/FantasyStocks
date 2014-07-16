@@ -2,36 +2,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F0F0F0"
     tools:context="${packageName}.${activityClass}" >
 
-    <TextView
-        android:id="@+id/tvPoolDates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:textSize="16sp" />
+    <RelativeLayout
+        android:id="@+id/rlPoolInfo"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_margin="5dp"
+    	android:padding="10dp"
+    	android:background="@drawable/stock_quote_background">
 
-    <TextView
-        android:id="@+id/tvPoolStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/tvPoolDates"
-        android:layout_marginRight="10dp"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+	    <ImageView
+	        android:id="@+id/ivPoolImage"
+	        android:layout_width="100dp"
+	        android:layout_height="100dp"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentLeft="true"
+	        android:src="@drawable/pool_img_1" />
+	    
+	    <TextView
+	        android:id="@+id/tvPoolName"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_toRightOf="@+id/ivPoolImage"
+	        android:layout_marginLeft="10dp"
+	        android:textSize="18sp"
+	        android:textStyle="bold"/>
+	    
+	    <TextView
+	        android:id="@+id/tvPoolDatesTitle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/tvPoolName"
+	        android:layout_alignLeft="@+id/tvPoolName"
+	        android:text="Tournament Dates: " />
+	    
+	   <TextView
+	        android:id="@+id/tvPoolDates"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/tvPoolDatesTitle"
+	        android:layout_alignTop="@+id/tvPoolDatesTitle"
+	        android:textStyle="bold"/>
+	   
+	   <TextView
+	        android:id="@+id/tvPoolEnrolledPlayersTitle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/tvPoolDatesTitle"
+	        android:layout_alignLeft="@+id/tvPoolDatesTitle"
+	        android:text="Enrolled Players: " />
+	   
+	   <TextView
+	        android:id="@+id/tvPoolPlayers"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/tvPoolEnrolledPlayersTitle"
+	        android:layout_alignTop="@+id/tvPoolEnrolledPlayersTitle"
+	        android:textStyle="bold"
+	        android:layout_alignLeft="@+id/tvPoolDates"
+	        />
+	    
+	   <TextView
+	        android:id="@+id/tvPoolAvailablePlayersTitle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/tvPoolEnrolledPlayersTitle"
+	        android:layout_alignLeft="@+id/tvPoolEnrolledPlayersTitle"
+	        android:text="Open Player Slots: " />
+	   
+	   <TextView
+	        android:id="@+id/tvPoolAvailablePlayers"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@+id/tvPoolAvailablePlayersTitle"
+	        android:layout_alignTop="@+id/tvPoolAvailablePlayersTitle"
+	        android:textStyle="bold"
+	        android:layout_alignLeft="@+id/tvPoolDates"
+	        />
 
-    <TextView
-        android:id="@+id/tvPoolPlayers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvPoolDates"
-        android:layout_marginLeft="10dp"
-        android:textSize="16sp" />
+	   <TextView
+	       android:id="@+id/tvPoolAvailableFundsTitle"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:layout_alignLeft="@+id/tvPoolAvailablePlayersTitle"
+	       android:layout_below="@+id/tvPoolAvailablePlayersTitle"
+	       android:text="Available Funds: " />
+
+	   <TextView
+	       android:id="@+id/tvPoolAvailableFunds"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:layout_alignTop="@+id/tvPoolAvailableFundsTitle"
+	       android:layout_toRightOf="@+id/tvPoolAvailableFundsTitle"
+	       android:textStyle="bold"
+	       android:layout_alignLeft="@+id/tvPoolDates"
+	       />
+
+	   <TextView
+	       android:id="@+id/tvPoolStatus"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:layout_alignParentRight="true"
+	       android:layout_centerVertical="true"
+	       android:layout_marginRight="10dp"
+	       android:textSize="16sp"
+	       android:textStyle="bold" /> 
+        
+    </RelativeLayout>
+
+
+	    
+
+	    
+
+	    
 
     <ListView
         android:id="@+id/lvPoolPortfolios"
@@ -39,7 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvPoolPlayers" />
+        android:layout_below="@+id/rlPoolInfo" />
 
     <Button
         android:id="@+id/btnJoinPool"
