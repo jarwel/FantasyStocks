@@ -18,8 +18,7 @@
 	        android:layout_width="100dp"
 	        android:layout_height="100dp"
 	        android:layout_alignParentTop="true"
-	        android:layout_alignParentLeft="true"
-	        android:src="@drawable/pool_img_1" />
+	        android:layout_alignParentLeft="true"/>
 	    
 	    <TextView
 	        android:id="@+id/tvPoolName"

@@ -1,7 +1,6 @@
 package com.fantasystocks;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -46,6 +46,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	private TextView tvPoolName;
 	private TextView tvPoolAvailablePlayers;
 	private ListView lvPoolPortfolios;
+	private ImageView ivPoolImage;
 	private Button btnJoinPool;
 	private PortfolioAdapter portfolioAdapter;
 
@@ -61,6 +62,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		tvPoolStatus = (TextView) findViewById(R.id.tvPoolStatus);
 		tvPoolPlayers = (TextView) findViewById(R.id.tvPoolPlayers);
 		tvPoolName = (TextView) findViewById(R.id.tvPoolName);
+		ivPoolImage = (ImageView) findViewById(R.id.ivPoolImage);
 		tvPoolAvailablePlayers = (TextView) findViewById(R.id.tvPoolAvailablePlayers);
 		tvPoolAvailableFunds = (TextView) findViewById(R.id.tvPoolAvailableFunds);
 		lvPoolPortfolios = (ListView) findViewById(R.id.lvPoolPortfolios);
@@ -131,6 +133,8 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 					tvPoolName.setText(pool.getName());
 					tvPoolPlayers.setText(pool.getPlayerCount() + "");
 					tvPoolAvailableFunds.setText("$" + pool.getFunds());
+					int photoMediaUrl =  getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", getPackageName());
+					ivPoolImage.setImageResource(photoMediaUrl);
 					if (pool.isOpen()) {
 						tvPoolStatus.setText(R.string.status_open_label);
 						tvPoolStatus.setTextColor(getResources().getColor(R.color.text_green));
