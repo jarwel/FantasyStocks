@@ -38,32 +38,31 @@ public class LotAdapter extends ArrayAdapter<Lot> {
 		}
 
 		TextView tvLotSymbol = (TextView) convertView.findViewById(R.id.tvLotSymbol);
-		TextView tvLotPercentChange = (TextView) convertView.findViewById(R.id.tvLotPercentChange);
-		TextView tvLotValueChange = (TextView) convertView.findViewById(R.id.tvLotValueChange);
+		TextView tvLotShares = (TextView) convertView.findViewById(R.id.tvLotShares);
 		TextView tvLotValue = (TextView) convertView.findViewById(R.id.tvLotValue);
+		TextView tvLotChange = (TextView) convertView.findViewById(R.id.tvLotChange);
 
 		Lot lot = getItem(position);
 		tvLotSymbol.setText(lot.getSymbol());
+		tvLotShares.setText(String.format("%d Shares", lot.getShares()));
 
 		Quote quote = quotes.get(lot.getSymbol());
 		if (quote == null) {
-			tvLotPercentChange.setText("--");
-			tvLotValueChange.setText("--");
 			tvLotValue.setText("--");
-			tvLotPercentChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
-			tvLotValueChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
+			tvLotChange.setText("--");
+			tvLotChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 			fetchQuote(lot.getSymbol());
 		} else {
 			double currentValue = quote.getPrice() * lot.getShares();
 			double priceChange = currentValue - lot.getCostBasis();
 			double percentChange = priceChange / lot.getCostBasis();
 
-			tvLotPercentChange.setText(RestApplication.getFormatter().formatPercent(percentChange));
-			tvLotValueChange.setText(RestApplication.getFormatter().formatChange(priceChange));
-			tvLotValue.setText(RestApplication.getFormatter().formatCurrency(currentValue));
+			String priceChangeFormat = RestApplication.getFormatter().formatChange(priceChange);
+			String percentChangeFormat = RestApplication.getFormatter().formatPercent(percentChange);
 
-			tvLotPercentChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
-			tvLotValueChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
+			tvLotValue.setText(RestApplication.getFormatter().formatCurrency(currentValue));
+			tvLotChange.setText(String.format("%s (%s)", priceChangeFormat, percentChangeFormat));
+			tvLotChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
 		}
 
 		return convertView;

@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/tvPoolDatesTitle"
             android:layout_toRightOf="@+id/tvPoolDatesTitle"
+            android:singleLine="true"
             android:textStyle="bold" />
 
         <TextView
@@ -61,6 +62,7 @@
             android:layout_alignLeft="@+id/tvPoolDates"
             android:layout_alignTop="@+id/tvPoolEnrolledPlayersTitle"
             android:layout_toRightOf="@+id/tvPoolEnrolledPlayersTitle"
+            android:singleLine="true"
             android:textStyle="bold" />
 
         <TextView
@@ -78,6 +80,7 @@
             android:layout_alignLeft="@+id/tvPoolDates"
             android:layout_alignTop="@+id/tvPoolAvailablePlayersTitle"
             android:layout_toRightOf="@+id/tvPoolAvailablePlayersTitle"
+            android:singleLine="true"
             android:textStyle="bold" />
 
         <TextView
@@ -95,6 +98,7 @@
             android:layout_alignLeft="@+id/tvPoolDates"
             android:layout_alignTop="@+id/tvPoolStartingFundsTitle"
             android:layout_toRightOf="@+id/tvPoolStartingFundsTitle"
+            android:singleLine="true"
             android:textStyle="bold" />
 
         <TextView
@@ -104,6 +108,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
+            android:singleLine="true"
             android:textSize="16sp"
             android:textStyle="bold" />
     </RelativeLayout>

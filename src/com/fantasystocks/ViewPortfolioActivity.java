@@ -32,8 +32,7 @@ public class ViewPortfolioActivity extends Activity {
 	private TextView tvRank;
 	private TextView tvPoolNameInPortfolio;
 	private TextView tvCurrentValue;
-	private TextView tvValueChange;
-	private TextView tvPercentChange;
+	private TextView tvChange;
 	private TextView tvCash;
 	private ImageView ivPoolImageInPortfolio;
 	private ListView lvLots;
@@ -50,8 +49,7 @@ public class ViewPortfolioActivity extends Activity {
 		tvRank = (TextView) findViewById(R.id.tvRank);
 		tvPoolNameInPortfolio = (TextView) findViewById(R.id.tvPoolNameInPortfolio);
 		tvCurrentValue = (TextView) findViewById(R.id.tvCurrentValue);
-		tvValueChange = (TextView) findViewById(R.id.tvValueChange);
-		tvPercentChange = (TextView) findViewById(R.id.tvPercentChange);
+		tvChange = (TextView) findViewById(R.id.tvChange);
 		tvCash = (TextView) findViewById(R.id.tvCash);
 		ivPoolImageInPortfolio = (ImageView) findViewById(R.id.ivPoolImageInPortfolio);
 		lvLots = (ListView) findViewById(R.id.lvLots);
@@ -135,10 +133,11 @@ public class ViewPortfolioActivity extends Activity {
 						double percentChange = valueChange / portfolio.getStartingFunds();
 						tvCurrentValue.setText(RestApplication.getFormatter().formatCurrency(currentValue));
 						tvCash.setText(RestApplication.getFormatter().formatCurrency(portfolio.getCash()));
-						tvValueChange.setText(RestApplication.getFormatter().formatChange(valueChange));
-						tvValueChange.setTextColor(RestApplication.getFormatter().getColorResource(valueChange));
-						tvPercentChange.setText(RestApplication.getFormatter().formatPercent(percentChange));
-						tvPercentChange.setTextColor(RestApplication.getFormatter().getColorResource(valueChange));
+
+						String valueChangeFormat = RestApplication.getFormatter().formatChange(valueChange);
+						String percentChangeFormat = RestApplication.getFormatter().formatPercent(percentChange);
+						tvChange.setText(String.format("%s (%s)", valueChangeFormat, percentChangeFormat));
+						tvChange.setTextColor(RestApplication.getFormatter().getColorResource(valueChange));
 					}
 				}
 			}, new ErrorListener() {

@@ -18,7 +18,7 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/tvLotPercentChange"
+        android:id="@+id/tvLotShares"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tvLotSymbol"
@@ -28,7 +28,7 @@
         android:textSize="14sp"/>
 
     <TextView
-        android:id="@+id/tvLotValueChange"
+        android:id="@+id/tvLotChange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tvLotValue"
