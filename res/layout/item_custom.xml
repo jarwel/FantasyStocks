@@ -29,8 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/ivItemImage"
-        android:layout_marginRight="30dp"
+        android:layout_alignParentTop="true"
         android:text="TextView"
         android:textColor="#666"
         android:textSize="12sp" />
@@ -39,8 +38,8 @@
         android:id="@+id/tvSubTitleBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ivItemImage"
-        android:layout_alignLeft="@+id/tvSubTitleTop"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:text="TextView"
         android:textColor="#666"
         android:textSize="12sp" />
@@ -49,7 +48,7 @@
         android:id="@+id/ivGainArrow"
         android:layout_width="12dp"
         android:layout_height="12dp"
-        android:layout_alignBottom="@+id/tvSubTitleBottom"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="5dp"
         android:layout_toLeftOf="@+id/tvSubTitleBottom" />
 

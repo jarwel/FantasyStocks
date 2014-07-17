@@ -43,8 +43,8 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
 		ImageView ivGainArrow = (ImageView) convertView.findViewById(R.id.ivGainArrow);
 		TextView tvTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
-		TextView tvValueChange = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
-		TextView tvPercentChange = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
+		TextView tvValue = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
+		TextView tvChange = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
 
 		Portfolio portfolio = getItem(position);
 		Pool pool = portfolio.getPool();
@@ -55,22 +55,23 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 		ivPoolImage.setImageResource(photoMediaUrl);
 
 		if (!quotes.keySet().containsAll(portfolio.getSymbols())) {
-			tvValueChange.setText("--");
-			tvValueChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
-			tvPercentChange.setText("--");
-			tvPercentChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
+			tvValue.setText("--");
+			tvChange.setText("--");
+			tvChange.setTextColor(getContext().getResources().getColor(android.R.color.black));
 			ivGainArrow.setImageResource(android.R.color.transparent);
 			fetchQuotes(portfolio.getSymbols());
 		} else {
 			double currentValue = portfolio.getCurrentValue(quotes);
-			double priceChange = currentValue - portfolio.getStartingFunds();
-			double percentChange = priceChange / portfolio.getStartingFunds();
+			double valueChange = currentValue - portfolio.getStartingFunds();
+			double percentChange = valueChange / portfolio.getStartingFunds();
 
-			tvValueChange.setText(RestApplication.getFormatter().formatChange(priceChange));
-			tvValueChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
-			tvPercentChange.setText(RestApplication.getFormatter().formatPercent(percentChange));
-			tvPercentChange.setTextColor(RestApplication.getFormatter().getColorResource(priceChange));
-			ivGainArrow.setImageResource(RestApplication.getFormatter().getImageResource(priceChange));
+			tvValue.setText(RestApplication.getFormatter().formatCurrency(currentValue));
+
+			String valueChangeFormat = RestApplication.getFormatter().formatChange(valueChange);
+			String percentChangeFormat = RestApplication.getFormatter().formatPercent(percentChange);
+			tvChange.setText(String.format("%s (%s)", valueChangeFormat, percentChangeFormat));
+			tvChange.setTextColor(RestApplication.getFormatter().getColorResource(valueChange));
+			ivGainArrow.setImageResource(RestApplication.getFormatter().getImageResource(valueChange));
 		}
 
 		return convertView;
