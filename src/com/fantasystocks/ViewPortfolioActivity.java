@@ -48,8 +48,8 @@ public class ViewPortfolioActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		tvRank = (TextView) findViewById(R.id.tvRank);
 		tvPoolNameInPortfolio = (TextView) findViewById(R.id.tvPoolNameInPortfolio);
-		tvCurrentValue = (TextView) findViewById(R.id.tvCurrentValue);
 		tvChange = (TextView) findViewById(R.id.tvChange);
+		tvCurrentValue = (TextView) findViewById(R.id.tvCurrentValue);
 		tvCash = (TextView) findViewById(R.id.tvCash);
 		ivPoolImageInPortfolio = (ImageView) findViewById(R.id.ivPoolImageInPortfolio);
 		lvLots = (ListView) findViewById(R.id.lvLots);

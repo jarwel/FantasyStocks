@@ -30,76 +30,75 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvRankTitle"
+        <LinearLayout
+            android:id="@+id/llLabels"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tvPoolNameInPortfolio"
             android:layout_below="@+id/tvPoolNameInPortfolio"
-            android:text="Current Rank: " />
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tvRank"
+            <TextView
+                android:id="@+id/tvRankTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current Rank: " />
+
+            <TextView
+                android:id="@+id/tvChangeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Net Change: " />
+
+            <TextView
+                android:id="@+id/tvCurrentValueLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Value: " />
+
+            <TextView
+                android:id="@+id/tvCashLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cash_label" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llValues"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tvRankTitle"
-            android:layout_toRightOf="@+id/tvRankTitle"
-            android:singleLine="true"
-            android:textStyle="bold" />
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvPoolNameInPortfolio"
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tvCurrentValueLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvRankTitle"
-            android:layout_below="@+id/tvRankTitle"
-            android:text="Total Value: " />
+            <TextView
+                android:id="@+id/tvRank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvCurrentValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvRank"
-            android:layout_alignTop="@+id/tvCurrentValueLabel"
-            android:layout_toRightOf="@+id/tvCurrentValueLabel"
-            android:singleLine="true"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvChangeLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvCurrentValueLabel"
-            android:layout_below="@+id/tvCurrentValueLabel"
-            android:text="Net Change: " />
+            <TextView
+                android:id="@+id/tvCurrentValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvChange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvRank"
-            android:layout_alignTop="@+id/tvChangeLabel"
-            android:layout_toRightOf="@+id/tvChangeLabel"
-            android:singleLine="true"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvCashLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvChangeLabel"
-            android:layout_below="@+id/tvChangeLabel"
-            android:text="@string/cash_label" />
-
-        <TextView
-            android:id="@+id/tvCash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvRank"
-            android:layout_alignTop="@+id/tvCashLabel"
-            android:layout_toRightOf="@+id/tvCashLabel"
-            android:singleLine="true"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvCash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textStyle="bold" />
+        </LinearLayout>
     </RelativeLayout>
 
     <Button
