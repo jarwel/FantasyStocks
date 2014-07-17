@@ -33,7 +33,7 @@
     <string name="create_pool_label">CREATE</string>
     <string name="status_open_label">OPEN</string>
     <string name="status_closed_label">CLOSED</string>
-    <string name="cash_label">Holdings:</string>
+    <string name="cash_label">Cash:</string>
     <string name="title_activity_tour">Fantasy Stocks</string>
     <string name="hello_world">Hello world!</string>
     <string name="starting_funds_label">Starting Funds:</string>
