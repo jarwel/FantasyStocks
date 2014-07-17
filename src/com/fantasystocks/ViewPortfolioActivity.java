@@ -40,6 +40,7 @@ public class ViewPortfolioActivity extends Activity {
 	private LotAdapter lotAdapter;
 
 	private String portfolioId;
+	private int rankInPool;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +57,10 @@ public class ViewPortfolioActivity extends Activity {
 		btnTrade = (Button) findViewById(R.id.btnTrade);
 
 		portfolioId = getIntent().getStringExtra("portfolioId");
+		rankInPool = getIntent().getIntExtra("portfolioRank", 0);
 		String portfolioName = getIntent().getStringExtra("portfolioName");
-		int poolRank = getIntent().getIntExtra("portfolioRank", 0);
 
 		getActionBar().setTitle(String.format("%s's Portfolio", portfolioName));
-		tvRank.setText(String.format("%s", RestApplication.getFormatter().formatRank(poolRank)));
 
 		lotAdapter = new LotAdapter(getBaseContext());
 		lvLots.setAdapter(lotAdapter);
@@ -131,6 +131,8 @@ public class ViewPortfolioActivity extends Activity {
 					if (currentValue != null) {
 						double valueChange = currentValue - portfolio.getStartingFunds();
 						double percentChange = valueChange / portfolio.getStartingFunds();
+
+						tvRank.setText(String.format("%s", RestApplication.getFormatter().formatRank(rankInPool)));
 						tvCurrentValue.setText(RestApplication.getFormatter().formatCurrency(currentValue));
 						tvCash.setText(RestApplication.getFormatter().formatCurrency(portfolio.getCash()));
 

@@ -44,7 +44,6 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	private TextView tvPoolPlayers;
 	private TextView tvPoolAvailableFunds;
 	private TextView tvPoolName;
-	private TextView tvPoolAvailablePlayers;
 	private ListView lvPoolPortfolios;
 	private ImageView ivPoolImage;
 	private Button btnJoinPool;
@@ -63,7 +62,6 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		tvPoolPlayers = (TextView) findViewById(R.id.tvPoolPlayers);
 		tvPoolName = (TextView) findViewById(R.id.tvPoolName);
 		ivPoolImage = (ImageView) findViewById(R.id.ivPoolImage);
-		tvPoolAvailablePlayers = (TextView) findViewById(R.id.tvPoolAvailablePlayers);
 		tvPoolAvailableFunds = (TextView) findViewById(R.id.tvPoolStartingFunds);
 		lvPoolPortfolios = (ListView) findViewById(R.id.lvPoolPortfolios);
 		btnJoinPool = (Button) findViewById(R.id.btnJoinPool);
@@ -135,23 +133,25 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 				if (parseException == null) {
 					String formattedStartDate = RestApplication.getFormatter().formatShortDate(pool.getStartDate());
 					String formattedEndDate = RestApplication.getFormatter().formatShortDate(pool.getEndDate());
+
 					tvPoolDates.setText(String.format("%s - %s", formattedStartDate, formattedEndDate));
 					tvPoolName.setText(pool.getName());
-					tvPoolPlayers.setText(pool.getPlayerCount() + "");
 					tvPoolAvailableFunds.setText(RestApplication.getFormatter().formatCurrency(pool.getFunds()));
+
 					int photoMediaUrl = getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", getPackageName());
 					ivPoolImage.setImageResource(photoMediaUrl);
+
 					if (pool.isOpen()) {
 						tvPoolStatus.setText(R.string.status_open_label);
 						tvPoolStatus.setTextColor(getResources().getColor(R.color.text_green));
 						if (canJoin) {
 							btnJoinPool.setVisibility(View.VISIBLE);
 						}
-						tvPoolAvailablePlayers.setText(pool.getOpenCount() + "");
+						tvPoolPlayers.setText(String.format("%d (%d Available)", pool.getPlayerCount(), pool.getOpenCount()));
 					} else {
 						tvPoolStatus.setText(R.string.status_closed_label);
 						tvPoolStatus.setTextColor(getResources().getColor(R.color.text_red));
-						tvPoolAvailablePlayers.setText("-");
+						tvPoolPlayers.setText(String.format("%d", pool.getPlayerCount()));
 					}
 				} else {
 					parseException.printStackTrace();

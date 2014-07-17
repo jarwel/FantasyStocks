@@ -31,7 +31,7 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:id="@+id/llLabels"
+            android:id="@+id/llPortfolioLabels"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tvPoolNameInPortfolio"
@@ -64,7 +64,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llValues"
+            android:id="@+id/llPortfolioValues"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
