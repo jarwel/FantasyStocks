@@ -83,19 +83,19 @@
 	        />
 
 	   <TextView
-	       android:id="@+id/tvPoolAvailableFundsTitle"
+	       android:id="@+id/tvPoolStartingFundsTitle"
 	       android:layout_width="wrap_content"
 	       android:layout_height="wrap_content"
 	       android:layout_alignLeft="@+id/tvPoolAvailablePlayersTitle"
 	       android:layout_below="@+id/tvPoolAvailablePlayersTitle"
-	       android:text="Available Funds: " />
+	       android:text="@string/starting_funds_label" />
 
 	   <TextView
-	       android:id="@+id/tvPoolAvailableFunds"
+	       android:id="@+id/tvPoolStartingFunds"
 	       android:layout_width="wrap_content"
 	       android:layout_height="wrap_content"
-	       android:layout_alignTop="@+id/tvPoolAvailableFundsTitle"
-	       android:layout_toRightOf="@+id/tvPoolAvailableFundsTitle"
+	       android:layout_alignTop="@+id/tvPoolStartingFundsTitle"
+	       android:layout_toRightOf="@+id/tvPoolStartingFundsTitle"
 	       android:textStyle="bold"
 	       android:layout_alignLeft="@+id/tvPoolDates"
 	       />

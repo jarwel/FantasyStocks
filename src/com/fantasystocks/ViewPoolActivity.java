@@ -64,7 +64,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		tvPoolName = (TextView) findViewById(R.id.tvPoolName);
 		ivPoolImage = (ImageView) findViewById(R.id.ivPoolImage);
 		tvPoolAvailablePlayers = (TextView) findViewById(R.id.tvPoolAvailablePlayers);
-		tvPoolAvailableFunds = (TextView) findViewById(R.id.tvPoolAvailableFunds);
+		tvPoolAvailableFunds = (TextView) findViewById(R.id.tvPoolStartingFunds);
 		lvPoolPortfolios = (ListView) findViewById(R.id.lvPoolPortfolios);
 		btnJoinPool = (Button) findViewById(R.id.btnJoinPool);
 
@@ -120,7 +120,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 			}
 		});
 	}
-	
+
 	public void launchMainActivity() {
 		Intent i = new Intent(this, HomeActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -138,8 +138,8 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 					tvPoolDates.setText(String.format("%s - %s", formattedStartDate, formattedEndDate));
 					tvPoolName.setText(pool.getName());
 					tvPoolPlayers.setText(pool.getPlayerCount() + "");
-					tvPoolAvailableFunds.setText("$" + pool.getFunds());
-					int photoMediaUrl =  getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", getPackageName());
+					tvPoolAvailableFunds.setText(RestApplication.getFormatter().formatCurrency(pool.getFunds()));
+					int photoMediaUrl = getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", getPackageName());
 					ivPoolImage.setImageResource(photoMediaUrl);
 					if (pool.isOpen()) {
 						tvPoolStatus.setText(R.string.status_open_label);

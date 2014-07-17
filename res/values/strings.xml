@@ -36,5 +36,6 @@
     <string name="cash_label">Holdings:</string>
     <string name="title_activity_tour">Fantasy Stocks</string>
     <string name="hello_world">Hello world!</string>
+    <string name="starting_funds_label">Starting Funds:</string>
 
 </resources>
