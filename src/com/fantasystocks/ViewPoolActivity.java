@@ -51,8 +51,8 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 	@InjectView(R.id.tvPoolPlayers)
 	protected TextView tvPoolPlayers;
 
-	@InjectView(R.id.tvPoolPlayers)
-	protected TextView tvPoolAvailableFunds;
+	@InjectView(R.id.tvPoolStartingFunds)
+	protected TextView tvPoolStartingFunds;
 
 	@InjectView(R.id.tvPoolName)
 	protected TextView tvPoolName;
@@ -149,7 +149,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 
 					tvPoolDates.setText(String.format("%s - %s", formattedStartDate, formattedEndDate));
 					tvPoolName.setText(pool.getName());
-					tvPoolAvailableFunds.setText(RestApplication.getFormatter().formatCurrency(pool.getFunds()));
+					tvPoolStartingFunds.setText(RestApplication.getFormatter().formatCurrency(pool.getFunds()));
 
 					int photoMediaUrl = getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", getPackageName());
 					ivPoolImage.setImageResource(photoMediaUrl);
