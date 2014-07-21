@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.ButterKnife;
 
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -39,10 +40,10 @@ public class PortfolioAdapter extends ArrayAdapter<Portfolio> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, parent, false);
 		}
 
-		ImageView ivPortfolioImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
-		TextView tvPortfolioName = (TextView) convertView.findViewById(R.id.tvItemTitle);
-		TextView tvPortfolioRank = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
-		TextView tvPortfolioChange = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
+		ImageView ivPortfolioImage = ButterKnife.findById(convertView, R.id.ivItemImage);
+		TextView tvPortfolioName = ButterKnife.findById(convertView, R.id.tvItemTitle);
+		TextView tvPortfolioRank = ButterKnife.findById(convertView, R.id.tvSubTitleTop);
+		TextView tvPortfolioChange = ButterKnife.findById(convertView, R.id.tvSubTitleBottom);
 
 		Portfolio portfolio = getItem(position);
 		tvPortfolioName.setText(portfolio.getUser().getString("name"));

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.ButterKnife;
 
 import com.fantasystocks.R;
 import com.fantasystocks.model.Pool;
@@ -24,10 +25,10 @@ public class PoolAdapter extends ArrayAdapter<Pool> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, parent, false);
 		}
 
-		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
-		TextView tvPoolTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
-		TextView tvOpenSlots = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
-		TextView tvTotalSlots = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
+		ImageView ivPoolImage = ButterKnife.findById(convertView, R.id.ivItemImage);
+		TextView tvPoolTitle = ButterKnife.findById(convertView, R.id.tvItemTitle);
+		TextView tvOpenSlots = ButterKnife.findById(convertView, R.id.tvSubTitleTop);
+		TextView tvTotalSlots = ButterKnife.findById(convertView, R.id.tvSubTitleBottom);
 
 		Pool pool = getItem(position);
 		int photoMediaUrl = getContext().getResources().getIdentifier(pool.getPoolImageUrl(), "drawable", getContext().getPackageName());

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import butterknife.ButterKnife;
 
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -37,10 +38,10 @@ public class LotAdapter extends ArrayAdapter<Lot> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_lot, parent, false);
 		}
 
-		TextView tvLotSymbol = (TextView) convertView.findViewById(R.id.tvLotSymbol);
-		TextView tvLotShares = (TextView) convertView.findViewById(R.id.tvLotShares);
-		TextView tvLotValue = (TextView) convertView.findViewById(R.id.tvLotValue);
-		TextView tvLotChange = (TextView) convertView.findViewById(R.id.tvLotChange);
+		TextView tvLotSymbol = ButterKnife.findById(convertView, R.id.tvLotSymbol);
+		TextView tvLotShares = ButterKnife.findById(convertView, R.id.tvLotShares);
+		TextView tvLotValue = ButterKnife.findById(convertView, R.id.tvLotValue);
+		TextView tvLotChange = ButterKnife.findById(convertView, R.id.tvLotChange);
 
 		Lot lot = getItem(position);
 		tvLotSymbol.setText(lot.getSymbol());

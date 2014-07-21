@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import butterknife.ButterKnife;
 
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -40,11 +41,11 @@ public class HomeAdapter extends ArrayAdapter<Portfolio> {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_custom, parent, false);
 		}
 
-		ImageView ivPoolImage = (ImageView) convertView.findViewById(R.id.ivItemImage);
-		ImageView ivGainArrow = (ImageView) convertView.findViewById(R.id.ivGainArrow);
-		TextView tvTitle = (TextView) convertView.findViewById(R.id.tvItemTitle);
-		TextView tvValue = (TextView) convertView.findViewById(R.id.tvSubTitleTop);
-		TextView tvChange = (TextView) convertView.findViewById(R.id.tvSubTitleBottom);
+		ImageView ivPoolImage = ButterKnife.findById(convertView, R.id.ivItemImage);
+		ImageView ivGainArrow = ButterKnife.findById(convertView, R.id.ivGainArrow);
+		TextView tvTitle = ButterKnife.findById(convertView, R.id.tvItemTitle);
+		TextView tvValue = ButterKnife.findById(convertView, R.id.tvSubTitleTop);
+		TextView tvChange = ButterKnife.findById(convertView, R.id.tvSubTitleBottom);
 
 		Portfolio portfolio = getItem(position);
 		Pool pool = portfolio.getPool();
