@@ -18,6 +18,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -39,14 +42,30 @@ import com.parse.SaveCallback;
 
 public class ViewPoolActivity extends Activity implements OnItemClickListener {
 
-	private TextView tvPoolDates;
-	private TextView tvPoolStatus;
-	private TextView tvPoolPlayers;
-	private TextView tvPoolAvailableFunds;
-	private TextView tvPoolName;
-	private ListView lvPoolPortfolios;
-	private ImageView ivPoolImage;
-	private Button btnJoinPool;
+	@InjectView(R.id.tvPoolDates)
+	protected TextView tvPoolDates;
+
+	@InjectView(R.id.tvPoolStatus)
+	protected TextView tvPoolStatus;
+
+	@InjectView(R.id.tvPoolPlayers)
+	protected TextView tvPoolPlayers;
+
+	@InjectView(R.id.tvPoolPlayers)
+	protected TextView tvPoolAvailableFunds;
+
+	@InjectView(R.id.tvPoolName)
+	protected TextView tvPoolName;
+
+	@InjectView(R.id.lvPoolPortfolios)
+	protected ListView lvPoolPortfolios;
+
+	@InjectView(R.id.ivPoolImage)
+	protected ImageView ivPoolImage;
+
+	@InjectView(R.id.btnJoinPool)
+	protected Button btnJoinPool;
+
 	private PortfolioAdapter portfolioAdapter;
 
 	private String poolId;
@@ -57,14 +76,7 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_pool);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		tvPoolDates = (TextView) findViewById(R.id.tvPoolDates);
-		tvPoolStatus = (TextView) findViewById(R.id.tvPoolStatus);
-		tvPoolPlayers = (TextView) findViewById(R.id.tvPoolPlayers);
-		tvPoolName = (TextView) findViewById(R.id.tvPoolName);
-		ivPoolImage = (ImageView) findViewById(R.id.ivPoolImage);
-		tvPoolAvailableFunds = (TextView) findViewById(R.id.tvPoolStartingFunds);
-		lvPoolPortfolios = (ListView) findViewById(R.id.lvPoolPortfolios);
-		btnJoinPool = (Button) findViewById(R.id.btnJoinPool);
+		ButterKnife.inject(this);
 
 		poolId = getIntent().getStringExtra("poolId");
 		canJoin = getIntent().getBooleanExtra("canJoin", false);
@@ -106,7 +118,8 @@ public class ViewPoolActivity extends Activity implements OnItemClickListener {
 		startActivity(intent);
 	}
 
-	public void onJoinPoolClicked(View view) {
+	@OnClick(R.id.btnJoinPool)
+	public void onJoinPool(View view) {
 		Pool pool = ParseObject.createWithoutData(Pool.class, poolId);
 		pool.addPortfolio(ParseUser.getCurrentUser(), new SaveCallback() {
 			@Override

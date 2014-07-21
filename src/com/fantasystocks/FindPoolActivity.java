@@ -15,6 +15,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 import com.fantasystocks.adapter.PoolAdapter;
 import com.fantasystocks.model.Pool;
@@ -28,8 +30,12 @@ import com.parse.ParseUser;
 
 public class FindPoolActivity extends Activity implements OnItemClickListener, OnQueryTextListener {
 
-	private ListView lvPools;
-	private SearchView svPool;
+	@InjectView(R.id.lvPools)
+	protected ListView lvPools;
+
+	@InjectView(R.id.svPool)
+	protected SearchView svPool;
+
 	private PoolAdapter poolAdapter;
 
 	@Override
@@ -37,10 +43,9 @@ public class FindPoolActivity extends Activity implements OnItemClickListener, O
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_pool);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		lvPools = (ListView) findViewById(R.id.lvPools);
-		svPool = (SearchView) findViewById(R.id.svPool);
-		poolAdapter = new PoolAdapter(getBaseContext());
+		ButterKnife.inject(this);
 
+		poolAdapter = new PoolAdapter(getBaseContext());
 		lvPools.setAdapter(poolAdapter);
 		lvPools.setOnItemClickListener(this);
 		svPool.setOnQueryTextListener(this);

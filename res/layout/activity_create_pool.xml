@@ -66,7 +66,6 @@
         android:layout_below="@+id/etEndDate"
         android:layout_marginTop="30dp"
         android:background="@drawable/login_button"
-        android:onClick="onSubmitButton"
         android:text="Create" />
 
 </RelativeLayout>

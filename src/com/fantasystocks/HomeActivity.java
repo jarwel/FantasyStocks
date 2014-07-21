@@ -13,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 import com.fantasystocks.adapter.HomeAdapter;
 import com.fantasystocks.model.Portfolio;
@@ -24,16 +26,20 @@ import com.parse.ParseUser;
 
 public class HomeActivity extends Activity implements OnItemClickListener {
 
-	private ListView lvPools;
+	@InjectView(R.id.lvPools)
+	protected ListView lvPools;
+
+	@InjectView(R.id.rlHomeTour)
+	protected RelativeLayout rlHomeTour;
+
 	private HomeAdapter homeAdapter;
-	private RelativeLayout rlHomeTour;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
-		lvPools = (ListView) findViewById(R.id.lvPools);
-		rlHomeTour = (RelativeLayout) findViewById(R.id.rlHomeTour);
+		ButterKnife.inject(this);
+		
 		homeAdapter = new HomeAdapter(getBaseContext());
 		lvPools.setAdapter(homeAdapter);
 		lvPools.setOnItemClickListener(this);

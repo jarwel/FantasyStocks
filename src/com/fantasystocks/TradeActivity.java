@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -25,15 +28,32 @@ import com.parse.SaveCallback;
 
 public class TradeActivity extends Activity {
 
-	private TextView tvFundsAvailable;
-	private TextView tvSecurityName;
-	private TextView tvSecurityPrice;
-	private TextView tvOrderTotalLabel;
-	private TextView tvOrderTotal;
-	private TextView tvSecuritySymbol;
-	private EditText etOrderShares;
-	private EditText etSecuritySymbol;
-	private Button btnPlaceOrder;
+	@InjectView(R.id.tvFundsAvailable)
+	protected TextView tvFundsAvailable;
+
+	@InjectView(R.id.tvSecurityName)
+	protected TextView tvSecurityName;
+
+	@InjectView(R.id.tvSecurityPrice)
+	protected TextView tvSecurityPrice;
+
+	@InjectView(R.id.tvOrderTotalLabel)
+	protected TextView tvOrderTotalLabel;
+
+	@InjectView(R.id.tvOrderTotal)
+	protected TextView tvOrderTotal;
+
+	@InjectView(R.id.tvSecuritySymbol)
+	protected TextView tvSecuritySymbol;
+
+	@InjectView(R.id.etOrderShares)
+	protected EditText etOrderShares;
+
+	@InjectView(R.id.etSecuritySymbol)
+	protected EditText etSecuritySymbol;
+
+	@InjectView(R.id.btnPlaceOrder)
+	protected Button btnPlaceOrder;
 
 	private Portfolio portfolio;
 	private Quote quote;
@@ -43,15 +63,7 @@ public class TradeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trade);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		tvFundsAvailable = (TextView) findViewById(R.id.tvFundsAvailable);
-		tvSecurityName = (TextView) findViewById(R.id.tvSecurityName);
-		tvSecuritySymbol = (TextView) findViewById(R.id.tvSecuritySymbol);
-		tvSecurityPrice = (TextView) findViewById(R.id.tvSecurityPrice);
-		tvOrderTotalLabel = (TextView) findViewById(R.id.tvOrderTotalLabel);
-		tvOrderTotal = (TextView) findViewById(R.id.tvOrderTotal);
-		etOrderShares = (EditText) findViewById(R.id.etOrderShares);
-		etSecuritySymbol = (EditText) findViewById(R.id.etSecuritySymbol);
-		btnPlaceOrder = (Button) findViewById(R.id.btnPlaceOrder);
+		ButterKnife.inject(this);
 
 		String portfolioId = getIntent().getStringExtra("portfolioId");
 		loadPortfolio(portfolioId);
@@ -69,7 +81,8 @@ public class TradeActivity extends Activity {
 		}
 	}
 
-	public void onPlaceOrderClicked(View view) {
+	@OnClick(R.id.btnPlaceOrder)
+	public void onPlaceOrder(View view) {
 		String symbol = etSecuritySymbol.getText().toString();
 		int shares = Integer.parseInt(etOrderShares.getText().toString());
 		final double costBasis = shares * quote.getPrice();

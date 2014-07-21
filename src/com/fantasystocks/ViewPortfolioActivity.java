@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
@@ -29,14 +32,30 @@ import com.parse.ParseUser;
 
 public class ViewPortfolioActivity extends Activity {
 
-	private TextView tvRank;
-	private TextView tvPoolNameInPortfolio;
-	private TextView tvCurrentValue;
-	private TextView tvChange;
-	private TextView tvCash;
-	private ImageView ivPoolImageInPortfolio;
-	private ListView lvLots;
-	private Button btnTrade;
+	@InjectView(R.id.tvRank)
+	protected TextView tvRank;
+
+	@InjectView(R.id.tvPoolNameInPortfolio)
+	protected TextView tvPoolNameInPortfolio;
+
+	@InjectView(R.id.tvCurrentValue)
+	protected TextView tvCurrentValue;
+
+	@InjectView(R.id.tvChange)
+	protected TextView tvChange;
+
+	@InjectView(R.id.tvCash)
+	protected TextView tvCash;
+
+	@InjectView(R.id.ivPoolImageInPortfolio)
+	protected ImageView ivPoolImageInPortfolio;
+
+	@InjectView(R.id.lvLots)
+	protected ListView lvLots;
+
+	@InjectView(R.id.btnTrade)
+	protected Button btnTrade;
+
 	private LotAdapter lotAdapter;
 
 	private String portfolioId;
@@ -47,14 +66,7 @@ public class ViewPortfolioActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_portfolio);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		tvRank = (TextView) findViewById(R.id.tvRank);
-		tvPoolNameInPortfolio = (TextView) findViewById(R.id.tvPoolNameInPortfolio);
-		tvChange = (TextView) findViewById(R.id.tvChange);
-		tvCurrentValue = (TextView) findViewById(R.id.tvCurrentValue);
-		tvCash = (TextView) findViewById(R.id.tvCash);
-		ivPoolImageInPortfolio = (ImageView) findViewById(R.id.ivPoolImageInPortfolio);
-		lvLots = (ListView) findViewById(R.id.lvLots);
-		btnTrade = (Button) findViewById(R.id.btnTrade);
+		ButterKnife.inject(this);
 
 		portfolioId = getIntent().getStringExtra("portfolioId");
 		rankInPool = getIntent().getIntExtra("portfolioRank", 0);
@@ -83,7 +95,8 @@ public class ViewPortfolioActivity extends Activity {
 		}
 	}
 
-	public void onTradeClicked(View view) {
+	@OnClick(R.id.btnTrade)
+	public void onTrade(View view) {
 		Intent intent = new Intent(ViewPortfolioActivity.this, TradeActivity.class);
 		intent.putExtra("portfolioId", portfolioId);
 		startActivity(intent);

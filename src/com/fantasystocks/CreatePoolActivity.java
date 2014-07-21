@@ -14,6 +14,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 
 import com.fantasystocks.model.Pool;
 import com.parse.ParseException;
@@ -22,11 +25,20 @@ import com.parse.SaveCallback;
 
 public class CreatePoolActivity extends Activity implements OnClickListener {
 
-	private EditText etPoolName;
-	private EditText etPoolFunds;
-	private EditText etPlayerLimit;
-	private EditText etStartDate;
-	private EditText etEndDate;
+	@InjectView(R.id.etPoolName)
+	protected EditText etPoolName;
+
+	@InjectView(R.id.etPoolFunds)
+	protected EditText etPoolFunds;
+
+	@InjectView(R.id.etPlayerLimit)
+	protected EditText etPlayerLimit;
+
+	@InjectView(R.id.etStartDate)
+	protected EditText etStartDate;
+
+	@InjectView(R.id.etEndDate)
+	protected EditText etEndDate;
 
 	private Date startDate;
 	private Date endDate;
@@ -36,15 +48,13 @@ public class CreatePoolActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_pool);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		etPoolName = (EditText) findViewById(R.id.etPoolName);
-		etPoolFunds = (EditText) findViewById(R.id.etPoolFunds);
-		etPlayerLimit = (EditText) findViewById(R.id.etPlayerLimit);
-		etStartDate = (EditText) findViewById(R.id.etStartDate);
-		etEndDate = (EditText) findViewById(R.id.etEndDate);
+		ButterKnife.inject(this);
+
 		etStartDate.setOnClickListener(this);
 		etEndDate.setOnClickListener(this);
 	}
 
+	@OnClick(R.id.btnSubmitPool)
 	public void onSubmitButton(View view) {
 		String name = etPoolName.getText().toString();
 		double funds = Double.parseDouble(etPoolFunds.getText().toString());
@@ -77,7 +87,7 @@ public class CreatePoolActivity extends Activity implements OnClickListener {
 			}
 		});
 	}
-	
+
 	public void launchMainActivity() {
 		Intent i = new Intent(this, HomeActivity.class);
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -97,6 +107,7 @@ public class CreatePoolActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(final View view) {
+		Calendar today = Calendar.getInstance();
 		new DatePickerDialog(this, new OnDateSetListener() {
 			@Override
 			public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
@@ -111,7 +122,7 @@ public class CreatePoolActivity extends Activity implements OnClickListener {
 					break;
 				}
 			}
-		}, Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH)).show();
+		}, today.get(Calendar.YEAR), today.get(Calendar.MONTH), today.get(Calendar.DAY_OF_MONTH)).show();
 	}
 
 }

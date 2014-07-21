@@ -18,6 +18,10 @@ proguard/
 *.iws
 .idea/
 
+# Butterknife files
+.apt_generated/
+.factorypath
+
 *.pydevproject
 .project
 .metadata
